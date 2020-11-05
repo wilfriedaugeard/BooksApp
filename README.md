@@ -1,6 +1,17 @@
-# Présenation projet - Porg Web
+# Presentation projet - Prog Web
 
-
+- [Présentation projet - Porg Web](#presentation-projet---prog-web)
+  * [Description du projet](#description-du-projet)
+  * [API Tierce](#api-tierce)
+    + [Google Books APIs](#google-books-apis)
+      - [EndPoint](#endpoint)
+      - [Requête:](#requete)
+      - [Réponse](#reponse)
+    + [TasteDive](#tastedive)
+      - [EndPoint](#endpoint)
+  * [Notre API](#notre-api)
+  * [Client](#client)
+  * [Serveur](#serveur)
 
 ## Description du projet
 
@@ -51,7 +62,7 @@ On peut spécifier les champs de rechercher comme le titre ou l'auteur. D'près 
 
 
 
-#### Requête:
+#### Requete:
 
 Exemple:
 
@@ -61,7 +72,7 @@ GET https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes
 
 
 
-#### Réponse
+#### Reponse
 
 Si on reprend la précédente, on obtient ce résultat:
 
@@ -121,7 +132,7 @@ On peut voir qu'il y a 3  résultats correspondants à la recherche. Pour chaque
 
 
 
-### TasteDive
+### TasteDive
 
 TasteDiv est une API permettant de trouver des recommandations de musiques, films, livres etc.
 
