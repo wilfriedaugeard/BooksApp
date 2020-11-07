@@ -154,15 +154,56 @@ https://tastedive.com/api/similar?q=parameters
 
 
 
-
-
 ## Notre API
+
+Elle permet d'effectuer les actions suivantes:
+
+- Création de compte
+- Gestion de l’authentification
+- Récupérer des informations sur un livre cherché via une barre de recherche
+- Ajouter un livre à une liste (lu, favoris, a lire)
+- Récupérer les stats utilisateur (listes + info à l’inscription)
+
+
+
+
 
 
 
 ## Client
 
+Lorsqu'un utilisteur ouvre l'app, il aura la possibilité de:
+
+- pouvoir se connecter/déconnecter
+- pouvoir créer un compte utilisateur
+- pouvoir rechercher dans une barre de recherche le titre et/ou dans une autre l’auteur d’un livre
+- afficher des previews des livres correspondants à la recherche (titre, auteur, image, maison d’édition)
+- lors d’un clique sur un livre afficher le détail des informations (prix (eur), description, auteur, année d’édition, éditeur, isbn, nb de pages, catégories (fiction, théâtre …) ) 
+- pouvoir ajouter un livre à sa liste de favoris
+- pouvoir ajouter un livre à sa liste de ‘Lu’
+- pouvoir ajouter un livre à sa liste de ‘A lire’
+- pouvoir afficher les stats de l’utilisateur connecté (listes de livre par caté)
+
 
 
 ## Serveur
+
+Le serveur doit:
+
+- Gérer la création de compte utilisateur
+- Gérer la connexion/déconnexion des comptes utilisateurs
+- Gérer la recherche:
+  - Récupérer les informations entrées par l’utilisateur dans la barre de recherche
+  - Appeler l’API google pour récupérer les livres correspondants à la recherche
+  - Appeler l’API tasteDive pour récupérer les recommandations pour tous les livres trouvés par la recherche
+  - Créer un JSON avec les infos pertinentes (voir front) et le renvoyer
+- Récupérer en BDD les listes de livre enregistrés par l’utilisateur
+- Ajouter un livre à sa liste de favoris à la BDD
+- Ajouter un livre à sa liste de ‘Lu’ à la BDD
+- Ajouter un livre à sa liste de ‘A lire’ à la BDD
+- Supprimer un livre à sa liste de favoris à la BDD
+- Supprimer un livre à sa liste de ‘Lu’ à la BDD
+- Supprimer un livre à sa liste de ‘A lire’ à la BDD
+
+
 
