@@ -229,8 +229,8 @@ Elle permet d'effectuer les actions suivantes:
 - Création de compte
 - Gestion de l’authentification
 - Récupérer des informations sur un livre cherché via une barre de recherche
-- Ajouter un livre à une liste (lu, favoris, a lire)
-- Récupérer les stats utilisateur (listes + info à l’inscription)
+- Ajouter/supprimer un livre à une liste (lu, favoris, a lire)
+- Récupérer les stats utilisateur (listes)
 
 https://app.swaggerhub.com/apis-docs/Exyos/BooksAPI/1.0.0/
 
@@ -271,7 +271,7 @@ Le serveur doit:
 - Gérer la recherche:
   - Récupérer les informations entrées par l’utilisateur dans la barre de recherche
   - Appeler l’API google pour récupérer les livres correspondants à la recherche
-  - Appeler l’API tasteDive pour récupérer les recommandations pour tous les livres trouvés par la recherche
+  - Appeler l’API tasteDive pour récupérer les recommandations pour tous les livres trouvés par la recherche (s'il trouve rien avec le titre, on essaye avec l'auteur)
   - Créer un JSON avec les infos pertinentes (voir front) et le renvoyer
 - Récupérer en BDD les listes de livre enregistrés par l’utilisateur
 - Ajouter un livre à sa liste de favoris à la BDD
