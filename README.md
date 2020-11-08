@@ -232,6 +232,10 @@ Elle permet d'effectuer les actions suivantes:
 - Ajouter un livre à une liste (lu, favoris, a lire)
 - Récupérer les stats utilisateur (listes + info à l’inscription)
 
+https://app.swaggerhub.com/apis-docs/Exyos/BooksAPI/1.0.0/
+
+
+
 
 
 
