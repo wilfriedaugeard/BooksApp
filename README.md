@@ -171,6 +171,8 @@ Elle permet d'effectuer les actions suivantes:
 
 ## Client
 
+Techno: framework Angular + lib Bootstrap
+
 Lorsqu'un utilisteur ouvre l'app, il aura la possibilité de:
 
 - pouvoir se connecter/déconnecter
@@ -186,6 +188,8 @@ Lorsqu'un utilisteur ouvre l'app, il aura la possibilité de:
 
 
 ## Serveur
+
+Techno: NodeJS + MongoDB
 
 Le serveur doit:
 
