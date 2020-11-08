@@ -49,7 +49,7 @@ Chaque requête doit etre de la forme:
 https://www.googleapis.com/books/v1/volumes?q=search+terms
 ```
 
-On peut spécifier les champs de rechercher comme le titre ou l'auteur. D'près la documentation voici les champs que l'on peut spécifier:
+On peut spécifier les champs de recherche comme le titre ou l'auteur. D'après la documentation voici les champs que l'on peut spécifier:
 
 - `intitle`:  le titre du livre
 - `inauthor`: le nom de l'auteur
@@ -133,7 +133,7 @@ On peut voir qu'il y a 3  résultats correspondants à la recherche. Pour chaque
 
 ### TasteDive
 
-TasteDiv est une API permettant de trouver des recommandations de musiques, films, livres etc.
+TasteDive est une API permettant de trouver des recommandations de musiques, films, livres etc.
 
 > Note: les requêtes n'ont pas besoin de clé d'authentification.
 
@@ -147,9 +147,78 @@ Chaque requête doit etre de la forme:
 https://tastedive.com/api/similar?q=parameters
 ```
 
+On peut spécifier les champs de recherche en paramètre. D'après la documentation voici les champs que l'on peut spécifier:
+
+- `q`: ce que l'on veut chercher (au moins un obligatoire)
+- `type`: book, band, show, podcast, movie
+- `info`: s'il est sur 1, alors on a des informations complémentaires pour chaque item trouvé
+- `limit`: le nombre maximum de recommandations (20 par défaut)
+- `k`: la clé d'accès API (non obligatoire)
+- `callback`: utile quand on utilise JSONP pour spécifier la fonction de retour à appeler
 
 
 
+#### Requete:
+
+Exemple:
+
+Si on veut 2 recommandations pour Harry Potter et les reliques de la mort
+
+```http
+GET https://tastedive.com/api/similar?q=Harry+Potter+and+the+Deathly+Hallows&type=book&info=1&limit=2
+```
+
+
+
+#### Reponse
+
+Si on reprend la précédente, on obtient ce résultat:
+
+```json
+{
+  "Similar": {
+    "Info": [
+      {
+        "Name": "Harry Potter And The Deathly Hallows",
+        "Type": "book",
+        "wTeaser": "Harry Potter and the Deathly Hallows is a fantasy novel written by British author J. K. Rowling and the seventh and final novel of the Harry Potter series. It was released on 21 July 2007 in the United Kingdom by Bloomsbury Publishing, in the United States by Scholastic, and in Canada by Raincoast Books. The novel chronicles the events directly following Harry Potter and the Half-Blood Prince (2005) and the final confrontation between the wizards Harry Potter and Lord Voldemort.Deathly Hallows shattered sales records upon release, surpassing marks set by previous titles of the Harry Potter series. It holds the Guinness World Record for most novels sold within 24 hours of release, with 8.3 million sold in the US and 2.65 million in the UK. Generally well received by critics, the book won the 2008 Colorado Blue Spruce Book Award, and the American Library Association named it the \"Best Book for Young Adults\". A film adaptation of the novel was released in two parts: Harry Potter and the Deathly Hallows – Part 1 in November 2010 and Part 2 in July 2011.",
+        "wUrl": "http://en.wikipedia.org/wiki/Harry_potter_and_the_deathly_hallows",
+        "yUrl": null,
+        "yID": null
+      }
+    ],
+    "Results": [
+      {
+        "Name": "Harry Potter And The Order Of The Phoenix",
+        "Type": "book",
+        "wTeaser": "Harry Potter and the Order of the Phoenix is a fantasy novel written by British author J. K. Rowling and the fifth novel in the Harry Potter series. It follows Harry Potter's struggles through his fifth year at Hogwarts School of Witchcraft and Wizardry, including the surreptitious return of the antagonist Lord Voldemort, O.W.L. exams, and an obstructive Ministry of Magic. The novel was published on 21 June 2003 by Bloomsbury in the United Kingdom, Scholastic in the United States, and Raincoast in Canada. It sold five million copies in the first 24 hours of publication. It is the longest book of the series.Harry Potter and the Order of the Phoenix won several awards, including the American Library Association Best Book Award for Young Adults in 2003. The book was also made into a 2007 film and a video game by Electronic Arts.",
+        "wUrl": "http://en.wikipedia.org/wiki/Harry_Potter_and_the_Order_of_the_Phoenix",
+        "yUrl": null,
+        "yID": null
+      },
+      {
+        "Name": "Harry Potter And The Prisoner Of Azkaban",
+        "Type": "book",
+        "wTeaser": "Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J.K. Rowling and is the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemort's old allies.The book was published in the United Kingdom on 8 July 1999 by Bloomsbury and in the United States on 8 September 1999 by Scholastic, Inc. Rowling found the book easy to write, finishing it just a year after she began writing it. The book sold 68,000 copies in just three days after its release in the United Kingdom and since has sold over three million in the country. The book won the 1999 Whitbread Children's Book Award, the Bram Stoker Award, and the 2000 Locus Award for Best Fantasy Novel and was short-listed for other awards, including the Hugo.",
+        "wUrl": "http://en.wikipedia.org/wiki/Harry_Potter_and_the_Prisoner_of_Azkaban",
+        "yUrl": null,
+        "yID": null
+      }
+    ]
+  }
+}
+```
+
+
+
+On peut voir qu'il y a 3 résultats. Le premier correspond au livre recherché, le deux suivant correspondent aux livres recommandés.  Pour chaque résultat on y trouve:
+
+- Le nom du livre
+- Le type (livre)
+- Une description
+- Le lien wikipedia du livre
+- Un lien vers un clip youtube (musique/film/show)
+- L'ID youtube du clip (musique/film/show)
 
 
 
