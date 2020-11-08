@@ -25,10 +25,9 @@ L'utilisateur non connecté pourra:
 L'utilisateur connecté pourra:
 
 - Faire tout ce qu'un utilisateur non connecté peut faire
-- Personnaliser ses préférences (auteur, style/genre, maison d'édition) dans son profil
-- En plus des recommandations de recherche, l'utilisateur aura 3 recommandations en fonction de ses préférences
+- En plus des recommandations de recherche, l'utilisateur aura 3 recommandations en fonction de ses favoris
 - Ajouter un livre recherché dans plusieurs catégories: "Lu", "A lire", "Favoris"
-- Avoir accès aux statistiques personnelles de l'utilisateur: nombre de livre lu avec la liste, nombre de favoris avec la liste, nombre de livre à lire avec la liste, pourcentage d'interet pour le genre (en fonctions des livres ajoutés aux listes)
+- Avoir accès aux statistiques personnelles de l'utilisateur: nombre de livre lu avec la liste, nombre de favoris avec la liste, nombre de livre à lire avec la liste
 
 
 
