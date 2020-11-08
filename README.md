@@ -150,7 +150,7 @@ https://tastedive.com/api/similar?q=parameters
 On peut spécifier les champs de recherche en paramètre. D'après la documentation voici les champs que l'on peut spécifier:
 
 - `q`: ce que l'on veut chercher (au moins un obligatoire)
-- `type`: book, band, show, podcast, movie
+- `type`: book, band, show, podcast, movie, author
 - `info`: s'il est sur 1, alors on a des informations complémentaires pour chaque item trouvé
 - `limit`: le nombre maximum de recommandations (20 par défaut)
 - `k`: la clé d'accès API (non obligatoire)
@@ -214,7 +214,7 @@ Si on reprend la précédente, on obtient ce résultat:
 On peut voir qu'il y a 3 résultats. Le premier correspond au livre recherché, le deux suivant correspondent aux livres recommandés.  Pour chaque résultat on y trouve:
 
 - Le nom du livre
-- Le type (livre)
+- Le type
 - Une description
 - Le lien wikipedia du livre
 - Un lien vers un clip youtube (musique/film/show)
