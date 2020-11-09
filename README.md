@@ -1,5 +1,8 @@
-# Presentation projet - Prog Web
+# Prog Web
 
+
+- [Installation](#Installation)
+  * [Angular](#angular)
 - [Présentation projet - Porg Web](#presentation-projet---prog-web)
   * [Description du projet](#description-du-projet)
   * [API Tierce](#api-tierce)
@@ -12,6 +15,22 @@
   * [Notre API](#notre-api)
   * [Client](#client)
   * [Serveur](#serveur)
+
+
+
+## Installation
+
+### Angular
+
+Télécharger Angular:
+```sh
+sudo npm install -g @angular/cli
+```
+
+Lancer Angular:
+```sh
+cd app/ ; ng serve --open
+```
 
 ## Description du projet
 
