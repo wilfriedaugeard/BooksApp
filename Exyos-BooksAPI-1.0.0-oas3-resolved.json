@@ -1,0 +1,918 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BooksApp API",
+    "description": "API pour l'application BooksApp",
+    "contact": {
+      "email": "wilfried.augeard@etu.u-bordeaux.fr"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0-oas3"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/Exyos/BooksAPI/1.0.0"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Comptes",
+      "description": "Gestion relative aux comptes utilisateurs"
+    },
+    {
+      "name": "Livres",
+      "description": "Gestion relative aux livres recherchés"
+    },
+    {
+      "name": "Livres favoris",
+      "description": "Gestion des livres favoris de l'utilisateur"
+    },
+    {
+      "name": "Livres lus",
+      "description": "Gestion des livres lus de l'utilisateur"
+    },
+    {
+      "name": "Livres à lire",
+      "description": "Gestion des livres à lire de l'utilisateur"
+    },
+    {
+      "name": "Statistiques",
+      "description": "Gestion des statistiques de lecture de l'utilisateur"
+    }
+  ],
+  "paths": {
+    "/createAccount": {
+      "post": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Création de compte",
+        "description": "Permet de créer un compte utilisateur en passant paramètre le nom et le mot de passe de l'utilisateur. \n",
+        "operationId": "creationdecompte",
+        "requestBody": {
+          "description": "Information du compte (login + mot de passe)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAccountRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Retourne le token de connexion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Compte utilisateur déjà existant.",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "account_info"
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Comptes"
+        ],
+        "summary": "Connexion à un compte utilisateur",
+        "description": "Permet à un utilisateur de se connecter en donner son username et mot de passe. \n",
+        "operationId": "connexion",
+        "requestBody": {
+          "description": "Information du compte (login + mot de passe)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAccountRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Retourne le token de connexion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Identifiant invalide.",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "account_info"
+      }
+    },
+    "/books/search": {
+      "get": {
+        "tags": [
+          "Livres"
+        ],
+        "summary": "Recherche d'un livre",
+        "description": "Permet de récupérer une liste de livres à partir de son titre ou auteur.\n",
+        "operationId": "recherchelivre",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "nom du livre",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "description": "nom de l'auteur",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retourne la liste des livres correspondant à la recherche.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/foundBooks"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/books/search/{id}": {
+      "get": {
+        "tags": [
+          "Livres"
+        ],
+        "summary": "Récupère les informations d'un livre en particulier",
+        "description": "Permet de récupérer les informations d'un livre à partir de son id.\n",
+        "operationId": "recherchelivreparticulier",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retourne les informations du livre.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/itemsList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/books/fav/": {
+      "get": {
+        "tags": [
+          "Livres favoris"
+        ],
+        "summary": "Récupère la liste des livre favoris de l'utilisateur.",
+        "description": "Permet à un utilisateur de récupérer sa liste de livres favoris. \n",
+        "operationId": "getFavBooks",
+        "responses": {
+          "200": {
+            "description": "La liste a bien été trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/books/fav/{id}": {
+      "put": {
+        "tags": [
+          "Livres favoris"
+        ],
+        "summary": "Ajouter un livre aux favoris de l'utilisateur.",
+        "description": "Permet à un utilisateur d'ajouter un livre à sa liste de favoris en passant l'id du livre. \n",
+        "operationId": "addFavBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token de connexion",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAccountResponse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été ajouté aux favoris.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      },
+      "delete": {
+        "tags": [
+          "Livres favoris"
+        ],
+        "summary": "Supprimer un livre des favoris de l'utilisateur.",
+        "description": "Permet à un utilisateur de supprimer un livre à sa liste de favoris en passant l'id du livre. \n",
+        "operationId": "deleteFavBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été supprimé des favoris.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/books/readed/": {
+      "get": {
+        "tags": [
+          "Livres lus"
+        ],
+        "summary": "Récupère la liste des livre lus de l'utilisateur.",
+        "description": "Permet à un utilisateur de récupérer sa liste de livres lus. \n",
+        "operationId": "getReadedBooks",
+        "responses": {
+          "200": {
+            "description": "La liste a bien été trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/books/readed/{id}": {
+      "put": {
+        "tags": [
+          "Livres lus"
+        ],
+        "summary": "Ajouter un livre aux livres lus de l'utilisateur.",
+        "description": "Permet à un utilisateur d'ajouter un livre à sa liste de livres lus en passant l'id du livre. \n",
+        "operationId": "addReadedBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token de connexion",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAccountResponse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été ajouté aux livres lus.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      },
+      "delete": {
+        "tags": [
+          "Livres lus"
+        ],
+        "summary": "Supprimer un livre des livres lus de l'utilisateur.",
+        "description": "Permet à un utilisateur de supprimer un livre à sa liste de livres lus en passant l'id du livre. \n",
+        "operationId": "deleteReadedBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été supprimé des livres lus.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/books/toRead/": {
+      "get": {
+        "tags": [
+          "Livres à lire"
+        ],
+        "summary": "Récupère la liste des livres à lire de l'utilisateur.",
+        "description": "Permet à un utilisateur de récupérer sa liste de livres à lire. \n",
+        "operationId": "getToReadBooks",
+        "responses": {
+          "200": {
+            "description": "La liste a bien été trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/books/toRead/{id}": {
+      "put": {
+        "tags": [
+          "Livres à lire"
+        ],
+        "summary": "Ajouter un livre aux livres à lire de l'utilisateur.",
+        "description": "Permet à un utilisateur d'ajouter un livre à sa liste de livres à lire en passant l'id du livre. \n",
+        "operationId": "addToReadBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token de connexion",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAccountResponse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été ajouté aux livres à lire.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      },
+      "delete": {
+        "tags": [
+          "Livres à lire"
+        ],
+        "summary": "Supprimer un livre des livres à lire de l'utilisateur.",
+        "description": "Permet à un utilisateur de supprimer un livre à sa liste de livres à lire en passant l'id du livre. \n",
+        "operationId": "deleteToReadBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id du livre",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le livre a bien été supprimé des livres à lire.",
+            "content": {}
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    },
+    "/user/stats/": {
+      "get": {
+        "tags": [
+          "Statistiques"
+        ],
+        "summary": "Récupère les statistiques de l'utilisateur.",
+        "description": "Permet à un utilisateur de récupérer ses statistiques de lecture. \n",
+        "operationId": "getUserStats",
+        "responses": {
+          "200": {
+            "description": "Les statistiques ont bien été trouvées.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/statistiques"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres.",
+            "content": {}
+          },
+          "409": {
+            "description": "Token invalide.",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-codegen-request-body-name": "token"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "createAccountResponse": {
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "username": {
+            "type": "string",
+            "example": "my_username"
+          }
+        }
+      },
+      "createAccountRequest": {
+        "required": [
+          "password",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "my_username"
+          },
+          "password": {
+            "type": "string",
+            "example": "my_password"
+          }
+        }
+      },
+      "foundBooks": {
+        "required": [
+          "items",
+          "totalItems"
+        ],
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/itemsList"
+            }
+          }
+        }
+      },
+      "itemsList": {
+        "required": [
+          "bookInfo"
+        ],
+        "type": "object",
+        "properties": {
+          "bookInfo": {
+            "$ref": "#/components/schemas/bookInfoExample"
+          },
+          "bookReco": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bookRecoExample"
+            }
+          }
+        }
+      },
+      "bookRecoExample": {
+        "type": "object",
+        "properties": {
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bookRecoItem"
+            }
+          }
+        }
+      },
+      "bookRecoItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 9785124655
+          },
+          "title": {
+            "type": "string",
+            "example": "Flowers for Algernon"
+          },
+          "subtitle": {
+            "type": "string",
+            "example": "A One-act Play"
+          },
+          "authors": {
+            "type": "array",
+            "example": [
+              "David Rogers",
+              "Daniel Keyes"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "publisher": {
+            "type": "string",
+            "example": "Dramatic Publishing"
+          },
+          "imageLinks": {
+            "$ref": "#/components/schemas/imagesLinksItems"
+          }
+        }
+      },
+      "bookInfoExample": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 9785124655
+          },
+          "title": {
+            "type": "string",
+            "example": "Flowers for Algernon"
+          },
+          "subtitle": {
+            "type": "string",
+            "example": "A One-act Play"
+          },
+          "authors": {
+            "type": "array",
+            "example": [
+              "David Rogers",
+              "Daniel Keyes"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "publisher": {
+            "type": "string",
+            "example": "Dramatic Publishing"
+          },
+          "publishedDate": {
+            "type": "string",
+            "example": "1969"
+          },
+          "industryIdentifiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "identifier": {
+                  "type": "string"
+                }
+              },
+              "example": [
+                {
+                  "type": "ISBN_10",
+                  "identifier": 871293870
+                },
+                {
+                  "type": "ISBN_13",
+                  "identifier": "9780871293879"
+                }
+              ]
+            }
+          },
+          "pageCount": {
+            "type": "integer",
+            "example": 32
+          },
+          "imageLinks": {
+            "$ref": "#/components/schemas/imagesLinksItems"
+          },
+          "priceInfo": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "number",
+                "example": 8.99
+              },
+              "currency": {
+                "type": "string",
+                "example": "EUR"
+              }
+            }
+          }
+        }
+      },
+      "imagesLinksItems": {
+        "type": "object",
+        "properties": {
+          "smallThumbnail": {
+            "type": "string",
+            "example": "http://books.google.com/books/content?id=gK98gXR8onwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+          },
+          "thumbnail": {
+            "type": "string",
+            "example": "http://books.google.com/books/content?id=gK98gXR8onwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+          }
+        }
+      },
+      "statistiques": {
+        "type": "object",
+        "properties": {
+          "fav": {
+            "type": "object",
+            "properties": {
+              "nbItems": {
+                "type": "integer",
+                "example": 7
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          },
+          "readed": {
+            "type": "object",
+            "properties": {
+              "nbItems": {
+                "type": "integer",
+                "example": 12
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          },
+          "toRead": {
+            "type": "object",
+            "properties": {
+              "nbItems": {
+                "type": "integer",
+                "example": 14
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/bookRecoExample"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
