@@ -1,16 +1,23 @@
-<form>
-  <div class="form-group">
-    <label for="mail">Adresse Email</label>
-    <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" placeholder="Entrez votre e-mail">
-    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-  </div>
-  <div class="form-group">
-    <label for="pwd">Mot de passe</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Entrez votre mot de passe">
-  </div>
-  <div class="form-group">
-    <!-- <label for="pwdvalide">Mot de passe encore</label> -->
-    <input type="password" class="form-control" id="pwdvalide" placeholder="Entrez votre mot de passe à nouveau">
-  </div>
-  <button type="submit" class="btn btn-primary">S'inscrire</button>
-</form>
+<div class="row">
+    <form [formGroup]="registerForm">
+      <div class="form-group">
+        <label for="mail">Adresse Email</label>
+        <input formControlName="email" type="email" class="form-control" id="mail" aria-describedby="emailHelp" placeholder="Entrez votre e-mail">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+      <div class="form-group">
+        <label for="username">Pseudo</label>
+        <input formControlName="username" type="text" class="form-control" id="username" aria-describedby="userHelp" placeholder="Pseudo">
+        <small id="userHelp" class="form-text text-muted"></small>
+    </div>
+      <div class="form-group">
+        <label for="pwd">Mot de passe</label>
+        <input formControlName="password" type="password" class="form-control" id="pwd" placeholder="Entrez votre mot de passe">
+      </div>
+      <div class="form-group">
+        <!-- <label for="pwdvalide">Mot de passe encore</label> -->
+        <input formControlName="passwordCheck" type="password" class="form-control" id="pwdchk" placeholder="Entrez votre mot de passe à nouveau">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="register()">S'inscrire</button>
+    </form>
+</div>
