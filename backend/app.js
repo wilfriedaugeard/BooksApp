@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 
+
 var usersRouter = require('./routes/users');
 var app = express();
 
@@ -18,7 +19,7 @@ app.use(cors({
 const database = 'mongodb://localhost/bookapp';
 mongoose.connect(database);
 
-
+const MongoStore = require('connect-mongo')(session);
 app.use(session({
     name: 'login.sid',
     resave: false,
@@ -28,7 +29,8 @@ app.use(session({
         maxAge: 36000000,
         httpOnly: false,
         secure: false
-    }
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 require('./passport_config');
 app.use(passport.initialize());
