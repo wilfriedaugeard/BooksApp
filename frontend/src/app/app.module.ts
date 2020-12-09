@@ -8,24 +8,24 @@ import { RegisterComponent } from './register/register.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserlistsComponent } from './userlists/userlists.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {UserService} from './user.service';
+import { UserService } from './user.service';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomepageComponent,
-    UserlistsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  providers: [UserService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        HomepageComponent,
+        UserlistsComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule
+    ],
+    providers: [UserService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
