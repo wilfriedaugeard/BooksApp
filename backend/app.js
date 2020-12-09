@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var app = express();
 
@@ -19,22 +18,21 @@ app.use(cors({
 const database = 'mongodb://localhost/bookapp';
 mongoose.connect(database);
 
-require('./passport_config');
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(session({
     name: 'login.sid',
     resave: false,
     saveUninitialized: false,
-    secret: 'chutcestunsecret',
+    secret: 'secret',
     cookie: {
-        sameSite: "lax",
         maxAge: 36000000,
         httpOnly: false,
         secure: false
     }
 }));
+require('./passport_config');
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,7 +44,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 

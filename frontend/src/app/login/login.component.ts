@@ -23,13 +23,13 @@ export class LoginComponent implements OnInit {
             console.log('Mal rempli')
             return;
         }
-        console.log(JSON.stringify(this.loginForm.value));
+        //console.log(JSON.stringify(this.loginForm.value));
         this._userService.login(JSON.stringify(this.loginForm.value))
             .subscribe(
                 data => {
                     console.log(data);
                     console.log('USER CONNECTE');
-                    this._router.navigate(['/homepage'])
+                    //this._router.navigate(['/userlists'])
                 },
                 error => {
                     console.log(error);

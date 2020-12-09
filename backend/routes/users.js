@@ -23,6 +23,11 @@ router.get('/user', isConnectedUser, function (req, res, next) {
     return res.status(200).json(req.user);
 });
 
+router.get('/logout', isConnectedUser, function (req, res, next) {
+    req.logout();
+    return res.status(200).json({message: "Déconnecté"});
+});
+
 async function registerToDB(req, res) {
     var user = new User({
         email: req.body.email,
@@ -40,9 +45,10 @@ async function registerToDB(req, res) {
 
 }
 
-function isConnectedUser(req, res, next){
-    if(req.isAuthenticated()) next();
-    return res.status(401).json({message: 'Non connecté'});
+function isConnectedUser(req, res, next) {
+    if (req.isAuthenticated())
+        next();
+    else return res.status(401).json({ message: 'Non connecté' });
 }
 
 module.exports = router;
