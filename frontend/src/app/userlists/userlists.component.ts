@@ -9,10 +9,12 @@ import { UserService } from '../user.service';
 })
 export class UserlistsComponent implements OnInit {
 
+    userName:String='';
+
     constructor(private _router: Router, private _userService: UserService) {
         this._userService.user()
         .subscribe(
-            data=>console.log(data),
+            data=>{console.log(data); this.name(data);},
             error=>this._router.navigate(['/login'])
         )
     }
@@ -28,6 +30,10 @@ export class UserlistsComponent implements OnInit {
                 this._router.navigate(['/homepage']);
             },
             error=>console.error(error))
+    }
+
+    name(data:any){
+        this.userName = data.username;
     }
 
 }

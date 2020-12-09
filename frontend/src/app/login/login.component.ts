@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     console.log(data);
                     console.log('USER CONNECTE');
-                    //this._router.navigate(['/userlists'])
+                    this._router.navigate(['/userlists'])
                 },
                 error => {
                     console.log(error);
