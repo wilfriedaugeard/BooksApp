@@ -14,14 +14,14 @@ const booksCall = books({
 
 const find = async (query) => {
     //console.log('query :', query);
-    const name = (query.name=== undefined)? '' : 'intitle:'+ query.name;
-    const inauthor = (query.inauthor === undefined)? '' : 'inauthor:' + query.inauthor;
-    const connector = (inauthor === '' || name === '')? '' : '+'
+    const name = (query.name === undefined) ? '' : 'intitle:' + query.name;
+    const inauthor = (query.inauthor === undefined) ? '' : 'inauthor:' + query.inauthor;
+    const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     //console.log(searchQ);
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list({q:searchQ, maxResults:10});
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
     } catch (error) {
