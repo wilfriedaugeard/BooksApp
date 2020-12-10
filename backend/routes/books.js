@@ -15,7 +15,8 @@ const booksCall = books({
 const find = async (query) => {
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list(query);
+        const requestResult = await booksCall.volumes.list({q:query});
+        console.log('volume :', requestResult);
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
     } catch (error) {
@@ -25,14 +26,11 @@ const find = async (query) => {
 };
 
 const search = async (req, res) => {
-    if (!params.q) {
-        return res.status(400).json();
-    }
-    const result = await find(params);
-
+    const result = await find(req.body.bookName);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
+    console.log(result.data);
     return res.status(200).json(result.data);
 };
 
@@ -57,6 +55,6 @@ const book = (data) => {
 };
 
 
-router.get('/', search);
+router.get('/search', search);
 
 module.exports = router;

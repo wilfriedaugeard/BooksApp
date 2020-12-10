@@ -1,8 +1,16 @@
-<form>
-    <div class="form-group">
-        <label for="book">Livre</label>
-        <input type="text" class="form-control" id="book" aria-describedby="emailHelp"
-            placeholder="entrer nom du livre">
+<form #searchBook="ngForm" (ngSubmit)="searchBooks()">
+    <div class="from row">
+        <div class="form-group col  ">
+            <input type="email" class="form-control" placeholder="Search for anything" name="content" id="content"
+                rows="3" [(ngModel)]="model.content">
+
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="from row">
+        <div class="form-group col">
+            <input type="email" class="form-control" placeholder="Author" name="author" id="author" rows="3"
+                [(ngModel)]="model.author">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-secondary">Go</button>
 </form>
