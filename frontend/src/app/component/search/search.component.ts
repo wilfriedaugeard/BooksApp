@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
         console.log('query', query)
         this._searchService.search(query).subscribe(
             data => {
-                this.books = data.items;
+                this.books = data["items"];
                 console.log(this.books);
             },
             err => {
@@ -41,5 +41,5 @@ export class SearchComponent implements OnInit {
                 this.waiting = false;
             });
     }
-    
+
 }

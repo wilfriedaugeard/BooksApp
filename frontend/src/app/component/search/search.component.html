@@ -1,18 +1,18 @@
 <form #searchBook="ngForm" (ngSubmit)="searchBooks()">
     <div class="from row">
         <div class="form-group col  ">
-            <input type="email" class="form-control" placeholder="Search for anything" name="content" id="content"
+            <input type="text" class="form-control" placeholder="Titre" name="content" id="content"
                 rows="3" [(ngModel)]="model.content">
 
         </div>
     </div>
     <div class="from row">
         <div class="form-group col">
-            <input type="email" class="form-control" placeholder="Author" name="author" id="author" rows="3"
+            <input type="text" class="form-control" placeholder="Auteur" name="author" id="author" rows="3"
                 [(ngModel)]="model.author">
         </div>
     </div>
-    <button type="submit" class="btn btn-secondary">Go</button>
+    <button type="submit" class="btn btn-primary">Go</button>
 </form>
 <div class="row">
     <div class="col">

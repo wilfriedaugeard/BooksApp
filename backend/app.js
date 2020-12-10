@@ -18,6 +18,7 @@ app.use(cors({
     credentials: true
 }));
 const database = 'mongodb://localhost/bookapp';
+//const database = 'mongodb+srv://bookapp:bookapp@bookapps.vng4w.mongodb.net/bookapps?retryWrites=true&w=majority'
 mongoose.connect(database);
 
 const MongoStore = require('connect-mongo')(session);

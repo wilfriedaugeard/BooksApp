@@ -1,5 +1,5 @@
 
-var { books, auth } = require('googleapis/build/src/apis/books');
+var books = require('googleapis/build/src/apis/books');
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
