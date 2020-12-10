@@ -15,7 +15,6 @@ export class SearchComponent implements OnInit {
     books = [];
     cpt: number = 0;
     waiting: boolean = false;
-    array = [];
 
     constructor(private route: ActivatedRoute, private _searchService: SearchService) { }
 
@@ -23,23 +22,24 @@ export class SearchComponent implements OnInit {
     }
 
     searchBooks() {
-        console.log('coucou');
         this.waiting = true;
-        let content = (this.model.content === "" || this.model.content === undefined) ? "" : "name=" + this.model.content;
-        let author = (this.model.author === undefined || this.model.author === "") ? "" : "inauthor=" + this.model.author;
+        let content = (this.model.content === '' || this.model.content === undefined) ? '' : 'name=' + this.model.content;
+        let author = (this.model.author === undefined || this.model.author === '') ? '' : 'inauthor=' + this.model.author;
         let and='';
-        if(!(this.model.content === "" || this.model.content === undefined) && !(this.model.author === undefined || this.model.author === "")){
+        if(!(content === '') && !(author === '')){
             and='&';
         }
         let query = content + and + author;
+        console.log('query', query)
         this._searchService.search(query).subscribe(
             data => {
-                console.log(data)
+                this.books = data.items;
+                console.log(this.books);
             },
             err => {
                 this.books = [];
                 this.waiting = false;
             });
     }
-
+    
 }
