@@ -7,6 +7,7 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+require('dotenv').config();
 
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
@@ -47,6 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', usersRouter);
+app.use('/book', booksRouter);
 
 
 // catch 404 and forward to error handler

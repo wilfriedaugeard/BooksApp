@@ -10,13 +10,15 @@ import { UserlistsComponent } from './userlists/userlists.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         RegisterComponent,
         HomepageComponent,
-        UserlistsComponent
+        UserlistsComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,
