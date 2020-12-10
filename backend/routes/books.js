@@ -13,10 +13,11 @@ const booksCall = books({
 
 
 const find = async (query) => {
+    console.log('query :', query);
+    console.log(query.name);
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list({q:query});
-        console.log('volume :', requestResult);
+        const requestResult = await booksCall.volumes.list({q:query.name});
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
     } catch (error) {
@@ -26,7 +27,8 @@ const find = async (query) => {
 };
 
 const search = async (req, res) => {
-    const result = await find(req.body.bookName);
+    console.log('request :', req.query);
+    const result = await find(req.query);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
