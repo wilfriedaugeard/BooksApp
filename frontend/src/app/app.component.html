@@ -6,19 +6,20 @@
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
           <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">Inscription</a>
+              <a class="nav-link inscription" [routerLink]="['/register']" routerLinkActive="active">Inscription</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
+              <a class="nav-link connexion" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/userlist']" routerLinkActive="active">Listes</a>
+              <a class="nav-link liste" [routerLink]="['/userlists']" routerLinkActive="active">Listes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link recherche" [routerLink]="['/search']" routerLinkActive="active">Recherche</a>
+        </li>
       </ul>
   </div>
 </nav>
-
-
 
 
 <router-outlet></router-outlet>

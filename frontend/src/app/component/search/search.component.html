@@ -1,0 +1,28 @@
+<form #searchBook="ngForm" (ngSubmit)="searchBooks()">
+    <div class="from row">
+        <div class="form-group col  ">
+            <input type="text" class="form-control" placeholder="Titre" name="content" id="content" rows="3"
+                [(ngModel)]="model.content">
+
+        </div>
+    </div>
+    <div class="from row">
+        <div class="form-group col">
+            <input type="text" class="form-control" placeholder="Auteur" name="author" id="author" rows="3"
+                [(ngModel)]="model.author">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Go</button>
+</form>
+<!-- GENERE DES ERREURS PARCE QUE LE TABLEAU DE BOOKS EST VIDE DE BASE -->
+<div class="row">
+    <div class="col">
+        <div class="livres">
+            <h2> {{books[0].volumeInfo.title}} </h2>
+            <h4>Description</h4>
+            <p>{{books[0].volumeInfo.description}}</p>
+            <hr />
+            <img src='{{books[0].volumeInfo.thumbnail}}'>
+        </div>
+    </div>
+</div>
