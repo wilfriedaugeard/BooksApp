@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
         content: '',
         author: '',
     };
-    books = [];
+    books: any[] = [];
     cpt: number = 0;
     waiting: boolean = false;
 
@@ -33,8 +33,8 @@ export class SearchComponent implements OnInit {
         console.log('query', query)
         this._searchService.search(query).subscribe(
             data => {
-                //this.books = data['items']; -> cause un probleme a cause de typescript
-                console.log(data);
+                this.books = data.items;
+                console.log(this.books);
             },
             err => {
                 this.books = [];
