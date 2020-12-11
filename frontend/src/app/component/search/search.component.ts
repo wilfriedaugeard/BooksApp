@@ -33,8 +33,8 @@ export class SearchComponent implements OnInit {
         console.log('query', query)
         this._searchService.search(query).subscribe(
             data => {
-                this.books = data["items"];
-                console.log(this.books);
+                //this.books = data['items']; -> cause un probleme a cause de typescript
+                console.log(data);
             },
             err => {
                 this.books = [];
