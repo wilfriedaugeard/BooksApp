@@ -1,5 +1,5 @@
 
-var books = require('googleapis/build/src/apis/books');
+var {books, auth} = require('googleapis/build/src/apis/books');
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -9,7 +9,7 @@ noImage = 'No image';
 const booksCall = books({
     version: 'v1',
     auth: 'AIzaSyCWCA8yWV-_XHrYwnOgrOxQ02BCue7qU3E'
-})
+});
 
 
 const find = async (query) => {
