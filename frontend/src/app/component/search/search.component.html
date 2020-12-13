@@ -1,4 +1,4 @@
-<form #searchBook="ngForm" (ngSubmit)="searchBooks()">
+<!-- <form #searchBook="ngForm" (ngSubmit)="searchBooks()">
     <div class="from row">
         <div class="form-group col  ">
             <input type="text" class="form-control" placeholder="Titre" name="content" id="content" rows="3"
@@ -13,7 +13,17 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Go</button>
-</form>
+</form> -->
+
+<div class="container">
+	<div class="searchForm">
+        <form (ngSubmit)="searchBooks()" class="form-inline center" >
+            <input name="content" class="form-control" type="text"  placeholder="Titre" [(ngModel)]="model.content">
+            <input name="author"  class="form-control" type="text"  placeholder="Auteur" [(ngModel)]="model.author">
+            <button type="submit" class="btn btn-primary"> GO </button>
+        </form>
+    </div>
+</div>
 <!-- GENERE DES ERREURS PARCE QUE LE TABLEAU DE BOOKS EST VIDE DE BASE -->
 <div class="row">
     <div class="col">
