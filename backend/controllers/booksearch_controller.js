@@ -1,5 +1,5 @@
 var {books, auth} = require('googleapis/build/src/apis/books');
-noImage = 'No image';
+noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
