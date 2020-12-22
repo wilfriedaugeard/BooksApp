@@ -13,7 +13,7 @@ table {
     margin: auto 5em;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-gap: 10px;
+    grid-gap: 20px;
     grid-auto-rows: minmax(100px, 80vh);
 }
 .bookListGrid {
@@ -26,10 +26,28 @@ table {
     grid-column: 2/9;
     background-color: rgb(181, 181, 237);
 }
-.bookDetail{
-    
-}
 .scrollable {
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.wrapperContent{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.bookDescription{
+    grid-row: 1;
+    grid-column: 2/9;
+    margin:  2em;
+}
+.bookImage{
+    grid-row: 1;
+    grid-column: 1/2;
+}
+.img-content{
+    width: 100%;
+    margin: auto 1em;
 }

@@ -25,6 +25,15 @@
         <div class="bookDetailGrid">
             <div class="bookDetail">
                 <p>Détails du livre (à venir... Les couleurs de background c'est pour les gérer la taille des div)</p>
+                <p class="bookTitle">{{books[0].volumeInfo.title}}</p>
+                <div class="wrapperContent">
+                    <div class="bookImage text-center">
+                        <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">
+                    </div>
+                    <div class="bookDescription">
+                        <p>{{books[0].volumeInfo.description}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
