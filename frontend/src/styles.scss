@@ -2,11 +2,34 @@ img {
     width: 100px;
     height: auto;
 }
+table {
+    padding: 2em;
+}
 
 .bookTitle{
     font-size: large;
 }
-
-table {
-    padding: 2em;
+.wrapper {
+    margin: auto 5em;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, 80vh);
+}
+.bookListGrid {
+    grid-row: 1;
+    grid-column: 1 / 2;
+    background-color: rgb(240, 201, 201);
+}
+.bookDetailGrid{
+    grid-row: 1;
+    grid-column: 2/9;
+    background-color: rgb(181, 181, 237);
+}
+.bookDetail{
+    
+}
+.scrollable {
+    overflow-x: hidden;
+    overflow-y: scroll;
 }

@@ -1,49 +1,31 @@
-<!-- <form #searchBook="ngForm" (ngSubmit)="searchBooks()">
-    <div class="from row">
-        <div class="form-group col  ">
-            <input type="text" class="form-control" placeholder="Titre" name="content" id="content" rows="3"
-                [(ngModel)]="model.content">
-
-        </div>
-    </div>
-    <div class="from row">
-        <div class="form-group col">
-            <input type="text" class="form-control" placeholder="Auteur" name="author" id="author" rows="3"
-                [(ngModel)]="model.author">
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Go</button>
-</form> -->
-
 <div class="container">
-	<div class="searchForm">
-        <form (ngSubmit)="searchBooks()" class="form-inline center" >
-            <input name="content" class="form-control" type="text"  placeholder="Titre" [(ngModel)]="model.content">
-            <input name="author"  class="form-control" type="text"  placeholder="Auteur" [(ngModel)]="model.author">
+    <div class="searchForm">
+        <form (ngSubmit)="searchBooks()" class="form-inline center">
+            <input name="content" class="form-control" type="text" placeholder="Titre" [(ngModel)]="model.content">
+            <input name="author" class="form-control" type="text" placeholder="Auteur" [(ngModel)]="model.author">
             <button type="submit" class="btn btn-primary"> GO </button>
         </form>
     </div>
 </div>
 
-<div class="container-fluid">
-    <table class="table">
-        <thead>
-            <th>Titre</th>
-            <th>Description</th>
-            <th>Couverture</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of books; let i = index">
-                <td>
-                    <p class="bookTitle">{{books[i].volumeInfo.title}}</p>
-                </td>
-                <td>
-                    <p>{{books[i].volumeInfo.description}}</p>
-                </td>
-                <td>
-                    <img src='{{books[i].volumeInfo.thumbnail}}'>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="main">
+    <div class="wrapper">
+        <div class="bookListGrid scrollable">
+            <div class="d-flex flex-column text-center" *ngFor="let book of books; let i = index">
+                <div class="p-2">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <p class="card-title bookTitle">{{books[i].volumeInfo.title}}</p>
+                        </div>
+                    </div>
+                    <img class="img-thumbnail card-img-bottom" src="{{books[i].volumeInfo.thumbnail}}">
+                </div>
+            </div>
+        </div>
+        <div class="bookDetailGrid">
+            <div class="bookDetail">
+                <p>Détails du livre (à venir... Les couleurs de background c'est pour les gérer la taille des div)</p>
+            </div>
+        </div>
+    </div>
 </div>
