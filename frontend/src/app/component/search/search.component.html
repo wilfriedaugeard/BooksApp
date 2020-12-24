@@ -24,15 +24,26 @@
         </form>
     </div>
 </div>
-<!-- GENERE DES ERREURS PARCE QUE LE TABLEAU DE BOOKS EST VIDE DE BASE -->
-<div class="row">
-    <div class="col">
-        <div class="livres">
-            <h2> {{books[0].volumeInfo.title}} </h2>
-            <h4>Description</h4>
-            <p>{{books[0].volumeInfo.description}}</p>
-            <hr />
-            <img src='{{books[0].volumeInfo.thumbnail}}'>
-        </div>
-    </div>
+
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Couverture</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books; let i = index">
+                <td>
+                    <p class="bookTitle">{{books[i].volumeInfo.title}}</p>
+                </td>
+                <td>
+                    <p>{{books[i].volumeInfo.description}}</p>
+                </td>
+                <td>
+                    <img src='{{books[i].volumeInfo.thumbnail}}'>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
