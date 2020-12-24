@@ -20,11 +20,35 @@ export class UserService {
         });
     }
 
-    user() {
-        return this._http.get('http://127.0.0.1:3000/users/user',{
+    userInfo() {
+        return this._http.get('http://127.0.0.1:3000/users/userInfo',{
             observe: 'body',
             withCredentials: true,
-            headers: new HttpHeaders().append('Content-Type', 'application/json')
+            
+        })
+    }
+
+    favList() {
+        return this._http.get('http://127.0.0.1:3000/users/favList',{
+            observe: 'body',
+            withCredentials: true,
+            
+        })
+    }
+
+    toReadList() {
+        return this._http.get('http://127.0.0.1:3000/users/toReadList',{
+            observe: 'body',
+            withCredentials: true,
+            
+        })
+    }
+
+    readList() {
+        return this._http.get('http://127.0.0.1:3000/users/readList',{
+            observe: 'body',
+            withCredentials: true,
+            
         })
     }
 

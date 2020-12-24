@@ -9,30 +9,61 @@ import { UserService } from '../service/user/user.service';
 })
 export class UserlistsComponent implements OnInit {
 
-    userName:String='';
+    userName: String = '';
 
     constructor(private _router: Router, private _userService: UserService) {
-        this._userService.user()
-        .subscribe(
-            data=>{console.log(data); this.name(data);},
-            error=>this._router.navigate(['/login'])
-        )
+        this._userService.userInfo()
+            .subscribe(
+                data => { console.log(data); this.name(data); },
+                error => this._router.navigate(['/login'])
+            )
     }
+
+
 
     ngOnInit(): void {
     }
 
-    logout(){
+    logout() {
         this._userService.logout()
-        .subscribe(
-            data=>{
-                console.log(data);
-                this._router.navigate(['/homepage']);
-            },
-            error=>console.error(error))
+            .subscribe(
+                data => {
+                    console.log(data);
+                    this._router.navigate(['/homepage']);
+                },
+                error => console.error(error))
     }
 
-    name(data:any){
+    favList() {
+        this._userService.favList()
+            .subscribe(
+                data => {
+                    console.log(data);
+                },
+                error => console.error(error))
+    }
+
+    toReadList() {
+        this._userService.toReadList()
+            .subscribe(
+                data => {
+                    console.log(data);
+                },
+                error => console.error(error))
+
+    }
+
+    readList() {
+        this._userService.readList()
+            .subscribe(
+                data => {
+                    console.log(data);
+                },
+                error => console.error(error))
+
+    }
+
+    name(data: any) {
         this.userName = data.username;
     }
 

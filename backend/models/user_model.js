@@ -7,9 +7,9 @@ var user = new Schema({
     username: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     creationDate: { type: Date, require: true },
-    Readbooks: [{ type: Schema.Types.ObjectId}],
-    favBooks: [{ type: Schema.Types.ObjectId}],
-    toReadBooks: [{ type: Schema.Types.ObjectId}],
+    readList: [{ type: Schema.Types.ObjectId}],
+    favList: [{ type: Schema.Types.ObjectId}],
+    toReadList: [{ type: Schema.Types.ObjectId}],
 
 });
 
