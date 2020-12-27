@@ -3,7 +3,7 @@
         <form (ngSubmit)="searchBooks()" class="form-inline center">
             <input name="content" class="form-control" type="text" placeholder="Titre" [(ngModel)]="model.content">
             <input name="author" class="form-control" type="text" placeholder="Auteur" [(ngModel)]="model.author">
-            <button type="submit" class="btn"><span>GO</span></button>
+            <button type="submit" class="btn"><span>Search</span></button>
         </form>
     </div>
 </div>
@@ -12,7 +12,7 @@
     <div class="wrapper">
         <div class="bookListGrid scrollable shadow-lg rounded">
             <div class="d-flex flex-column text-center" *ngFor="let book of books; let i = index">
-                <div class="p-2 mb-4">
+                <div class="p-2 mb-4" (click)="chooseABook(book)">
                     <div class="card bg-light">
                         <div class="card-body">
                             <p class="card-title">{{books[i].volumeInfo.title}}</p>
@@ -23,34 +23,33 @@
             </div>
         </div>
         <div class="bookDetailGrid shadow-lg rounded">
-            <div class="grid-container" *ngIf="books?.length > 0 else noResult">
+            <div class="grid-container" *ngIf="books.length > 0 else noResult">
                 <div class="book-image-area text-center">
-                    <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">
+                    <img class="img-thumbnail img-content" src="{{currentBook.thumbnail}}">
                 </div>
                 <div class="book-title-area" >
-                    <h3 class="bookTitle">{{books[0].volumeInfo.title}}</h3>
-                    <p>{{books[0].volumeInfo.authors[0]}} <span
-                            class="badge badge-danger">{{books[0].volumeInfo.categories}}</span></p>
+                    <h3 class="bookTitle">{{currentBook.title}}</h3>
+                    <p>{{currentBook.authors}} <span
+                            class="badge badge-danger">{{currentBook.categories}}</span></p>
 
                 </div>
                 <div class="book-description-area">
-                    <p>{{books[0].volumeInfo.description}}</p>
+                    <p>{{currentBook.description}}</p>
                 </div>
                 <div class="more-info-area">
                     <p>Informations complémentaires</p>
                     <ul>
                         <li>
-                            <span>Prix: {{books[0].saleInfo.listPrice.amount}}
-                                {{books[0].saleInfo.listPrice.currencyCode}}</span>
+                            <span>Prix: {{currentBook.price}}</span>
                         </li>
                         <li>
-                            <span>Nombre de pages: {{books[0].volumeInfo.pageCount}}</span>
+                            <span>Nombre de pages: {{currentBook.pageCount}}</span>
                         </li>
                         <li>
-                            <span>Publication: {{books[0].volumeInfo.publishedDate}}</span>
+                            <span>Publication: {{currentBook.publishedDate}}</span>
                         </li>
                         <li>
-                            <span>Editeur: {{books[0].volumeInfo.publisher}}</span>
+                            <span>Editeur: {{currentBook.publisher}}</span>
                         </li>
                     </ul>
                 </div>
