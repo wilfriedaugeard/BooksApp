@@ -23,11 +23,11 @@
             </div>
         </div>
         <div class="bookDetailGrid shadow-lg rounded">
-            <div class="grid-container">
+            <div class="grid-container" *ngIf="books?.length > 0 else noResult">
                 <div class="book-image-area text-center">
                     <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">
                 </div>
-                <div class="book-title-area">
+                <div class="book-title-area" >
                     <h3 class="bookTitle">{{books[0].volumeInfo.title}}</h3>
                     <p>{{books[0].volumeInfo.authors[0]}} <span
                             class="badge badge-danger">{{books[0].volumeInfo.categories}}</span></p>
@@ -55,6 +55,13 @@
                     </ul>
                 </div>
             </div>
+            <ng-template #noResult>
+                <div class="grid-container">
+                    <div class="book-title-area">
+                        <p>Veuillez choisir un livre et/ou un auteur.</p>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>
