@@ -10,29 +10,49 @@
 
 <div class="main">
     <div class="wrapper">
-        <div class="bookListGrid scrollable">
+        <div class="bookListGrid scrollable shadow-lg rounded">
             <div class="d-flex flex-column text-center" *ngFor="let book of books; let i = index">
-                <div class="p-2">
+                <div class="p-2 mb-4">
                     <div class="card bg-light">
                         <div class="card-body">
-                            <p class="card-title bookTitle">{{books[i].volumeInfo.title}}</p>
+                            <p class="card-title">{{books[i].volumeInfo.title}}</p>
                         </div>
+                        <img class="img-thumbnail card-img-bottom" src="{{books[i].volumeInfo.thumbnail}}">
                     </div>
-                    <img class="img-thumbnail card-img-bottom" src="{{books[i].volumeInfo.thumbnail}}">
                 </div>
             </div>
         </div>
-        <div class="bookDetailGrid">
-            <div class="bookDetail">
-                <p>Détails du livre (à venir... Les couleurs de background c'est pour les gérer la taille des div)</p>
-                <h3 class="bookTitle">{{books[0].volumeInfo.title}}</h3>
-                <div class="wrapperContent">
-                    <div class="bookImage text-center">
-                        <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">
-                    </div>
-                    <div class="bookDescription">
-                        <p>{{books[0].volumeInfo.description}}</p>
-                    </div>
+        <div class="bookDetailGrid shadow-lg rounded">
+            <div class="grid-container">
+                <div class="book-image-area text-center">
+                    <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">
+                </div>
+                <div class="book-title-area">
+                    <h3 class="bookTitle">{{books[0].volumeInfo.title}}</h3>
+                    <p>{{books[0].volumeInfo.authors[0]}} <span
+                            class="badge badge-danger">{{books[0].volumeInfo.categories}}</span></p>
+
+                </div>
+                <div class="book-description-area">
+                    <p>{{books[0].volumeInfo.description}}</p>
+                </div>
+                <div class="more-info-area">
+                    <p>Informations complémentaires</p>
+                    <ul>
+                        <li>
+                            <span>Prix: {{books[0].saleInfo.listPrice.amount}}
+                                {{books[0].saleInfo.listPrice.currencyCode}}</span>
+                        </li>
+                        <li>
+                            <span>Nombre de pages: {{books[0].volumeInfo.pageCount}}</span>
+                        </li>
+                        <li>
+                            <span>Publication: {{books[0].volumeInfo.publishedDate}}</span>
+                        </li>
+                        <li>
+                            <span>Editeur: {{books[0].volumeInfo.publisher}}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
