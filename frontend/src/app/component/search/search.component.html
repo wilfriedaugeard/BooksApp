@@ -3,7 +3,7 @@
         <form (ngSubmit)="searchBooks()" class="form-inline center">
             <input name="content" class="form-control" type="text" placeholder="Titre" [(ngModel)]="model.content">
             <input name="author" class="form-control" type="text" placeholder="Auteur" [(ngModel)]="model.author">
-            <button type="submit" class="btn btn-primary"> GO </button>
+            <button type="submit" class="btn btn-primary"><span>GO</span></button>
         </form>
     </div>
 </div>
@@ -25,7 +25,7 @@
         <div class="bookDetailGrid">
             <div class="bookDetail">
                 <p>Détails du livre (à venir... Les couleurs de background c'est pour les gérer la taille des div)</p>
-                <p class="bookTitle">{{books[0].volumeInfo.title}}</p>
+                <h3 class="bookTitle">{{books[0].volumeInfo.title}}</h3>
                 <div class="wrapperContent">
                     <div class="bookImage text-center">
                         <img class="img-thumbnail img-content" src="{{books[0].volumeInfo.thumbnail}}">

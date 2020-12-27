@@ -1,3 +1,10 @@
+body {
+    background-color: #efe5dc;
+}
+nav {
+    background-color: #a1683a;
+}
+
 img {
     width: 100px;
     height: auto;
@@ -5,10 +12,35 @@ img {
 table {
     padding: 2em;
 }
+h1 {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-size:xx-large;
+    font-weight: 800;
+    line-height: 20px;
+}
+h3 {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 18.7px;
+}
+p, span, input {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
 
-.bookTitle{
+
+.bookTitle {
     font-size: large;
 }
+
+/***** GRID *****/
 .wrapper {
     margin: auto 5em;
     display: grid;
@@ -21,7 +53,7 @@ table {
     grid-column: 1 / 2;
     background-color: rgb(240, 201, 201);
 }
-.bookDetailGrid{
+.bookDetailGrid {
     grid-row: 1;
     grid-column: 2/9;
     background-color: rgb(181, 181, 237);
@@ -31,23 +63,24 @@ table {
     overflow-y: scroll;
 }
 
-.wrapperContent{
+.wrapperContent {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
 }
 
-.bookDescription{
+.bookDescription {
     grid-row: 1;
     grid-column: 2/9;
-    margin:  2em;
+    margin: 2em;
 }
-.bookImage{
+.bookImage {
     grid-row: 1;
     grid-column: 1/2;
 }
-.img-content{
+
+.img-content {
     width: 100%;
     margin: auto 1em;
 }
