@@ -101,7 +101,7 @@ a:hover>*{
     grid-template-rows: 0.2fr 0.8fr 1fr;
     gap: 10px 10px;
     grid-template-areas:
-      "book-image-area book-title-area ."
+      "book-image-area book-title-area action-list-area"
       "book-image-area book-description-area action-list-area"
       "more-info-area . .";
   }
@@ -124,4 +124,16 @@ a:hover>*{
     max-width: 250px;
     width: 100%;
     margin: auto;
+}
+.action-list > *{
+    margin: 0.5em;
+    width: 3rem;
+    max-width: 250px;
+    color: $color-1;
+    background-color: $color-4;
+    border-color: $color-1;
+}
+.action-list > *:hover{
+    color: $color-4;
+    background-color: $color-1;
 }
