@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="bookDetailGrid shadow-lg rounded">
-            <div class="grid-container" *ngIf="books.length > 0 else noResult">
+            <div class="grid-container" *ngIf="found && books.length > 0 else waiting">
                 <div class="book-image-area text-center">
                     <img class="img-thumbnail img-content" src="{{currentBook.thumbnail}}">
                 </div>
@@ -40,16 +40,16 @@
                     <p>Informations complémentaires</p>
                     <ul>
                         <li>
-                            <span>Prix: {{currentBook.price}}</span>
+                            <span><p>Prix: {{currentBook.price}}</p></span>
                         </li>
                         <li>
-                            <span>Nombre de pages: {{currentBook.pageCount}}</span>
+                            <span><p>Nombre de pages: {{currentBook.pageCount}}</p></span>
                         </li>
                         <li>
-                            <span>Publication: {{currentBook.publishedDate}}</span>
+                            <span><p>Publication: {{currentBook.publishedDate}}</p></span>
                         </li>
                         <li>
-                            <span>Editeur: {{currentBook.publisher}}</span>
+                            <span><p>Editeur: {{currentBook.publisher}}</p></span>
                         </li>
                     </ul>
                 </div>
@@ -61,10 +61,17 @@
                     </div>
                 </div>
             </div>
+            <ng-template #waiting>
+                <div class="grid-container" *ngIf="found else noResult">
+                    <div class="book-title-area">
+                        <p>Veuillez choisir un livre et/ou un auteur.</p>
+                    </div>
+                </div>
+            </ng-template>
             <ng-template #noResult>
                 <div class="grid-container">
                     <div class="book-title-area">
-                        <p>Veuillez choisir un livre et/ou un auteur.</p>
+                        <p><i class="fas fa-search"></i> Aucun résultats trouvés.</p>
                     </div>
                 </div>
             </ng-template>

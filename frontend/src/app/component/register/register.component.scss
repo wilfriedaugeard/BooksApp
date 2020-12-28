@@ -1,3 +1,6 @@
+$color-1: #a37f6c;
+$color-4: #FBFEFB;
+
 .main{
     margin-top: 70px;
 }
@@ -54,4 +57,11 @@ input::-webkit-input-placeholder {
 .login-register{
    font-size: 11px;
    text-align: center;
+}
+span {
+   color: $color-1;
+}
+
+.light{
+   color: $color-4;
 }

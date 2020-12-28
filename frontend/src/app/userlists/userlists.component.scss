@@ -1,0 +1,36 @@
+// @import '/assets/var';
+$color-1: #a37f6c;
+$color-2: #F3D8C7;
+$color-3: #EFE5DC;
+$color-4: #FBFEFB;
+
+.main{
+    margin-top: 4em;
+}
+
+/***** GRID *****/
+.wrapper {
+    margin: auto 5em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    grid-auto-rows: minmax(100px, 80vh);
+}
+
+.favBookGrid {
+    grid-row: 1;
+    grid-column: 1 / 2;
+    background-color: $color-4;
+}
+
+.readedBookGrid {
+    grid-row: 1;
+    grid-column: 2 / 3;
+    background-color: $color-4;
+}
+
+.toReadBookGrid{
+    grid-row: 1;
+    grid-column: 3 / 4;
+    background-color: $color-4;
+}

@@ -6,7 +6,6 @@
           <label for="mail" class="cols-sm-2 control-label"><span>Adresse Email</span></label>
           <div class="cols-sm-10">
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
               <input formControlName="email" type="email" class="form-control" id="mail" aria-describedby="emailHelp"
                 placeholder="Entrez votre e-mail">
             </div>
@@ -16,7 +15,6 @@
           <label for="username" class="cols-sm-2 control-label"><span>Pseudo</span></label>
           <div class="cols-sm-10">
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
               <input formControlName="username" type="text" class="form-control" id="username"
                 aria-describedby="userHelp" placeholder="Pseudo">
               <small id="userHelp" class="form-text text-muted"></small>
@@ -27,7 +25,6 @@
           <label for="pwd" class="cols-sm-2 control-label"><span>Mot de passe</span></label>
           <div class="cols-sm-10">
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
               <input formControlName="password" type="password" class="form-control" id="pwd"
                 placeholder="Entrez votre mot de passe">
             </div>
@@ -36,16 +33,14 @@
         <div class="form-group">
           <div class="cols-sm-10">
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
               <input formControlName="passwordCheck" type="password" class="form-control" id="pwdchk"
                 placeholder="Entrez votre mot de passe à nouveau">
             </div>
           </div>
         </div>
-
         <div class="form-group ">
           <button type="submit" class="btn btn-lg btn-block login-button"
-            (click)="register()"><span>S'inscrire</span></button>
+            (click)="register()"><span class="light">S'inscrire</span></button>
         </div>
         <div class="login-register">
           <a [routerLink]="['/login']" routerLinkActive="active"><span>Se connecter</span></a>

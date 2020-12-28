@@ -3,6 +3,7 @@ $color-1: #a37f6c;
 $color-2: #F3D8C7;
 $color-3: #EFE5DC;
 $color-4: #FBFEFB;
+$color-5: #48372e;
 
 
 body {
@@ -11,6 +12,7 @@ body {
 }
 nav {
     background-color: $color-1;
+    color: $color-4;
 }
 
 img {
@@ -27,6 +29,7 @@ h1 {
     font-size:xx-large;
     font-weight: 800;
     line-height: 20px;
+    color: $color-4;
 }
 h3 {
     font-family: "Walter Turncoat";
@@ -34,6 +37,7 @@ h3 {
     font-variant: normal;
     font-weight: 700;
     line-height: 18.7px;
+    color: $color-5;
 }
 p, span, input {
     font-family: "Walter Turncoat";
@@ -41,6 +45,10 @@ p, span, input {
     font-variant: normal;
     font-weight: 400;
     line-height: 20px;
+    color: $color-5;
+}
+span{
+    color: $color-4;
 }
 a{
     color: $color-1;
@@ -54,9 +62,9 @@ a:hover>*{
 }
 
 .btn{
-    color: white;
+    color: $color-4;
     background-color: $color-1;
 }
 .btn:hover{
-    color: white;
+    color: $color-4;
 }

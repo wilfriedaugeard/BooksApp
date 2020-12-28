@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
     cpt: number = 0;
     waiting: boolean = false;
     currentBook: any = {};
+    found = true;
 
     constructor(private route: ActivatedRoute, private _searchService: SearchService) { }
 
@@ -35,20 +36,24 @@ export class SearchComponent implements OnInit {
         this._searchService.search(query).subscribe(
             data => {
                 this.books = data.items;
-                if(this.books.length > 0){
-                    this.currentBook = this.formatBook(this.books[0]);
+                if(this.books !== undefined){
+                    if(this.books.length > 0){
+                        this.found = true
+                        this.currentBook = this.formatBook(this.books[0]);
+                    }
+                }else{
+                    this.found = false;
                 }
-                console.log(this.books);
             },
             err => {
                 this.books = [];
                 this.waiting = false;
+                this.found = false;
             });
     }
 
 
     formatBook(data: any){
-
         const priceValue = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.amount : 'unknow';
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue+' '+currency;
