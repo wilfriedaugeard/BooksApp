@@ -19,7 +19,7 @@
             <a class="nav-link" [routerLink]="['/search']" routerLinkActive="active"><span>Recherche</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" (click)="logout()" *ngIf="isAuth"><span>Déconnexion</span></a>
+            <a class="nav-link" [routerLink]="['/search']" (click)="logout()" *ngIf="isAuth" ><span>Déconnexion</span></a>
         </li>
     </ul>
 </nav>

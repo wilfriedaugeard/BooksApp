@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
         data => {
           console.log(data);
           this._userService.validateLogout();
-          this._router.navigate(['/homepage']);
         },
         error => console.error(error))
   }
