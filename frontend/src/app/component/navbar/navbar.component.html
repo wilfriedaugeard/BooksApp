@@ -7,16 +7,19 @@
     <!-- Links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active"><span>Inscription</span></a>
+            <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active" *ngIf="!isAuth"><span>Inscription</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active"><span>Connexion</span></a>
+            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" *ngIf="!isAuth"><span>Connexion</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/userlists']" routerLinkActive="active"><span>Listes</span></a>
+            <a class="nav-link" [routerLink]="['/userlists']" routerLinkActive="active" *ngIf="isAuth"><span>Listes</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" [routerLink]="['/search']" routerLinkActive="active"><span>Recherche</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()" *ngIf="isAuth"><span>Déconnexion</span></a>
         </li>
     </ul>
 </nav>
