@@ -15,8 +15,8 @@ export class SearchComponent implements OnInit {
     books: any[] = [];
     cpt: number = 0;
     waiting: boolean = false;
-    currentBook: any = {};
     found = true;
+    length:number = 0;
 
     constructor(private route: ActivatedRoute, private _searchService: SearchService) { }
 
@@ -38,11 +38,13 @@ export class SearchComponent implements OnInit {
                 this.books = data.items;
                 if(this.books !== undefined){
                     if(this.books.length > 0){
-                        this.found = true
-                        this.currentBook = this.formatBook(this.books[0]);
+                        this.found = true;
+                        this.length = this.books.length;
+                        this._searchService.setChosenBook(this.formatBook(this.books[0]));
                     }
                 }else{
                     this.found = false;
+                    this.length = 0
                 }
             },
             err => {
@@ -75,6 +77,6 @@ export class SearchComponent implements OnInit {
     }
 
     chooseABook(book: any){
-        this.currentBook = this.formatBook(book);
+        this._searchService.setChosenBook(this.formatBook(book));
     }
 }

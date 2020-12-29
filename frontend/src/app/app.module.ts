@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -12,6 +13,9 @@ import { UserService } from './service/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './component/search/search.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
+import { SearchService } from './service/search/search.service';
+import { BookDetailComponent } from './component/search/book-detail/book-detail.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -20,16 +24,18 @@ import { NavbarComponent } from './component/navbar/navbar.component';
         HomepageComponent,
         UserlistsComponent,
         SearchComponent,
-        NavbarComponent
+        NavbarComponent,
+        BookDetailComponent,
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule
     ],
-    providers: [UserService],
+    providers: [UserService, SearchService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
