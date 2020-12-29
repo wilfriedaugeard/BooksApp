@@ -22,27 +22,25 @@ img {
 table {
     padding: 2em;
 }
-h1 {
+
+h1, h3, p, span, input {
     font-family: "Walter Turncoat";
     font-style: normal;
     font-variant: normal;
+}
+
+h1 {
     font-size:xx-large;
     font-weight: 800;
     line-height: 20px;
     color: $color-4;
 }
 h3 {
-    font-family: "Walter Turncoat";
-    font-style: normal;
-    font-variant: normal;
     font-weight: 700;
     line-height: 18.7px;
     color: $color-5;
 }
 p, span, input {
-    font-family: "Walter Turncoat";
-    font-style: normal;
-    font-variant: normal;
     font-weight: 400;
     line-height: 20px;
     color: $color-5;
