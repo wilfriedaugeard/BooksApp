@@ -1,11 +1,25 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12">
-        <div class="jumbotron">
+        <div class="">
             <h1 class="display-4">Cc, {{userName}}!</h1>
             <p class="lead">Tu es bien connecté bravo lol.</p>
             <p class="lead" style="color:white;">
-                <a class="btn btn-primary btn-lg" role="button" (click)="logout()">Log Out</a>
+                <a class="btn btn-lg" role="button" (click)="logout()">Log Out</a>
             </p>
+        </div>
+    </div>
+</div> -->
+
+<div class="main">
+    <div class="wrapper">
+        <div class="favBookGrid scrollable shadow-lg rounded">
+            <h3 class="text-center mt-3"><i class="fa fa-star"></i> Favoris</h3>
+        </div>
+        <div class="readedBookGrid scrollable shadow-lg rounded">
+            <h3 class="text-center mt-3"><i class="fa fa-book"></i> Livres lus</h3>
+        </div>
+        <div class="toReadBookGrid scrollable shadow-lg rounded">
+            <h3 class="text-center mt-3"><i class="fa fa-book-reader"></i> Livres à lire</h3>
         </div>
     </div>
 </div>

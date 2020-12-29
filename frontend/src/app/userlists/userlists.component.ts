@@ -10,6 +10,7 @@ import { UserService } from '../service/user/user.service';
 export class UserlistsComponent implements OnInit {
 
     userName:String='';
+    welcomeMessage='';
 
     constructor(private _router: Router, private _userService: UserService) {
         this._userService.user()
@@ -34,6 +35,10 @@ export class UserlistsComponent implements OnInit {
 
     name(data:any){
         this.userName = data.username;
+    }
+
+    get getName(){
+        return this.userName;
     }
 
 }

@@ -1,12 +1,70 @@
+// @import '/assets/var';
+$color-1: #a37f6c;
+$color-2: #F3D8C7;
+$color-3: #EFE5DC;
+$color-4: #FBFEFB;
+$color-5: #48372e;
+
+
+body {
+    height: 100vh;
+    background-image: linear-gradient($color-2 0%, $color-4 100%);
+}
+nav {
+    background-color: $color-1;
+    color: $color-4;
+}
+
 img {
     width: 100px;
     height: auto;
 }
-
-.bookTitle{
-    font-size: large;
-}
-
 table {
     padding: 2em;
+}
+h1 {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-size:xx-large;
+    font-weight: 800;
+    line-height: 20px;
+    color: $color-4;
+}
+h3 {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 18.7px;
+    color: $color-5;
+}
+p, span, input {
+    font-family: "Walter Turncoat";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+    color: $color-5;
+}
+span{
+    color: $color-4;
+}
+a{
+    color: $color-1;
+}
+a:hover{
+    color: $color-1;
+    text-decoration: none;
+}
+a:hover>*{
+    font-weight: bold;
+}
+
+.btn{
+    color: $color-4;
+    background-color: $color-1;
+}
+.btn:hover{
+    color: $color-4;
 }
