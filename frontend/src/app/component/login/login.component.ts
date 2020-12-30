@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user/user.service';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -27,9 +28,9 @@ export class LoginComponent implements OnInit {
         this._userService.login(JSON.stringify(this.loginForm.value))
             .subscribe(
                 data => {
-                    console.log(data);
-                    console.log('USER CONNECTE');
-                    this._router.navigate(['/userlists'])
+                    this._userService.validateLogin();
+                    console.log(this._userService.isAuth);
+                    this._router.navigate(['/userlists']);
                 },
                 error => {
                     console.log(error);
