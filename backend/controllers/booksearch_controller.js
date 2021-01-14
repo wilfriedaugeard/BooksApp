@@ -1,4 +1,4 @@
-var {books, auth} = require('googleapis/build/src/apis/books');
+var { books, auth } = require('googleapis/build/src/apis/books');
 noImage = '/assets/not-available.png';
 
 const booksCall = books({
@@ -51,8 +51,14 @@ const book = (data) => {
             publisher: data.volumeInfo.publisher,
             industryIdentifiers: data.volumeInfo.industryIdentifiers,
         },
-        saleInfo: data.saleInfo
-    };
+        saleInfo: {
+            listPrice: {
+                amount: data.saleInfo.listPrice.amount,
+                currencyCode: data.saleInfo.listPrice.currencyCode
+            }
+        }
+    }
 };
 
-module.exports={search};
+
+module.exports = { search };

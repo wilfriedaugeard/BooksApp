@@ -8,15 +8,24 @@ const book = new Schema({
         unique: true,
     },
     volumeInfo: {
-        authors: {type: [String]},
-        categories: {type: [String]},
-        subtitle: {type: String},
-        thumbnail: {type: String},
-        title: data.volumeInfo.title,
-        description: data.volumeInfo.description,
-        pageCount: data.volumeInfo.pageCount,
-        publishedDate: data.volumeInfo.publishedDate,
-        publisher: data.volumeInfo.publisher,
-        industryIdentifiers: data.volumeInfo.industryIdentifiers,
+        authors: { type: [String] },
+        categories: { type: [String] },
+        subtitle: { type: String },
+        thumbnail: { type: String },
+        title: { type: String },
+        description: { type: String },
+        pageCount: { type: Number },
+        publishedDate: { type: String },
+        publisher: { type: String },
+        industryIdentifiers: [{
+            type: { type: String },
+            identifier: { type: String }
+        }],
+    },
+    saleInfo: {
+        listPrice: {
+            amount: { type: Number },
+            currencyCode: { type: String }
+        }
     }
 })
