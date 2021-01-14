@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../../service/user/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-    constructor(private _router: Router, private _userService: UserService) { }
+    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) { }
     ngOnInit(): void {
     }
 
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
             console.log('Mal rempli')
             return;
         }
-        this._userService.register(JSON.stringify(this.registerForm.value))
+        this._authService.register(JSON.stringify(this.registerForm.value))
             .subscribe(
                 data => {
                     console.log(data);

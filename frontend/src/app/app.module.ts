@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { HomepageComponent } from './component/homepage/homepage.component';
-import { UserlistsComponent } from './userlists/userlists.component';
+import { UserlistsComponent } from './component/userlists/userlists.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './service/user/user.service';
 import { HttpClientModule } from '@angular/common/http';

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
@@ -11,19 +12,19 @@ export class NavbarComponent implements OnInit {
 
   isAuth: boolean = false;
 
-  constructor(private _router: Router, private _userService: UserService) { }
+  constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) { }
 
   ngOnInit(): void {
-    this._userService.sub(this);
+    this._authService.sub(this);
     console.log('isAuth in nav: '+this.isAuth)
   }
 
   logout() {
-    this._userService.logout()
+    this._authService.logout()
       .subscribe(
         data => {
           console.log(data);
-          this._userService.validateLogout();
+          this._authService.validateLogout();
         },
         error => console.error(error))
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../service/user/user.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { UserService } from '../../service/user/user.service';
 
 @Component({
     selector: 'app-userlists',
@@ -12,7 +13,7 @@ export class UserlistsComponent implements OnInit {
     userName:String='';
     welcomeMessage='';
 
-    constructor(private _router: Router, private _userService: UserService) {
+    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) {
         this._userService.userInfo()
             .subscribe(
                 data => { console.log(data); this.name(data); },
@@ -26,7 +27,7 @@ export class UserlistsComponent implements OnInit {
     }
 
     logout() {
-        this._userService.logout()
+        this._authService.logout()
             .subscribe(
                 data => {
                     console.log(data);
