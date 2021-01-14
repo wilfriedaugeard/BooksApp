@@ -17,7 +17,7 @@ async function registerToDB(req, res, next) {
     }
 }
 
-function logInUser(req, res, next){
+function logInUser(req, res, next) {
     passport.authenticate('auth', function (err, user, info) {
         if (err) { return res.status(400).json(err); }
         if (!user) { return res.status(409).json(info); }
@@ -28,9 +28,9 @@ function logInUser(req, res, next){
     })(req, res, next);
 }
 
-function logOutUser(req, res, next){
+function logOutUser(req, res, next) {
     req.logout();
-    return res.status(200).json({message: "Déconnecté"});
+    return res.status(200).json({ message: "Déconnecté" });
 }
 
 function isConnectedUser(req, res, next) {
@@ -39,4 +39,4 @@ function isConnectedUser(req, res, next) {
     else return res.status(401).json({ message: 'Non connecté' });
 }
 
-module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser}
+module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser }
