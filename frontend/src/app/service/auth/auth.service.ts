@@ -38,16 +38,9 @@ export class AuthService {
     }
 
     authcheck() {
-        return this._http.get('http://127.0.0.1:3000/users/check-auth')
-            .pipe(map((resp: any) => {
-                this.isAuth = resp.authenticated;
-                if (this.isAuth){
-                    this.authenticatedBehavior.next(true);
-                }
-                else{
-                    this.authenticatedBehavior.next(false);
-                }
-            }))
+        var toreturn = this._http.get('http://127.0.0.1:3000/users/check-auth');
+        console.log(toreturn);
+        return toreturn;
     }
 
     validateLogin() {

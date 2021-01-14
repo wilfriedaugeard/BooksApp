@@ -15,6 +15,8 @@ import { SearchComponent } from './component/search/search.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { SearchService } from './service/search/search.service';
 import { BookDetailComponent } from './component/search/book-detail/book-detail.component';
+import { AuthService } from './service/auth/auth.service';
+import { AuthGuard } from './service/auth/auth.guard';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,7 @@ import { BookDetailComponent } from './component/search/book-detail/book-detail.
         ReactiveFormsModule,
         HttpClientModule
     ],
-    providers: [UserService, SearchService],
+    providers: [UserService, SearchService, AuthService, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
                     this.found = false;
                     this.length = 0
                 }
+                console.log(this.books);
             },
             err => {
                 this.books = [];
