@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { pipe, ReplaySubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
+    public authenticatedBehavior = new ReplaySubject(1);
     isAuth = false;
     observers: any[] = [];
 
@@ -27,18 +30,31 @@ export class AuthService {
     }
 
     logout() {
-        return this._http.get('http://127.0.0.1:3000/users/logout',{
+        return this._http.get('http://127.0.0.1:3000/users/logout', {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         })
     }
 
-    validateLogin(){
+    authcheck() {
+        return this._http.get('http://127.0.0.1:3000/users/check-auth')
+            .pipe(map((resp: any) => {
+                this.isAuth = resp.authenticated;
+                if (this.isAuth){
+                    this.authenticatedBehavior.next(true);
+                }
+                else{
+                    this.authenticatedBehavior.next(false);
+                }
+            }))
+    }
+
+    validateLogin() {
         this.isAuth = true;
         this.notifObservers();
     }
-    validateLogout(){
+    validateLogout() {
         this.isAuth = false;
         this.notifObservers();
     }

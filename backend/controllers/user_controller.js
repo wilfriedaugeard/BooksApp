@@ -36,7 +36,7 @@ function logOutUser(req, res, next) {
 function isConnectedUser(req, res, next) {
     if (req.isAuthenticated())
         next();
-    else return res.status(401).json({ message: 'Non connecté' });
+    else return res.status(401).json({ authenticated: false });
 }
 
 module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser }
