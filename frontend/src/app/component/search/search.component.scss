@@ -1,3 +1,14 @@
+// @import '/assets/var';
+$color-1: #a37f6c;
+$color-2: #F3D8C7;
+$color-3: #EFE5DC;
+$color-4: #FBFEFB;
+
+
+.main{
+    margin: auto 5%;
+}
+
 .searchForm {
     margin: 1em auto;
     width: 100%;
@@ -7,3 +18,40 @@
     width: 40%;
     margin: 0 0.5em;
 }
+
+
+.card-body{
+    padding: 5px;
+}
+.card-title {
+    margin-bottom: 0;
+}
+.bookTitle {
+    font-size: x-large;
+}
+
+/***** GRID *****/
+.wrapper {
+    margin: auto 5em;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 20px;
+    grid-auto-rows: minmax(100px, 80vh);
+}
+.bookListGrid {
+    grid-row: 1;
+    grid-column: 1 / 2;
+    background-color: $color-4;
+}
+.bookDetailGrid {
+    grid-row: 1;
+    grid-column: 2/9;
+    background-color: $color-4;
+}
+.scrollable {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+  
+
+  
