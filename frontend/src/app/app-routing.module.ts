@@ -4,7 +4,7 @@ import { HomepageComponent } from './component/homepage/homepage.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SearchComponent } from './component/search/search.component';
-import { UserlistsComponent } from './userlists/userlists.component';
+import { UserlistsComponent } from './component/userlists/userlists.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'homepage', pathMatch:'full'},

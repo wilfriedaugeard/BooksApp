@@ -2,14 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 
-var user = new Schema({
+const user = new Schema({
     email: { type: String, require: true, unique: true },
     username: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     creationDate: { type: Date, require: true },
-    Readbooks: [{ type: Schema.Types.ObjectId}],
-    favBooks: [{ type: Schema.Types.ObjectId}],
-    toReadBooks: [{ type: Schema.Types.ObjectId}],
+    readList: { type: Schema.Types.ObjectId, ref: 'Listshelf' },
+    favList: { type: Schema.Types.ObjectId, ref: 'Listshelf' },
+    toReadList: { type: Schema.Types.ObjectId, ref: 'Listshelf' },
 
 });
 

@@ -1,4 +1,5 @@
 var User = require('../models/user_model');
+var Listshelf = require('../models/list_model');
 var passport = require('passport');
 
 async function registerToDB(req, res, next) {
@@ -6,7 +7,10 @@ async function registerToDB(req, res, next) {
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword(req.body.password),
-        creationDate: Date.now()
+        creationDate: Date.now(),
+        readList: new Listshelf(),
+        favList: new Listshelf(),
+        toReadList: new Listshelf(),
     });
     try {
         doc = await user.save();
@@ -17,7 +21,7 @@ async function registerToDB(req, res, next) {
     }
 }
 
-function logInUser(req, res, next){
+function logInUser(req, res, next) {
     passport.authenticate('auth', function (err, user, info) {
         if (err) { return res.status(400).json(err); }
         if (!user) { return res.status(409).json(info); }
@@ -28,15 +32,15 @@ function logInUser(req, res, next){
     })(req, res, next);
 }
 
-function logOutUser(req, res, next){
+function logOutUser(req, res, next) {
     req.logout();
-    return res.status(200).json({message: "Déconnecté"});
+    return res.status(200).json({ message: "Déconnecté" });
 }
 
 function isConnectedUser(req, res, next) {
     if (req.isAuthenticated())
         next();
-    else return res.status(401).json({ message: 'Non connecté' });
+    else return res.status(401).json({ authenticated: false });
 }
 
-module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser}
+module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser }

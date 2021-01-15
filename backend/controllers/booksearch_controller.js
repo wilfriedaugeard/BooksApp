@@ -1,4 +1,4 @@
-var {books, auth} = require('googleapis/build/src/apis/books');
+var { books, auth } = require('googleapis/build/src/apis/books');
 noImage = '/assets/not-available.png';
 
 const booksCall = books({
@@ -17,12 +17,10 @@ const search = async (req, res) => {
 };
 
 const find = async (query) => {
-    //console.log('query :', query);
     const name = (query.name === undefined) ? '' : 'intitle:' + query.name;
     const inauthor = (query.inauthor === undefined) ? '' : 'inauthor:' + query.inauthor;
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
-    //console.log(searchQ);
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
@@ -53,8 +51,14 @@ const book = (data) => {
             publisher: data.volumeInfo.publisher,
             industryIdentifiers: data.volumeInfo.industryIdentifiers,
         },
-        saleInfo: data.saleInfo
-    };
+        saleInfo: {
+            listPrice: {
+                amount: data.saleInfo.listPrice.amount,
+                currencyCode: data.saleInfo.listPrice.currencyCode
+            }
+        }
+    }
 };
 
-module.exports={search};
+
+module.exports = { search };
