@@ -4,8 +4,8 @@ var passport = require('passport');
 
 async function registerToDB(req, res, next) {
     _readList = new Listshelf(),
-    _favList = new Listshelf(),
-    _toReadList = new Listshelf()
+        _favList = new Listshelf(),
+        _toReadList = new Listshelf()
     var user = new User({
         email: req.body.email,
         username: req.body.username,
@@ -49,4 +49,15 @@ function isConnectedUser(req, res, next) {
     else return res.status(401).json({ authenticated: false });
 }
 
-module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser }
+function getUserInfo(req, res, next) {
+    User.findById((req.user._id), function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        if (!obj) { return res.status(404).json({ message: "utilisateur non trouvé" }) }
+        console.log(obj);
+        return res.status(200).json(obj);
+    })
+}
+
+
+
+module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser, getUserInfo}
