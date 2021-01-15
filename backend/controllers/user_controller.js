@@ -1,4 +1,5 @@
 var User = require('../models/user_model');
+var Listshelf = require('../models/list_model');
 var passport = require('passport');
 
 async function registerToDB(req, res, next) {
@@ -6,7 +7,10 @@ async function registerToDB(req, res, next) {
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword(req.body.password),
-        creationDate: Date.now()
+        creationDate: Date.now(),
+        readList: new Listshelf(),
+        favList: new Listshelf(),
+        toReadList: new Listshelf(),
     });
     try {
         doc = await user.save();

@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
                 data => {
                     console.log(data);
                     console.log('USER CREE');
+                    this._router.navigate(['/login']);
                 },
                 error => {
                     console.log(error);

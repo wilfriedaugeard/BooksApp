@@ -17,10 +17,12 @@ const book = new Schema({
         pageCount: { type: Number },
         publishedDate: { type: String },
         publisher: { type: String },
-        industryIdentifiers: [{
-            type: { type: String },
-            identifier: { type: String }
-        }],
+        industryIdentifiers: {
+            type: [{
+                type: { type: String },
+                identifier: { type: String }
+            }]
+        },
     },
     saleInfo: {
         listPrice: {
@@ -29,3 +31,4 @@ const book = new Schema({
         }
     }
 })
+module.exports = mongoose.model('savedBook', book);
