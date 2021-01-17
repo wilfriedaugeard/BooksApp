@@ -3,16 +3,22 @@ var Listshelf = require('../models/list_model');
 var passport = require('passport');
 
 async function registerToDB(req, res, next) {
+    _readList = new Listshelf(),
+        _favList = new Listshelf(),
+        _toReadList = new Listshelf()
     var user = new User({
         email: req.body.email,
         username: req.body.username,
         password: User.hashPassword(req.body.password),
         creationDate: Date.now(),
-        readList: new Listshelf(),
-        favList: new Listshelf(),
-        toReadList: new Listshelf(),
+        readList: _readList,
+        favList: _favList,
+        toReadList: _toReadList,
     });
     try {
+        await _readList.save();
+        await _favList.save();
+        await _toReadList.save();
         doc = await user.save();
         return res.status(200).json(doc);
     }
@@ -43,4 +49,15 @@ function isConnectedUser(req, res, next) {
     else return res.status(401).json({ authenticated: false });
 }
 
-module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser }
+function getUserInfo(req, res, next) {
+    User.findById((req.user._id), function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        if (!obj) { return res.status(404).json({ message: "utilisateur non trouvé" }) }
+        console.log(obj);
+        return res.status(200).json(obj);
+    })
+}
+
+
+
+module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser, getUserInfo}

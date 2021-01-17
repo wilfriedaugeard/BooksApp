@@ -8,17 +8,17 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 require('dotenv').config();
-
 var usersRouter = require('./routes/users');
 var booksRouter = require('./routes/books');
+
 var app = express();
 
 app.use(cors({
     origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
     credentials: true
 }));
-const database = 'mongodb://localhost/bookapp';
-//const database = 'mongodb+srv://bookapp:bookapp@bookapps.vng4w.mongodb.net/bookapps?retryWrites=true&w=majority'
+const database = process.env.LOCAL_DB;
+// const database = process.env.REMOTE_DB;
 mongoose.connect(database);
 
 const MongoStore = require('connect-mongo')(session);
