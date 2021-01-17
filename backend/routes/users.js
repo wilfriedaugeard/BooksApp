@@ -25,6 +25,12 @@ router.get('/favList', userControler.isConnectedUser, listControler.getFavList);
 
 router.get('/toReadList', userControler.isConnectedUser, listControler.getToReadList);
 
+router.put('/favList/put', userControler.isConnectedUser, function(req, res, next){
+    console.log(req);
+    console.log(res);
+    return res.status(200);
+})
+
 
 
 module.exports = router;
