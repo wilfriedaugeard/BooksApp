@@ -27,8 +27,10 @@ const find = async (query) => {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
+        // console.log(result.data.items);
     } catch (error) {
-        result.errors = error.errors;
+        result.errors = error;
+        console.log(result.errors);
     }
     return result;
 };
@@ -52,14 +54,10 @@ const book = (data) => {
             publisher: data.volumeInfo.publisher,
             industryIdentifiers: data.volumeInfo.industryIdentifiers,
         },
-        saleInfo: {
-            listPrice: {
-                amount: data.saleInfo.listPrice.amount,
-                currencyCode: data.saleInfo.listPrice.currencyCode
-            }
-        }
+        saleInfo: data.saleInfo,
     }
 };
+
 
 
 module.exports = { search };
