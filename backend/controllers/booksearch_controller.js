@@ -1,10 +1,14 @@
 var { books, auth } = require('googleapis/build/src/apis/books');
+var Listshelf = require('../models/list_model');
+
 noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
     auth: 'AIzaSyCWCA8yWV-_XHrYwnOgrOxQ02BCue7qU3E'
 });
+
+const recommendationURL = "https://tastedive.com/api/similar";
 
 const search = async (req, res) => {
     console.log('request :', req.query);
@@ -26,6 +30,21 @@ const find = async (query) => {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
+        result.data.items.forEach(book =>
+            const requestReco = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3';
+            fetch(requestReco)
+            .then(data => {return data.json()})
+            .then (res => {
+                    res.items.forEach(author =>{
+                        const recoResult await booksCall.volumes.list({q : author, maxResults: 1});
+                        const reco = {data: {item:[], totalItems:0}, errors: null};
+                        reco.data = recoResult.data;
+                        reco.data.item = reco.data.item.map(books)
+                        book.recommendationList.push(reco);
+                    });
+            });
+
+        );
     } catch (error) {
         result.errors = error.errors;
     }
@@ -33,10 +52,13 @@ const find = async (query) => {
 };
 
 
+
+
 const book = (data) => {
     const images = data.volumeInfo.imageLinks;
 
     const imageLink = images ? images.extraLarge || images.large || images.medium || images.thumbnail : noImage;
+
     return {
         id: data.id,
         volumeInfo: {
@@ -57,6 +79,7 @@ const book = (data) => {
                 currencyCode: data.saleInfo.listPrice.currencyCode
             }
         }
+        recommendationList : new Listshelf();
     }
 };
 
