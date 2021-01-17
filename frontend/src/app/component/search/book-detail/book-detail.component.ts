@@ -29,6 +29,7 @@ export class BookDetailComponent implements OnInit {
 
   setChosenBook(book: any){
     this.currentBook = book;
+    console.log(book);
   }
 
   setIsAuth(value: boolean){
