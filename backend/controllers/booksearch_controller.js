@@ -3,7 +3,7 @@ noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
-    auth: 'AIzaSyCWCA8yWV-_XHrYwnOgrOxQ02BCue7qU3E'
+    auth: auth.fromAPIKey(process.env.BOOK_API_KEY),
 });
 
 const search = async (req, res) => {
@@ -22,6 +22,7 @@ const find = async (query) => {
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
+    console.log(query);
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
