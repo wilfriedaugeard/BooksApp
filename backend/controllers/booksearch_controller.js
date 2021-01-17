@@ -11,12 +11,12 @@ const booksCall = books({
 const recommendationURL = "https://tastedive.com/api/similar";
 
 const search = async (req, res) => {
-    console.log('request :', req.query);
+    //console.log('request :', req.query);
     const result = await find(req.query);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
-    console.log(result.data);
+    //console.log(result.data);
     return res.status(200).json(result.data);
 };
 
@@ -30,21 +30,22 @@ const find = async (query) => {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
-        result.data.items.forEach(book =>
-            const requestReco = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3';
-            fetch(requestReco)
+        console.log("avant");
+        /*result.data.items.forEach(function(element,index){
+
+            const requestReco = recommendationURL + '?q=author:'+ this[index].volumeInfo.authors[0]+'&limit=3';
+            console.log('reco' + requestReco);
+           /* fetch(requestReco)
             .then(data => {return data.json()})
             .then (res => {
                     res.items.forEach(author =>{
-                        const recoResult await booksCall.volumes.list({q : author, maxResults: 1});
-                        const reco = {data: {item:[], totalItems:0}, errors: null};
-                        reco.data = recoResult.data;
-                        reco.data.item = reco.data.item.map(books)
-                        book.recommendationList.push(reco);
+                        book.recommendationList.push(recommandation(author));
+                        System.out.println(book.recommendationList);
                     });
-            });
+               });
+         });*/
+         console.log("apres");
 
-        );
     } catch (error) {
         result.errors = error.errors;
     }
@@ -52,6 +53,20 @@ const find = async (query) => {
 };
 
 
+const recommendation = async (author) => {
+        const reco = {data: {item:[], totalItems:0}, errors: null};
+        try{
+             const recoResult = await booksCall.volumes.list({q : 'inauthor:'+ author.name, maxResults: 1});
+             reco.data = recoResult.data;
+             reco.data.item = reco.data.item.map(books)
+             book.recommendationList.push(reco);
+        }catch(error){
+            reco.errors = errors.errors;
+        }
+        console.log('reco ' +reco.data);
+        return reco;
+
+};
 
 
 const book = (data) => {
@@ -71,15 +86,15 @@ const book = (data) => {
             pageCount: data.volumeInfo.pageCount,
             publishedDate: data.volumeInfo.publishedDate,
             publisher: data.volumeInfo.publisher,
-            industryIdentifiers: data.volumeInfo.industryIdentifiers,
+            industryIdentifiers: data.volumeInfo.industryIdentifiers
         },
         saleInfo: {
             listPrice: {
                 amount: data.saleInfo.listPrice.amount,
                 currencyCode: data.saleInfo.listPrice.currencyCode
             }
-        }
-        recommendationList : new Listshelf();
+        },
+        recommendationList : new Listshelf()
     }
 };
 
