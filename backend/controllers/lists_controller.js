@@ -39,14 +39,17 @@ function getToReadList(req, res, next) {
 }
 
 function putToFavList(req, res, next) {
-    var bookToSave;
-    console.log(req.body);
-    console.log(req.body.id);
+    var bookToSave = findOrSaveBook(req);
+    next();
+}
+
+function findOrSaveBook(req){
+    var whichBook;
     Book.findOne({ id: req.body.id }).exec(function (err, obj) {
         if (err) { return res.status(400).json(err) }
         if (obj) {
-            bookToSave = obj;
-            console.log("oui oui" + bookToSave);
+            whichBook = obj;
+            // console.log("oui oui" + bookToSave);
         }
         else {
             var mybook = new Book({
@@ -67,46 +70,18 @@ function putToFavList(req, res, next) {
                     listPrice: req.body.saleInfo.listPrice ? req.body.saleInfo.listPrice : { amount: -1, currencyCode: 'unknown' },
                 },
             })
-            console.log("oui" + mybook);
+            // console.log("oui" + mybook);
             try {
                 mybook.save();
+                whichBook = mybook;
             }
             catch (err) {
                 console.log(err);
             }
         }
-        next();
+        console.log(whichBook);
+        return whichBook;
     })
 }
-// else{
-//     bookToSave = new Book({
-//         id: req.body.id,
-//         volumeInfo:{
-//             authors:req.body.authors,
-//             categories:req.body.categories,
-//             subtitle:req.body.subtitle,
-//             thumbnail: req.body.thumbnail,
-//             title: req.body.title,
-//             description: req.body.description,
-//             pageCount: req.body.pageCount,
-//             publishedDate: req.body.publishedDate,
-//             publisher: req.body.publisher,
-//             industryIdentifiers: req.body.industryIdentifiers,
-//         },
-//         saleInfo:{
-//             listPrice:{
-//                 ammount: req.body.saleInfo.listPrice.ammount,
-//                 currencyCode: req.body.saleInfo.listPrice.ammount,
-//             },
-//         },
-//     })
-//     console.log("oui" + bookToSave);
-//     next();
-// }
-// }
-
-// function putFavList(req, res, next){
-//     Book.
-// }
 
 module.exports = { getFavList, getReadList, getToReadList, putToFavList }
