@@ -25,9 +25,9 @@ router.get('/favList', userControler.isConnectedUser, listControler.getFavList);
 
 router.get('/toReadList', userControler.isConnectedUser, listControler.getToReadList);
 
-router.put('/favList/put',userControler.isConnectedUser ,function (req, res, next) {
-    console.log(req.body);
-    // console.log
+router.put('/favList/put',userControler.isConnectedUser, listControler.putToFavList ,function (req, res, next) {
+    // console.log(req.body);
+    // console.log(req.user);
     return res.status(200).json({ok : "ok"});
 });
 
