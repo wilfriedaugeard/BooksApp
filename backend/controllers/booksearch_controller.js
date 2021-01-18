@@ -25,7 +25,7 @@ const find = async (query) => {
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
-    console.log(query);
+    // console.log(query);
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
@@ -36,7 +36,7 @@ const find = async (query) => {
         // console.log(result.data.items);
     } catch (error) {
         result.errors = error;
-        console.log(result.errors);
+        // console.log(result.errors);
     }
     return result;
 };

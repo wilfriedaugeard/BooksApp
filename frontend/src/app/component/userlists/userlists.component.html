@@ -24,15 +24,45 @@
     <div class="wrapper">
         <div class="favBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-star"></i> Favoris</h3>
-            <button type="submit" class="btn btn-lg btn-block login-button" (click)="favList()"><span class="light">getFav</span></button>
+            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="favList()"><span class="light">getFav</span></button> -->
+            <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
+                <div class="p-2 mb-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <p class="card-title">{{favsList[i].volumeInfo.title}}</p>
+                        </div>
+                        <img class="img-thumbnail card-img-bottom" src="{{favsList[i].volumeInfo.thumbnail}}">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="readedBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-book"></i> Livres lus</h3>
-            <button type="submit" class="btn btn-lg btn-block login-button" (click)="readList()"><span class="light">getLu</span></button>
+            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="readList()"><span class="light">getLu</span></button> -->
+            <div class="d-flex flex-column text-center" *ngFor="let book of readsList; let i = index">
+                <div class="p-2 mb-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <p class="card-title">{{readsList[i].volumeInfo.title}}</p>
+                        </div>
+                        <img class="img-thumbnail card-img-bottom" src="{{readsList[i].volumeInfo.thumbnail}}">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="toReadBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-book-reader"></i> Livres à lire</h3>
-            <button type="submit" class="btn btn-lg btn-block login-button" (click)="toReadList()"><span class="light">getALire</span></button>
+            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="toReadList()"><span class="light">getALire</span></button> -->
+            <div class="d-flex flex-column text-center" *ngFor="let book of toReadsList; let i = index">
+                <div class="p-2 mb-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <p class="card-title">{{toReadsList[i].volumeInfo.title}}</p>
+                        </div>
+                        <img class="img-thumbnail card-img-bottom" src="{{toReadsList[i].volumeInfo.thumbnail}}">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
