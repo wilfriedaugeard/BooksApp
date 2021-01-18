@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 var { books, auth } = require('googleapis/build/src/apis/books');
 var Listshelf = require('../models/list_model');
-let authorsList = null;
 
 noImage = '/assets/not-available.png';
 
@@ -14,10 +13,14 @@ const recommendationURL = "https://tastedive.com/api/similar";
 
 const search = async (req, res) => {
     //console.log('request :', req.query);
-    const result = await find(req.query);
+    let result = await find(req.query);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
+    result = await findBookReco(result);
+    if (result.errors) {
+            return res.status(400).json({ errors: result.errors });
+        }
     //console.log(result.data);
     return res.status(200).json(result.data);
 };
@@ -33,7 +36,6 @@ const find = async (query) => {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
-        result.data.items = result.data.items.map(addRecommendation);
     } catch (error) {
         result.errors = error;
         console.log("querry"+result.errors);
@@ -41,41 +43,39 @@ const find = async (query) => {
     return result;
 };
 
-const addRecommendation = (element) => {
-            try{
-            getA(element);
-            console.log('apres getA'+authorsList);
-            if (authorsList.length > 0 ) element = getR(element);
-            }catch(error){
-            // AJOUT APPEL FONCTION RECHERCHE PAR CAT
-                console.log("PAS DE REC" + error.errors);
+
+const findBookReco = (result) => {
+    try{
+        result.data.items.forEach(book => {
+            if(book.volumeInfo.authors){
+                const requestReco = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
+                authorQuery(requestReco)
+                    .then(authors =>{
+                        if(authors.Similar.Results) {
+                            authors.Similar.Results.forEach(author =>{
+                                recommendationByAuthor(author)
+                                    .then(bookReco =>{
+                                        if(bookReco.data){
+                                            const rand =  Math.floor(Math.random() * Math.floor(bookReco.data.items.length));
+                                            book.recommendationList.books.push(bookReco.data.items[rand]);
+                                        }
+                                    });
+                            });
+                        }
+                    });
             }
-            return element;
+        });
+    }catch(error){}
+    return result;
 };
 
-
-function getA (element){
-    const requestReco = recommendationURL + '?q=author:'+ element.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
-    fetch(requestReco)
-        .then(data => data.json())
-        .then (res => authorsList = res)
+const authorQuery = async (query) => {
+    return await fetch(query)
+        .then((data) => data.json())
+        .then ((res) => {return res;})
         .catch(error => console.error());
-}
+};
 
-
-function getR(element) {
-    authorsList.forEach(author =>{
-        const bookR =  recommendationByAuthor(author);
-        const rand =  Math.floor(Math.random() * Math.floor(5));
-        console.log(bookR.data);
-        if(! bookR.errors && bookR.data) {
-            console.log(bookR.data.items[rand]);
-            element.recommendationList.books.push(bookR.data.items[rand]);
-        }
-    });
-
-    return element;
-}
 
 const recommendationByAuthor = async (author) => {
         const result = { data: { items: [], totalItems: 0 }, errors: null };
@@ -87,7 +87,6 @@ const recommendationByAuthor = async (author) => {
         }catch(error){
             result.errors = error.errors;
         }
-        console.log("AVANT : "+ result.data);
         return result;
 };
 
@@ -114,8 +113,5 @@ const book = (data) => {
         recommendationList : new Listshelf(),
     }
 };
-
-
-
 
 module.exports = { search };
