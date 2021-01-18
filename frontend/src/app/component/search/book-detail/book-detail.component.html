@@ -1,4 +1,4 @@
-<div class="grid-container" *ngIf="found && length > 0 else waiting">
+<div [ngClass]="{'grid-container' : isAuth, 'grid-container-not-logged': !isAuth}" *ngIf="found && length > 0 else waiting">
     <div class="book-image-area text-center">
         <img class="img-thumbnail img-content" src="{{currentBook.thumbnail}}">
     </div>
