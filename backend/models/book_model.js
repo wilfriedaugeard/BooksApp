@@ -31,4 +31,4 @@ const book = new Schema({
         }
     }
 })
-module.exports = mongoose.model('savedBook', book);
+module.exports = mongoose.model('Book', book);

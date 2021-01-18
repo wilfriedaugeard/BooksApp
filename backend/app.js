@@ -19,9 +19,10 @@ app.use(cors({
 }));
 // const database = process.env.LOCAL_DB;
 const database = process.env.REMOTE_DB;
-mongoose.connect(database);
+mongoose.connect(database, { useFindAndModify: false });
 
 const MongoStore = require('connect-mongo')(session);
+
 app.use(session({
     name: 'login.sid',
     resave: false,
