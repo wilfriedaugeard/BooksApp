@@ -54,6 +54,7 @@ export class SearchComponent implements OnInit {
                 this.books = [];
                 this.waiting = false;
                 this.found = false;
+                console.log(err.error);
             });
     }
 
