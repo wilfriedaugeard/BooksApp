@@ -8,9 +8,10 @@ const { exists } = require('../models/user_model');
 //TODO : voir facto code (repetitif)
 function getFavList(req, res, next) {
     Listshelf.findById(req.user.favList).populate('books').exec(function (err, story) {
-        if (err) { 
+        if (err) {
             console.log(err);
-            return res.status(400).json(err) }
+            return res.status(400).json(err)
+        }
         console.log(story);
         return res.status(200).json(story);
     })
@@ -18,9 +19,10 @@ function getFavList(req, res, next) {
 
 function getReadList(req, res, next) {
     Listshelf.findById(req.user.readList).populate('books').exec(function (err, story) {
-        if (err) { 
+        if (err) {
             console.log(err);
-            return res.status(400).json(err) }
+            return res.status(400).json(err)
+        }
         console.log(story);
         return res.status(200).json(story);
     })
@@ -28,17 +30,18 @@ function getReadList(req, res, next) {
 
 function getToReadList(req, res, next) {
     Listshelf.findById(req.user.toReadList).populate('books').exec(function (err, story) {
-        if (err) { 
+        if (err) {
             console.log(err);
-            return res.status(400).json(err) }
+            return res.status(400).json(err)
+        }
         console.log(story);
         return res.status(200).json(story);
     })
 }
 
 async function putToFavList(req, res, next) {
-    await findOrSaveBook(req, async function(err, obj){
-        if(err) {return res.status(400).json(err)}
+    await findOrSaveBook(req, async function (err, obj) {
+        if (err) { return res.status(400).json(err) }
         await Listshelf.findByIdAndUpdate(req.user.favList._id, { $addToSet: { books: obj } });
     });
     next();
@@ -46,7 +49,7 @@ async function putToFavList(req, res, next) {
 
 async function findOrSaveBook(req, callback) {
     await Book.findOne({ id: req.body.id }, async function (err, obj) {
-        if (err) { return callback(err,null); }
+        if (err) { return callback(err, null); }
         if (obj) { return callback(null, obj); }
         else {
             const mybook = new Book({

@@ -46,7 +46,7 @@ export class BookDetailComponent implements OnInit {
 
 
     addToFav() {
-          console.log(JSON.stringify(this.bookToSend));
+        console.log(JSON.stringify(this.bookToSend));
         this._listsService.addToFav(JSON.stringify(this.bookToSend))
             .subscribe(
                 data => {
