@@ -13,7 +13,7 @@ const recommendationURL = "https://tastedive.com/api/similar";
 
 const search = async (req, res) => {
     // console.log('request :', req.query);
-    const result = await find(req.query);
+    let result = await find(req.query);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
@@ -61,7 +61,7 @@ const findBookReco = (result) => {
                                     .then(bookReco =>{
                                         if(bookReco.data){
                                             const rand =  Math.floor(Math.random() * Math.floor(bookReco.data.items.length));
-                                            book.recommendationList.books.push(bookReco.data.items[rand]);
+                                            putToRecoList(book.recommendationList._id, bookReco.data.items[rand]);
                                         }
                                     });
                             });
@@ -94,11 +94,21 @@ const recommendationByAuthor = async (author) => {
         return result;
 };
 
+async function putToRecoList(id, obj) {
+    try{
+        await Listshelf.findByIdAndUpdate(id, { $addToSet: { books: obj } });
+    }catch(error){
+    console.log(error.errors);
+    }
+}
 
-const book = (data) => {
+const book = async (data) => {
     const images = data.volumeInfo.imageLinks;
-
     const imageLink = images ? images.extraLarge || images.large || images.medium || images.thumbnail : noImage;
+    const recoList = new Listshelf();
+        try{
+    await recoList.save();
+    }catch(error){}
     return {
         id: data.id,
         volumeInfo: {
@@ -114,7 +124,7 @@ const book = (data) => {
             industryIdentifiers: data.volumeInfo.industryIdentifiers,
         },
         saleInfo: data.saleInfo,
-        recommendationList : new Listshelf(),
+        recommendationList : recoList,
     }
 };
 
