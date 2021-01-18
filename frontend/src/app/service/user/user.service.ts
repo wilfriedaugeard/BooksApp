@@ -17,6 +17,8 @@ export class UserService {
         })
     }
 
+
+    //TODO : BOUGER DANS LISTSERVICE
     favList() {
         return this._http.get('http://127.0.0.1:3000/users/favList',{
             observe: 'body',

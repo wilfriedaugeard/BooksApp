@@ -44,6 +44,7 @@ function logOutUser(req, res, next) {
 }
 
 function isConnectedUser(req, res, next) {
+    console.log(req.isAuthenticated());
     if (req.isAuthenticated())
         next();
     else return res.status(401).json({ authenticated: false });
