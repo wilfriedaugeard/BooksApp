@@ -39,21 +39,25 @@ function getToReadList(req, res, next) {
 }
 
 async function putToFavList(req, res, next) {
-    var bookToSave = await findOrSaveBook(req);
-    
+    await findOrSaveBook(req, async function(err, obj){
+
+        // await new Promise(r => setTimeout(r, 2000));
+        // await console.log(req.user.favList);
+        // await console.log("ojb" + obj);
+        await Listshelf.findByIdAndUpdate(req.user.favList._id, { $addToSet: { books: obj } });
+    });
     next();
 }
 
-async function findOrSaveBook(req){
-    var whichBook;
-    await Book.findOne({ id: req.body.id }).exec(async function (err, obj) {
-        if (err) { return res.status(400).json(err) }
+async function findOrSaveBook(req, callback) {
+    await Book.findOne({ id: req.body.id }, async function (err, obj) {
+        if (err) { console.log(err) }
         if (obj) {
-            whichBook = obj;
-            // console.log("oui oui" + bookToSave);
+            // console.log("123 soleil" + obj);
+            return callback(null, obj);
         }
         else {
-            var mybook = new Book({
+            const mybook = new Book({
                 id: req.body.id,
                 volumeInfo: {
                     authors: req.body.volumeInfo.authors ? req.body.volumeInfo.authors : ['unknown'],
@@ -62,10 +66,10 @@ async function findOrSaveBook(req){
                     thumbnail: req.body.volumeInfo.thumbnail ? req.body.volumeInfo.thumbnail : 'unknown',
                     title: req.body.volumeInfo.title ? req.body.volumeInfo.title : 'No title',
                     description: req.body.volumeInfo.description ? req.body.volumeInfo.description : 'No description',
-                    pageCount: req.body.volumeInfo.pageCount ? req.body.volumeInfo.pageCount : 'Unknown',
+                    pageCount: req.body.volumeInfo.pageCount ? req.body.volumeInfo.pageCount : -1,
                     publishedDate: req.body.volumeInfo.publishedDate ? req.body.volumeInfo.publishedDate : 'Unknown',
                     publisher: req.body.volumeInfo.publisher ? req.body.volumeInfo.publisher : 'Unknown',
-                    industryIdentifiers: req.body.volumeInfo.industryIdentifiers ? req.body.volumeInfo.industryIdentifiers : [{type:'Unkown', identifier: 'Unknown'}],
+                    industryIdentifiers: req.body.volumeInfo.industryIdentifiers ? req.body.volumeInfo.industryIdentifiers : [{ type: 'Unkown', identifier: 'Unknown' }],
                 },
                 saleInfo: {
                     listPrice: req.body.saleInfo.listPrice ? req.body.saleInfo.listPrice : { amount: -1, currencyCode: 'unknown' },
@@ -74,15 +78,14 @@ async function findOrSaveBook(req){
             // console.log("oui" + mybook);
             try {
                 await mybook.save();
-                whichBook = mybook;
+                return callback(null, mybook);
             }
             catch (err) {
                 console.log(err);
             }
         }
-        console.log(whichBook);
-        return whichBook;
-    })
+    });
+    // console.log("ici");
 }
 
 module.exports = { getFavList, getReadList, getToReadList, putToFavList }
