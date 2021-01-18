@@ -16,6 +16,19 @@ $color-4: #FBFEFB;
       "more-info-area . .";
   }
 
+.grid-container-not-logged {
+    height: 100%;
+    margin: 2em;
+    display: grid;
+    grid-template-columns: 1.2fr 3fr;
+    grid-template-rows: 0.2fr 0.8fr 1fr;
+    gap: 10px 10px;
+    grid-template-areas:
+      "book-image-area book-title-area"
+      "book-image-area book-description-area"
+      "more-info-area .";
+  }
+
 .book-image-area { grid-area: book-image-area; }
 
 .book-title-area { grid-area: book-title-area; }
