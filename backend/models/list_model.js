@@ -5,6 +5,7 @@ const list = new Schema({
     books:[{
         type: Schema.Types.ObjectId,
         ref: 'Book',
+        
     }]
 })
 

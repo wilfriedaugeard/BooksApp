@@ -38,14 +38,15 @@ function getToReadList(req, res, next) {
     })
 }
 
-function putToFavList(req, res, next) {
-    var bookToSave = findOrSaveBook(req);
+async function putToFavList(req, res, next) {
+    var bookToSave = await findOrSaveBook(req);
+    
     next();
 }
 
-function findOrSaveBook(req){
+async function findOrSaveBook(req){
     var whichBook;
-    Book.findOne({ id: req.body.id }).exec(function (err, obj) {
+    await Book.findOne({ id: req.body.id }).exec(async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         if (obj) {
             whichBook = obj;
@@ -72,7 +73,7 @@ function findOrSaveBook(req){
             })
             // console.log("oui" + mybook);
             try {
-                mybook.save();
+                await mybook.save();
                 whichBook = mybook;
             }
             catch (err) {
