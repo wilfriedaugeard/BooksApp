@@ -32,12 +32,10 @@ export class BookDetailComponent implements OnInit {
 
     setChosenBook(book: any) {
         this.currentBook = book;
-        // console.log(book);
     }
 
     setBookToSend(book: any) {
         this.bookToSend = book;
-        // console.log(book);
     }
 
     setIsAuth(value: boolean) {
@@ -46,7 +44,6 @@ export class BookDetailComponent implements OnInit {
 
 
     addToFav() {
-        console.log(JSON.stringify(this.bookToSend));
         this._listsService.addToFav(JSON.stringify(this.bookToSend))
             .subscribe(
                 data => {
@@ -59,7 +56,30 @@ export class BookDetailComponent implements OnInit {
         return;
     }
 
-
+    addToRead() {
+        this._listsService.addToRead(JSON.stringify(this.bookToSend))
+            .subscribe(
+                data => {
+                    console.log(data);
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        return;
+    }
+    addToToRead() {
+        this._listsService.addToToRead(JSON.stringify(this.bookToSend))
+            .subscribe(
+                data => {
+                    console.log(data);
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        return;
+    }
 }
 
 

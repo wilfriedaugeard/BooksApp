@@ -47,6 +47,22 @@ async function putToFavList(req, res, next) {
     next();
 }
 
+async function putToReadList(req, res, next) {
+    await findOrSaveBook(req, async function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        await Listshelf.findByIdAndUpdate(req.user.readList._id, { $addToSet: { books: obj } });
+    });
+    next();
+}
+
+async function putToToReadList(req, res, next) {
+    await findOrSaveBook(req, async function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $addToSet: { books: obj } });
+    });
+    next();
+}
+
 async function findOrSaveBook(req, callback) {
     await Book.findOne({ id: req.body.id }, async function (err, obj) {
         if (err) { return callback(err, null); }
@@ -81,4 +97,4 @@ async function findOrSaveBook(req, callback) {
     });
 }
 
-module.exports = { getFavList, getReadList, getToReadList, putToFavList }
+module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList }

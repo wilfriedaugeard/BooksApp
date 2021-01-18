@@ -38,9 +38,9 @@
     <div class="action-list-area">
         <!-- <div class="action-list text-center"> -->
         <div class="action-list text-center" *ngIf="isAuth">
-            <button class="btn" title="Ajouter aux favoris"><i class="fa fa-star" (click)=addToFav()></i></button>
-            <button class="btn" title="Ajouter aux livres lus"><i class="fa fa-book"></i></button>
-            <button class="btn" title="Ajouter aux livres à lire"><i class="fa fa-book-reader"></i></button>
+            <button class="btn" title="Ajouter aux favoris" (click)=addToFav()><i class="fa fa-star"></i></button>
+            <button class="btn" title="Ajouter aux livres lus" (click)=addToRead()><i class="fa fa-book" ></i></button>
+            <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead() ><i class="fa fa-book-reader"></i></button>
         </div>
     </div>
 </div>
