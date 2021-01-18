@@ -5,7 +5,7 @@ noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
-    auth: 'AIzaSyCWCA8yWV-_XHrYwnOgrOxQ02BCue7qU3E'
+    auth: auth.fromAPIKey(process.env.BOOK_API_KEY),
 });
 
 const recommendationURL = "https://tastedive.com/api/similar";
@@ -26,10 +26,12 @@ const find = async (query) => {
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
+    console.log(query);
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
         result.data.items = result.data.items.map(book);
+<<<<<<< HEAD
         console.log("avant");
         /*result.data.items.forEach(function(element,index){
 
@@ -46,8 +48,12 @@ const find = async (query) => {
          });*/
          console.log("apres");
 
+=======
+        // console.log(result.data.items);
+>>>>>>> 92e77e01e69aa0265990b1d133115697532e8400
     } catch (error) {
-        result.errors = error.errors;
+        result.errors = error;
+        console.log(result.errors);
     }
     return result;
 };
@@ -88,6 +94,7 @@ const book = (data) => {
             publisher: data.volumeInfo.publisher,
             industryIdentifiers: data.volumeInfo.industryIdentifiers
         },
+<<<<<<< HEAD
         saleInfo: {
             listPrice: {
                 amount: data.saleInfo.listPrice.amount,
@@ -95,8 +102,12 @@ const book = (data) => {
             }
         },
         recommendationList : new Listshelf()
+=======
+        saleInfo: data.saleInfo,
+>>>>>>> 92e77e01e69aa0265990b1d133115697532e8400
     }
 };
+
 
 
 module.exports = { search };

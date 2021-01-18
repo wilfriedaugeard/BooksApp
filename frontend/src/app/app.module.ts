@@ -17,6 +17,7 @@ import { SearchService } from './service/search/search.service';
 import { BookDetailComponent } from './component/search/book-detail/book-detail.component';
 import { AuthService } from './service/auth/auth.service';
 import { AuthGuard } from './service/auth/auth.guard';
+import { ListsService } from './service/lists/lists.service';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,7 @@ import { AuthGuard } from './service/auth/auth.guard';
         ReactiveFormsModule,
         HttpClientModule
     ],
-    providers: [UserService, SearchService, AuthService, AuthGuard],
+    providers: [UserService, SearchService, AuthService, AuthGuard, ListsService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
