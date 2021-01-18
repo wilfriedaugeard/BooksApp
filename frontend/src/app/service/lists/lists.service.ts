@@ -11,7 +11,6 @@ export class ListsService {
     constructor(private _http: HttpClient) { }
 
     addToFav(body: any) {
-        // console.log(body);
         return this._http.put('http://127.0.0.1:3000/users/favList/put', body, {
             observe: 'body',
             withCredentials: true,
@@ -19,6 +18,21 @@ export class ListsService {
         });
     }
 
+    addToRead(body: any) {
+        return this._http.put('http://127.0.0.1:3000/users/readList/put', body, {
+            observe: 'body',
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
+
+    addToToRead(body: any) {
+        return this._http.put('http://127.0.0.1:3000/users/toReadList/put', body, {
+            observe: 'body',
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
 
     setBookToSend(book: any) {
         this.bookToSend = book;

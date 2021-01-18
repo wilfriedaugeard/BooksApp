@@ -9,10 +9,10 @@ const { exists } = require('../models/user_model');
 function getFavList(req, res, next) {
     Listshelf.findById(req.user.favList).populate('books').exec(function (err, story) {
         if (err) {
-            console.log(err);
+            // console.log(err);
             return res.status(400).json(err)
         }
-        console.log(story);
+        // console.log(story);
         return res.status(200).json(story);
     })
 }
@@ -20,10 +20,10 @@ function getFavList(req, res, next) {
 function getReadList(req, res, next) {
     Listshelf.findById(req.user.readList).populate('books').exec(function (err, story) {
         if (err) {
-            console.log(err);
+            // console.log(err);
             return res.status(400).json(err)
         }
-        console.log(story);
+        // console.log(story);
         return res.status(200).json(story);
     })
 }
@@ -31,10 +31,10 @@ function getReadList(req, res, next) {
 function getToReadList(req, res, next) {
     Listshelf.findById(req.user.toReadList).populate('books').exec(function (err, story) {
         if (err) {
-            console.log(err);
+            // console.log(err);
             return res.status(400).json(err)
         }
-        console.log(story);
+        // console.log(story);
         return res.status(200).json(story);
     })
 }
@@ -43,6 +43,22 @@ async function putToFavList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         await Listshelf.findByIdAndUpdate(req.user.favList._id, { $addToSet: { books: obj } });
+    });
+    next();
+}
+
+async function putToReadList(req, res, next) {
+    await findOrSaveBook(req, async function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        await Listshelf.findByIdAndUpdate(req.user.readList._id, { $addToSet: { books: obj } });
+    });
+    next();
+}
+
+async function putToToReadList(req, res, next) {
+    await findOrSaveBook(req, async function (err, obj) {
+        if (err) { return res.status(400).json(err) }
+        await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $addToSet: { books: obj } });
     });
     next();
 }
@@ -75,10 +91,10 @@ async function findOrSaveBook(req, callback) {
                 return callback(null, mybook);
             }
             catch (err) {
-                console.log(err);
+                // console.log(err);
             }
         }
     });
 }
 
-module.exports = { getFavList, getReadList, getToReadList, putToFavList }
+module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList }

@@ -32,7 +32,7 @@ const find = async (query) => {
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
-    console.log(query);
+    // console.log(query);
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
@@ -42,7 +42,11 @@ const find = async (query) => {
         result.data.items = result.data.items.map(book);
     } catch (error) {
         result.errors = error;
+<<<<<<< HEAD
         console.log("querry"+result.errors);
+=======
+        // console.log(result.errors);
+>>>>>>> 82a69ddf846d7eba19479ab07f8f36a82b77d1ac
     }
     return result;
 };
