@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 var { books, auth } = require('googleapis/build/src/apis/books');
 var Listshelf = require('../models/list_model');
+let authorsList = null;
 
 noImage = '/assets/not-available.png';
 
@@ -42,33 +43,52 @@ const find = async (query) => {
 
 const addRecommendation = (element) => {
             try{
-                const requestReco = recommendationURL + '?q=author:'+ element.volumeInfo.authors[0]+'&limit=3';
-                fetch(requestReco)
-                .then(data => {return data.json()})
-                .then (res => {
-                    if(res.Similar){
-                        res.Similar.Results.forEach(author =>{
-                            const bookR =  recommendationByAuthor(author);
-                            if(bookR.item) element.recommendationList.books.push(bookR.item[0]);
-                        });
-                    }
-                });
+            getA(element);
+            console.log('apres getA'+authorsList);
+            if (authorsList.length > 0 ) element = getR(element);
             }catch(error){
-                console.log("author"+ error.errors);
+            // AJOUT APPEL FONCTION RECHERCHE PAR CAT
+                console.log("PAS DE REC" + error.errors);
             }
             return element;
 };
 
-const recommendationByAuthor = async (author) => {
-        const reco = {data: {item:[], totalItems:0}, errors: null};
-        try{
-             const recoResult = await booksCall.volumes.list({q : 'inauthor:'+ author.Name, maxResults: 5});
-             reco.data = recoResult.data;
-             reco.data.item = reco.data.item.map(book);
-        }catch(error){
-            reco.errors = error.errors;
+
+function getA (element){
+    const requestReco = recommendationURL + '?q=author:'+ element.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
+    fetch(requestReco)
+        .then(data => data.json())
+        .then (res => authorsList = res)
+        .catch(error => console.error());
+}
+
+
+function getR(element) {
+    authorsList.forEach(author =>{
+        const bookR =  recommendationByAuthor(author);
+        const rand =  Math.floor(Math.random() * Math.floor(5));
+        console.log(bookR.data);
+        if(! bookR.errors && bookR.data) {
+            console.log(bookR.data.items[rand]);
+            element.recommendationList.books.push(bookR.data.items[rand]);
         }
-        return reco;
+    });
+
+    return element;
+}
+
+const recommendationByAuthor = async (author) => {
+        const result = { data: { items: [], totalItems: 0 }, errors: null };
+        try{
+             const searchQ = 'inauthor:'+author.Name;
+             const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 5 });
+             result.data = requestResult.data;
+             result.data.items = result.data.items.map(book);
+        }catch(error){
+            result.errors = error.errors;
+        }
+        console.log("AVANT : "+ result.data);
+        return result;
 };
 
 
