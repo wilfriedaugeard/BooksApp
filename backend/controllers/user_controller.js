@@ -3,9 +3,9 @@ var Listshelf = require('../models/list_model');
 var passport = require('passport');
 
 async function registerToDB(req, res, next) {
-    _readList = new Listshelf(),
-        _favList = new Listshelf(),
-        _toReadList = new Listshelf()
+    var _readList = new Listshelf();
+    var _favList = new Listshelf();
+    var _toReadList = new Listshelf();
     var user = new User({
         email: req.body.email,
         username: req.body.username,
@@ -44,6 +44,7 @@ function logOutUser(req, res, next) {
 }
 
 function isConnectedUser(req, res, next) {
+    console.log(req.isAuthenticated());
     if (req.isAuthenticated())
         next();
     else return res.status(401).json({ authenticated: false });
@@ -60,4 +61,4 @@ function getUserInfo(req, res, next) {
 
 
 
-module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser, getUserInfo}
+module.exports = { isConnectedUser, registerToDB, logInUser, logOutUser, getUserInfo }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ListsService } from 'src/app/service/lists/lists.service';
 import { SearchService } from '../../service/search/search.service'
 @Component({
     selector: 'app-search',
@@ -16,9 +17,9 @@ export class SearchComponent implements OnInit {
     cpt: number = 0;
     waiting: boolean = false;
     found = true;
-    length:number = 0;
+    length: number = 0;
 
-    constructor(private route: ActivatedRoute, private _searchService: SearchService) { }
+    constructor(private route: ActivatedRoute, private _searchService: SearchService, private _listService: ListsService) { }
 
     ngOnInit() {
     }
@@ -27,22 +28,23 @@ export class SearchComponent implements OnInit {
         this.waiting = true;
         let content = (this.model.content === '' || this.model.content === undefined) ? '' : 'name=' + this.model.content;
         let author = (this.model.author === undefined || this.model.author === '') ? '' : 'inauthor=' + this.model.author;
-        let and='';
-        if(!(content === '') && !(author === '')){
-            and='&';
+        let and = '';
+        if (!(content === '') && !(author === '')) {
+            and = '&';
         }
         let query = content + and + author;
         console.log('query', query)
         this._searchService.search(query).subscribe(
             data => {
                 this.books = data.items;
-                if(this.books !== undefined){
-                    if(this.books.length > 0){
+                if (this.books !== undefined) {
+                    if (this.books.length > 0) {
                         this.found = true;
                         this.length = this.books.length;
                         this._searchService.setChosenBook(this.formatBook(this.books[0]));
+                        this._listService.setBookToSend(this.books[0]);
                     }
-                }else{
+                } else {
                     this.found = false;
                     this.length = 0
                 }
@@ -56,10 +58,10 @@ export class SearchComponent implements OnInit {
     }
 
 
-    formatBook(data: any){
+    formatBook(data: any) {
         const priceValue = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.amount : 'unknow';
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
-        const price = priceValue+' '+currency;
+        const price = priceValue + ' ' + currency;
         let formattedBook =
         {
             authors: data.volumeInfo.authors ? data.volumeInfo.authors : 'unknow',
@@ -77,7 +79,8 @@ export class SearchComponent implements OnInit {
         return formattedBook;
     }
 
-    chooseABook(book: any){
+    chooseABook(book: any) {
         this._searchService.setChosenBook(this.formatBook(book));
+        this._listService.setBookToSend(book);
     }
 }
