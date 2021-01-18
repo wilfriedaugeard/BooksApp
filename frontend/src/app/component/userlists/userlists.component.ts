@@ -12,6 +12,9 @@ export class UserlistsComponent implements OnInit {
 
     userName: String = '';
     welcomeMessage = '';
+    favsList: any[] = [];
+    readsList: any[] = [];
+    toReadsList: any[] = [];
 
     constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) {
         this._userService.userInfo()
@@ -19,11 +22,13 @@ export class UserlistsComponent implements OnInit {
                 data => { console.log(data); this.name(data); },
                 error => this._router.navigate(['/login'])
             )
+        //this.allList();
     }
 
 
 
     ngOnInit(): void {
+        this.allList();
     }
 
     logout() {
@@ -39,8 +44,10 @@ export class UserlistsComponent implements OnInit {
     favList() {
         this._userService.favList()
             .subscribe(
-                data => {
+                (data:any) => {
                     console.log(data);
+                    this.favsList=data.books;
+                    console.log(this.favsList);
                 },
                 error => console.error(error))
     }
@@ -48,8 +55,10 @@ export class UserlistsComponent implements OnInit {
     toReadList() {
         this._userService.toReadList()
             .subscribe(
-                data => {
+                (data:any) => {
                     console.log(data);
+                    this.toReadsList=data.books;
+                    console.log(this.readsList);
                 },
                 error => console.error(error))
 
@@ -58,11 +67,19 @@ export class UserlistsComponent implements OnInit {
     readList() {
         this._userService.readList()
             .subscribe(
-                data => {
+                (data:any) => {
                     console.log(data);
+                    this.readsList=data.books;
+                    console.log(this.toReadsList);
                 },
                 error => console.error(error))
 
+    }
+
+    async allList(){
+        this.readList();
+        this.favList();
+        this.toReadList();
     }
 
     name(data: any) {
