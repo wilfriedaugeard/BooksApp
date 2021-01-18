@@ -34,4 +34,4 @@ const book = new Schema({
     recommendationList: { type: Schema.Types.ObjectId, ref: 'Listshelf' }
 
 })
-module.exports = mongoose.model('savedBook', book);
+module.exports = mongoose.model('Book', book);

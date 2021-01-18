@@ -13,8 +13,8 @@ router.post('/login', userControler.logInUser);
 
 router.get('/logout', userControler.isConnectedUser, userControler.logOutUser);
 
-router.get('/check-auth', userControler.isConnectedUser, function(req, res, next){
-    return res.status(200).json({authenticated : true});
+router.get('/check-auth', userControler.isConnectedUser, function (req, res, next) {
+    return res.status(200).json({ authenticated: true });
 });
 
 router.get('/userInfo', userControler.isConnectedUser, userControler.getUserInfo);
@@ -24,6 +24,12 @@ router.get('/readList', userControler.isConnectedUser, listControler.getReadList
 router.get('/favList', userControler.isConnectedUser, listControler.getFavList);
 
 router.get('/toReadList', userControler.isConnectedUser, listControler.getToReadList);
+
+router.put('/favList/put', userControler.isConnectedUser, listControler.putToFavList, function (req, res, next) {
+    // console.log(req.body);
+    // console.log(req.user);
+    return res.status(200).json({ ok: "ok" });
+});
 
 
 
