@@ -7,12 +7,15 @@ const booksCall = books({
 });
 
 const search = async (req, res) => {
-    console.log('request :', req.query);
+    // console.log('request :', req.query);
     const result = await find(req.query);
     if (result.errors) {
         return res.status(400).json({ errors: result.errors });
     }
-    console.log(result.data);
+    // console.log(result.data);
+    if (result.data.totalItems == 0) {
+        return res.status(404).json({ message: 'aucun resultat' })
+    }
     return res.status(200).json(result.data);
 };
 
@@ -26,6 +29,9 @@ const find = async (query) => {
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
+        if (!result.data.items) {
+            return result;
+        }
         result.data.items = result.data.items.map(book);
         // console.log(result.data.items);
     } catch (error) {

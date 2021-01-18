@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(): void {
         this._authService.sub(this);
-        console.log('isAuth in nav: '+this.isAuth)
+        console.log('isAuth in nav: ' + this.isAuth)
         // this._authService.authenticatedBehavior
         //     .subscribe(data =>{
         //         // this.isAuth = data.authenticated;

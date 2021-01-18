@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const list = new Schema({
-    books:[{
+    books: [{
         type: Schema.Types.ObjectId,
         ref: 'Book',
+
     }]
 })
 
