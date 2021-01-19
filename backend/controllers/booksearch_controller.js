@@ -3,7 +3,7 @@ noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
-    auth: auth.fromAPIKey(process.env.BOOK_API_KEY),
+    auth: auth.fromAPIKey(process.env.BOOK_API_KEY_BACK),
 });
 
 const search = async (req, res) => {
