@@ -43,6 +43,7 @@ export class BookDetailComponent implements OnInit {
     }
 
 
+
     addToFav() {
         this._listsService.addToFav(JSON.stringify(this.bookToSend))
             .subscribe(
@@ -80,6 +81,18 @@ export class BookDetailComponent implements OnInit {
             )
         return;
     }
+
+    // deleteFav(book:any){
+    //     this._listsService.deleteFav(book._id);
+    // }
+
+    // deleteRead(book:any){
+    //     this._listsService.deleteFav(book._id);
+    // }
+
+    // deleteToRead(book:any){
+    //     this._listsService.deleteToRead(book._id);
+    // }
 }
 
 

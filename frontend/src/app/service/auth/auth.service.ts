@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { pipe, ReplaySubject } from 'rxjs';
+import { environment } from '../../../environments/environment'
 
 @Injectable({
     providedIn: 'root'
@@ -15,14 +16,14 @@ export class AuthService {
     constructor(private _http: HttpClient) { }
 
     register(body: any) {
-        return this._http.post('http://127.0.0.1:3000/users/createAccount', body, {
+        return this._http.post(environment.API_URL + '/users/createAccount', body, {
             observe: 'body',
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         });
     }
 
     login(body: any) {
-        return this._http.post('http://127.0.0.1:3000/users/login', body, {
+        return this._http.post(environment.API_URL + '/users/login', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -30,7 +31,7 @@ export class AuthService {
     }
 
     logout() {
-        return this._http.get('http://127.0.0.1:3000/users/logout', {
+        return this._http.get(environment.API_URL + '/users/logout', {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -38,7 +39,7 @@ export class AuthService {
     }
 
     authcheck() {
-        var toreturn = this._http.get('http://127.0.0.1:3000/users/check-auth');
+        var toreturn = this._http.get(environment.API_URL + '/users/check-auth');
         console.log(toreturn);
         return toreturn;
     }
