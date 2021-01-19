@@ -1,11 +1,10 @@
 // @import '/assets/var';
 $color-1: #a37f6c;
-$color-2: #F3D8C7;
-$color-3: #EFE5DC;
-$color-4: #FBFEFB;
+$color-2: #f3d8c7;
+$color-3: #efe5dc;
+$color-4: #fbfefb;
 
-
-.main{
+.main {
     margin: auto 5%;
 }
 
@@ -14,13 +13,12 @@ $color-4: #FBFEFB;
     width: 100%;
 }
 
-.form-control{
+.form-control {
     width: 40%;
     margin: 0 0.5em;
 }
 
-
-.card-body{
+.card-body {
     padding: 5px;
 }
 .card-title {
@@ -30,27 +28,64 @@ $color-4: #FBFEFB;
     font-size: x-large;
 }
 
-/***** GRID *****/
-.wrapper {
-    margin: auto 5em;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 20px;
-    grid-auto-rows: minmax(100px, 80vh);
+.book-container {
+    margin: 1em auto;
+    max-height: 250px;
 }
-.bookListGrid {
-    grid-row: 1;
-    grid-column: 1 / 2;
-    background-color: $color-4;
+
+.img-preview {
+    width: 90%;
+    height: auto;
+    max-height: 250px;
+    margin: 2em auto;
 }
-.bookDetailGrid {
-    grid-row: 1;
-    grid-column: 2/9;
-    background-color: $color-4;
-}
+
+
 .scrollable {
     overflow-x: hidden;
     overflow-y: scroll;
 }
 
-  
+
+.zoom-in {
+    transition: transform .2s;
+}
+.zoom-in:hover {
+    transform: scale(1.2);
+}
+
+
+.style-07 {
+    position: relative;  
+}
+
+.style-07::before,
+.style-07::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    -moz-border-radius: 100px / 10px;
+    border-radius: 100px / 10px;
+    background-image: linear-gradient(to right, $color-2, $color-4);
+
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+}
+.style-07::after {
+    right: 10px;
+    left: auto;
+    -webkit-transform: skew(8deg) rotate(3deg);
+    -moz-transform: skew(8deg) rotate(3deg);
+    -ms-transform: skew(8deg) rotate(3deg);
+    -o-transform: skew(8deg) rotate(3deg);
+    transform: skew(8deg) rotate(3deg);
+}
