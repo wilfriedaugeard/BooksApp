@@ -42,11 +42,10 @@ export class SearchComponent implements OnInit {
         this._searchService.search(query).subscribe(
             data => {
                 this.books = data.items;
+                console.log(this.books)
                 if (this.books !== undefined) {
                     if (this.books.length > 0) {
                         this.booksFormat = this.books.map(book => this.formatBook(book))
-                        // console.table(this.books)
-                        // console.table(this.booksFormat)
                         this.found = true;
                         this.length = this.books.length;
                         this._searchService.setChosenBook(this.booksFormat[0]);
@@ -72,6 +71,7 @@ export class SearchComponent implements OnInit {
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
         const title = data.volumeInfo.title ? data.volumeInfo.title : 'unknow';
+        const recommendationList = data.recommendationList ? data.recommendationList.map((book: any) => this.formatBook(book)) : [];
         let formattedBook =
         {
             authors: data.volumeInfo.authors ? data.volumeInfo.authors : 'unknow',
@@ -85,7 +85,8 @@ export class SearchComponent implements OnInit {
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',
             publisher: data.volumeInfo.publisher ? data.volumeInfo.publisher : 'unknow',
             industryIdentifiers: data.volumeInfo.industryIdentifiers ? data.volumeInfo.industryIdentifiers : 'unknow',
-            price: price
+            price: price,
+            recommendationList: recommendationList
         };
         return formattedBook;
     }
