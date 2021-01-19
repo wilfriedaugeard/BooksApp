@@ -63,15 +63,18 @@ async function putToToReadList(req, res, next) {
     next();
 }
 
-async function deleteToFavList(req, res, next) {
+async function deleteFavList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.favList._id, { $pull: { books: req.params.id } });
+    next();
+}
+
+async function deleteReadList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.readList._id, { $pull: { books: req.params.id } });
     next();
 }
 
 async function deleteToReadList(req, res, next) {
-    next();
-}
-
-async function deleteToToReadList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $pull: { books: req.params.id } });
     next();
 }
 
@@ -110,4 +113,4 @@ async function findOrSaveBook(req, callback) {
     });
 }
 
-module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList, deleteToFavList, deleteToReadList, deleteToToReadList }
+module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList, deleteFavList, deleteReadList, deleteToReadList }

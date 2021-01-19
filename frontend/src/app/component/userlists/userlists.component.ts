@@ -92,6 +92,7 @@ export class UserlistsComponent implements OnInit {
         this._listsService.deleteFav(book._id).subscribe(
             data => {
                 console.log(data);
+                this.favList();
             },
             error => {
                 console.log(error);
@@ -101,11 +102,29 @@ export class UserlistsComponent implements OnInit {
     }
 
     deleteRead(book: any) {
-        this._listsService.deleteRead(book._id);
+        this._listsService.deleteRead(book._id).subscribe(
+            data => {
+                console.log(data);
+                this.readList();
+            },
+            error => {
+                console.log(error);
+            }
+        )
+        return;
     }
 
     deleteToRead(book: any) {
-        this._listsService.deleteToRead(book._id);
+        this._listsService.deleteToRead(book._id).subscribe(
+            data => {
+                console.log(data);
+                this.toReadList();
+            },
+            error => {
+                console.log(error);
+            }
+        )
+        return;
     }
 
     setBookToSend(book: any) {
