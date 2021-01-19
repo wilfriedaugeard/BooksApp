@@ -1,9 +1,17 @@
 <div class="container">
     <div class="searchForm">
         <form (ngSubmit)="searchBooks()" class="form-inline center">
-            <input name="content" class="form-control" type="text" placeholder="Titre" [(ngModel)]="model.content">
-            <input name="author" class="form-control" type="text" placeholder="Auteur" [(ngModel)]="model.author">
-            <button type="submit" class="btn"><span>Search</span></button>
+            <div class="row w-100">
+                <div class="col-md-5">
+                    <input name="content" class="form-control w-100" type="text" placeholder="Titre" [(ngModel)]="model.content">
+                </div>
+                <div class="col-md-5">
+                    <input name="author" class="form-control  w-100" type="text" placeholder="Auteur" [(ngModel)]="model.author">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" id="searchBtn" class="btn"><span>Search</span></button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

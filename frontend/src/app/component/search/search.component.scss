@@ -15,7 +15,10 @@ $color-4: #fbfefb;
 
 .form-control {
     width: 40%;
-    margin: 0 0.5em;
+    margin: 0 0.25em 0.5em 0.25em;
+}
+#searchBtn {
+    margin: 0 0.25em;
 }
 
 .card-body {
