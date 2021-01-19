@@ -8,24 +8,6 @@
     </div>
 </div>
 
-<!-- <div class="main">
-        <div class="row">
-            <div class="col-md-2 text-center" *ngFor="let book of books; let i = index">
-                <div class="p-2 mb-4" (click)="chooseABook(book)">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <p class="card-title">{{books[i].volumeInfo.title}}</p>
-                        </div>
-                        <img class="img-thumbnail card-img-bottom" src="{{books[i].volumeInfo.thumbnail}}">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bookDetailGrid shadow-lg rounded scrollable">
-            <app-book-detail [found]="found" [length]="length"></app-book-detail>
-        </div>
-</div> -->
-
 <div class="container">
     <div class="row">
         <div class="col-xl-4 col-md-6 col-sm-12 text-center" *ngFor="let book of booksFormat; let i = index">
@@ -43,7 +25,7 @@
                 </a>
             
         </div>
-        <app-book-detail [found]="found" [length]="length" [searching]="searching" class="w-100"></app-book-detail>
+        <app-book-detail [found]="found" [length]="length" [searching]="searching" [books]="books" class="w-100"></app-book-detail>
     </div>
 </div>
 
