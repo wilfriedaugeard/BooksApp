@@ -67,10 +67,12 @@ export class SearchComponent implements OnInit {
 
 
     formatBook(data: any) {
+        if(!data){console.log("nodata"); return};
         const priceValue = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.amount : 'unknow';
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
         const title = data.volumeInfo.title ? data.volumeInfo.title : 'unknow';
+        console.log(data.recommendationList);
         const recommendationList = data.recommendationList ? data.recommendationList.map((book: any) => this.formatBook(book)) : [];
         let formattedBook =
         {
