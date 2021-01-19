@@ -31,7 +31,7 @@ const find = async (query) => {
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 12 });
         result.data = requestResult.data;
         if (!result.data.items) {
             return result;
