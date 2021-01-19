@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
-var { books, auth } = require('googleapis/build/src/apis/books');
-var Listshelf = require('../models/list_model');
 
+var { books, auth } = require('googleapis/build/src/apis/books');
 noImage = '/assets/not-available.png';
 
 const booksCall = books({
@@ -35,7 +34,7 @@ const find = async (query) => {
     const connector = (inauthor === '' || name === '') ? '' : '+'
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
-
+    // console.log(query);
     try {
         const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
         result.data = requestResult.data;
@@ -43,8 +42,10 @@ const find = async (query) => {
             return result;
         }
         result.data.items = result.data.items.map(book);
+        // console.log(result.data.items);
     } catch (error) {
         result.errors = error;
+        // console.log(result.errors);
     }
     console.log(result);
     return result;
@@ -66,7 +67,6 @@ const findBookReco = async (result) => {
 
     return result;
 };
-
 
 
 
@@ -123,31 +123,7 @@ const recommendationByQuery = async (searchQ) => {
 const book = (data) => {
     const images = data.volumeInfo.imageLinks;
 
-
-const recommendationByAuthor = async (author) => {
-        const result = { data: { items: [], totalItems: 0 }, errors: null };
-        try{
-             const searchQ = 'inauthor:'+author.Name;
-             const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 5 });
-             result.data = requestResult.data;
-             result.data.items = result.data.items.map(book);
-        }catch(error){
-            result.errors = error.errors;
-        }
-        return result;
-};
-
-async function putToRecoList(id, obj) {
-    try{
-        await Listshelf.findByIdAndUpdate(id, { $addToSet: { books: obj } });
-    }catch(error){
-    }
-}
-
-const book = async (data) => {
-    const images = data.volumeInfo.imageLinks;
     const imageLink = images ? images.extraLarge || images.large || images.medium || images.thumbnail : noImage;
-
 
     return {
         id: data.id,
