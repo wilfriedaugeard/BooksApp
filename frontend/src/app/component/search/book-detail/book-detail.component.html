@@ -1,65 +1,4 @@
-<!-- <div [ngClass]="{'grid-container' : isAuth, 'grid-container-not-logged': !isAuth}" *ngIf="found && length > 0 else waiting">
-    <div class="book-image-area text-center">
-        <img class="img-thumbnail img-content" src="{{currentBook.thumbnail}}">
-    </div>
-    <div class="book-title-area">
-        <h3 class="bookTitle">{{currentBook.title}}</h3>
-        <p>{{currentBook.authors}} <span class="badge badge-danger">{{currentBook.categories}}</span></p>
-
-    </div>
-    <div class="book-description-area">
-        <p>{{currentBook.description}}</p>
-    </div>
-    <div class="more-info-area">
-        <p>Informations complémentaires</p>
-        <ul>
-            <li>
-                <span>
-                    <p>Prix: {{currentBook.price}}</p>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <p>Nombre de pages: {{currentBook.pageCount}}</p>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <p>Publication: {{currentBook.publishedDate}}</p>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <p>Editeur: {{currentBook.publisher}}</p>
-                </span>
-            </li>
-        </ul>
-    </div>
-    <div class="action-list-area"> -->
-<!-- <div class="action-list text-center"> -->
-<!-- <div class="action-list text-center" *ngIf="isAuth">
-            <button class="btn" title="Ajouter aux favoris" (click)=addToFav()><i class="fa fa-star"></i></button>
-            <button class="btn" title="Ajouter aux livres lus" (click)=addToRead()><i class="fa fa-book" ></i></button>
-            <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead() ><i class="fa fa-book-reader"></i></button>
-        </div>
-    </div>
-</div>
-<ng-template #waiting>
-    <div class="grid-container" *ngIf="found else noResult">
-        <div class="book-title-area">
-            <p>Veuillez choisir un livre et/ou un auteur.</p>
-        </div>
-    </div>
-</ng-template>
-<ng-template #noResult>
-    <div class="grid-container">
-        <div class="book-title-area">
-            <p><i class="fas fa-search"></i> Aucun résultats trouvés.</p>
-        </div>
-    </div>
-</ng-template> -->
-
-<div class="modal fade" id="modal-0" *ngIf="found && length > 0 else waiting">
+<div class="modal fade" id="modal-0" *ngIf="found && length > 0 else search">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -139,11 +78,17 @@
         </div>
     </div>
 </div>
+<ng-template #search>
+    <div class="text-center" *ngIf="searching else waiting">
+        <p><span class="spinner-grow spinner-grow-sm"></span> Recherche en cours ...</p>
+    </div>
+</ng-template>
 <ng-template #waiting>
     <div class="text-center" *ngIf="found else noResult">
         <p>Veuillez choisir un livre et/ou un auteur.</p>
     </div>
 </ng-template>
+
 <ng-template #noResult>
     <div class="text-center">
         <p><i class="fas fa-search"></i> Aucun résultats trouvés.</p>

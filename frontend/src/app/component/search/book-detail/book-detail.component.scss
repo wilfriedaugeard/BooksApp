@@ -34,7 +34,9 @@ $color-4: #FBFEFB;
 .zoom-in:hover {
     transform: scale(1.2);
 }
-
+.spinner-grow {
+    color: $color-1;
+}
 
 .style-07 {
     position: relative;  

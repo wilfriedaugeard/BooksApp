@@ -13,6 +13,7 @@ export class BookDetailComponent implements OnInit {
 
     @Input() found: boolean = false;
     @Input() length: number = 0;
+    @Input() searching: boolean = false;
     currentBook: any;
     bookToSend: any;
     isAuth: boolean = false;

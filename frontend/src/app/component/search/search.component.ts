@@ -20,6 +20,8 @@ export class SearchComponent implements OnInit {
     waiting: boolean = false;
     found = true;
     length: number = 0;
+    searching: boolean = false;
+
 
     constructor(private route: ActivatedRoute, private _searchService: SearchService, private _listService: ListsService, private _location: Location) { }
 
@@ -27,6 +29,7 @@ export class SearchComponent implements OnInit {
     }
 
     searchBooks() {
+        this.searching = true;
         this.waiting = true;
         let content = (this.model.content === '' || this.model.content === undefined) ? '' : 'name=' + this.model.content;
         let author = (this.model.author === undefined || this.model.author === '') ? '' : 'inauthor=' + this.model.author;
@@ -50,10 +53,12 @@ export class SearchComponent implements OnInit {
                         this.length = this.books.length;
                         this._searchService.setChosenBook(this.booksFormat[0]);
                         this._listService.setBookToSend(this.books[0]);
+                        this.searching = false;
                     }
                 } else {
                     this.found = false;
                     this.length = 0
+                    this.searching = false;
                 }
                 console.log(this.books);
             },
@@ -61,6 +66,7 @@ export class SearchComponent implements OnInit {
                 this.books = [];
                 this.waiting = false;
                 this.found = false;
+                this.searching = false;
                 console.log(err.error);
             });
     }
