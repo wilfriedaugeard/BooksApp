@@ -29,6 +29,9 @@ export class SearchComponent implements OnInit {
     }
 
     searchBooks() {
+        this.books = []
+        this.booksFormat = []
+        this.found = false;
         this.searching = true;
         this.waiting = true;
         let content = (this.model.content === '' || this.model.content === undefined) ? '' : 'name=' + this.model.content;
@@ -60,6 +63,7 @@ export class SearchComponent implements OnInit {
                     this.length = 0
                     this.searching = false;
                 }
+                this.waiting = false;
                 console.log(this.books);
             },
             err => {
@@ -78,7 +82,6 @@ export class SearchComponent implements OnInit {
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
         const title = data.volumeInfo.title ? data.volumeInfo.title : 'unknow';
-        // console.log(data.recommendationList);
         const recommendationList = data.recommendationList ? data.recommendationList.map((book: any) => this.formatBook(book)) : [];
         let formattedBook =
         {
@@ -87,7 +90,7 @@ export class SearchComponent implements OnInit {
             subtitle: data.volumeInfo.subtitle ? data.volumeInfo.subtitle : '',
             thumbnail: data.volumeInfo.thumbnail ? data.volumeInfo.thumbnail : 'unknow',
             title: title,
-            title_preview: (title.length < 30) ? title : title.substring(0, 50) + '...',
+            title_preview: (title.length < 100) ? title : title.substring(0, 50) + '...',
             description: data.volumeInfo.description ? data.volumeInfo.description : 'Aucune description',
             pageCount: data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'unknow',
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',

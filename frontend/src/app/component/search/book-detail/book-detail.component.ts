@@ -14,6 +14,7 @@ export class BookDetailComponent implements OnInit {
     @Input() found: boolean = false;
     @Input() length: number = 0;
     @Input() searching: boolean = false;
+    @Input() books: any;
     currentBook: any;
     bookToSend: any;
     isAuth: boolean = false;
@@ -29,6 +30,11 @@ export class BookDetailComponent implements OnInit {
         this._searchService.sub(this);
         this._listsService.sub(this);
         this._authService.sub(this);
+    }
+
+    chooseABook(bookFormat: any, bookToSend: any) {
+        this._searchService.setChosenBook(bookFormat);
+        this._listsService.setBookToSend(bookToSend);
     }
 
     setChosenBook(book: any) {
