@@ -36,15 +36,6 @@ export class UserlistsComponent implements OnInit {
         this._listsService.sub(this);
     }
 
-    logout() {
-        this._authService.logout()
-            .subscribe(
-                data => {
-                    console.log(data);
-                    this._router.navigate(['/homepage']);
-                },
-                error => console.error(error))
-    }
 
     favList() {
         this._userService.favList()
@@ -81,7 +72,7 @@ export class UserlistsComponent implements OnInit {
 
     }
 
-    async allList() {
+    allList() {
         this.readList();
         this.favList();
         this.toReadList();
@@ -92,6 +83,7 @@ export class UserlistsComponent implements OnInit {
         this._listsService.deleteFav(book._id).subscribe(
             data => {
                 console.log(data);
+                this.favList();
             },
             error => {
                 console.log(error);
@@ -101,11 +93,70 @@ export class UserlistsComponent implements OnInit {
     }
 
     deleteRead(book: any) {
-        this._listsService.deleteRead(book._id);
+        this._listsService.deleteRead(book._id).subscribe(
+            data => {
+                console.log(data);
+                this.readList();
+            },
+            error => {
+                console.log(error);
+            }
+        )
+        return;
     }
 
     deleteToRead(book: any) {
-        this._listsService.deleteToRead(book._id);
+        this._listsService.deleteToRead(book._id).subscribe(
+            data => {
+                console.log(data);
+                this.toReadList();
+            },
+            error => {
+                console.log(error);
+            }
+        )
+        return;
+    }
+
+    addToFav(book : any) {
+        this._listsService.addToFav(JSON.stringify(book))
+            .subscribe(
+                data => {
+                    // console.log(data);
+                    this.allList();
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        return;
+    }
+
+    addToRead(book : any) {
+        this._listsService.addToRead(JSON.stringify(book))
+            .subscribe(
+                data => {
+                    // console.log(data);
+                    this.allList();
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        return;
+    }
+    addToToRead(book : any) {
+        this._listsService.addToToRead(JSON.stringify(book))
+            .subscribe(
+                data => {
+                    // console.log(data);
+                    this.allList();
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        return;
     }
 
     setBookToSend(book: any) {

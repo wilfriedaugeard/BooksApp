@@ -28,7 +28,14 @@
             <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
-                        <button type="submit" class="btn btn-lg btn-block login-button" (click)="deleteFav(book)"><span class="light">DeleteOne</span></button>
+                        <div class="action-list text-center">
+                            <button type="submit" class="btn" (click)="deleteFav(book)"><span
+                                    class="light">DeleteOne</span></button>
+                            <button type="submit" class="btn" (click)="addToRead(book)"><span
+                                    class="light">AddToRead</span></button>
+                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
+                                    class="light">addToToRead</span></button>
+                        </div>
                         <div class="card-body">
                             <p class="card-title">{{favsList[i].volumeInfo.title}}</p>
                         </div>
@@ -43,6 +50,14 @@
             <div class="d-flex flex-column text-center" *ngFor="let book of readsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
+                        <div class="action-list text-center">
+                            <button type="submit" class="btn" (click)="deleteRead(book)"><span
+                                    class="light">DeleteOne</span></button>
+                            <button type="submit" class="btn" (click)="addToFav(book)"><span
+                                    class="light">AddToFav</span></button>
+                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
+                                    class="light">addToToRead</span></button>
+                        </div>
                         <div class="card-body">
                             <p class="card-title">{{readsList[i].volumeInfo.title}}</p>
                         </div>
@@ -57,6 +72,15 @@
             <div class="d-flex flex-column text-center" *ngFor="let book of toReadsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
+                        <div class="action-list text-center">
+                            <button type="submit" class="btn" (click)="deleteToRead(book)"><span
+                                    class="light">DeleteOne</span></button>
+                            <button type="submit" class="btn" (click)="addToFav(book)"><span
+                                    class="light">AddToFav</span></button>
+                            <button type="submit" class="btn" (click)="addToRead(book)"><span
+                                    class="light">AddToRead</span></button>
+                        </div>
+
                         <div class="card-body">
                             <p class="card-title">{{toReadsList[i].volumeInfo.title}}</p>
                         </div>

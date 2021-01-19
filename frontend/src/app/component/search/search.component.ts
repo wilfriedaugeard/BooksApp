@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
         }
         let query = content + and + author;
         console.log('query', query)
-        let state = 'search?'+query;
+        let state = 'search?' + query;
         this._location.replaceState(state);
         history.pushState(null, "Recherche:" + query, state);
         this._searchService.search(query).subscribe(
@@ -79,7 +79,7 @@ export class SearchComponent implements OnInit {
             subtitle: data.volumeInfo.subtitle ? data.volumeInfo.subtitle : '',
             thumbnail: data.volumeInfo.thumbnail ? data.volumeInfo.thumbnail : 'unknow',
             title: title,
-            title_preview : (title.length < 30) ? title : title.substring(0,50)+'...',
+            title_preview: (title.length < 30) ? title : title.substring(0, 50) + '...',
             description: data.volumeInfo.description ? data.volumeInfo.description : 'Aucune description',
             pageCount: data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'unknow',
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',
@@ -91,8 +91,8 @@ export class SearchComponent implements OnInit {
         return formattedBook;
     }
 
-    chooseABook(booksFormat: any) {
-        this._searchService.setChosenBook(booksFormat);
-        this._listService.setBookToSend(booksFormat);
+    chooseABook(bookFormat: any, bookToSend: any) {
+        this._searchService.setChosenBook(bookFormat);
+        this._listService.setBookToSend(bookToSend);
     }
 }
