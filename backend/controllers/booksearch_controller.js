@@ -56,12 +56,11 @@ const findBookRecommendation = async (result) => {
     try {
         const firstBook = result.data.items[0];
         let recommendedBooks = [];
-        if (firstBook.volumeInfo.authors) {
-            const byAuthorRequest = recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + BOOK_RECO_KEY;
+            const byAuthorRequest = (firstBook.volumeInfo.authors) ? recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + BOOK_RECO_KEY : '';
             const byGenreRequest = (firstBook.volumeInfo.categories) ? 'subject:' + firstBook.volumeInfo.categories[0] : '';
             const queryResult = await getRecommendationList(byAuthorRequest, byGenreRequest);
             recommendedBooks = queryResult;
-        }
+        
         if(recommendedBooks.length > 0){
             for (const book of result.data.items) {
                 for (let ind = 0; ind < NB_RECOMMENDATION_PER_BOOK; ind++) {
@@ -78,9 +77,10 @@ const findBookRecommendation = async (result) => {
 };
 
 const getRecommendationList = async (byAuthorRequest, byGenreRequest) => {
-    const result = await authorQuery(byAuthorRequest);
+    
+    const result = (byAuthorRequest === '') ? null : await authorQuery(byAuthorRequest);
     const books = [];
-    if (result.Similar.Results.length === 0 && byGenreRequest !== '') {
+    if (!result || result.Similar.Results.length === 0 && byGenreRequest !== '') {
         const recommendedBooks = await recommendationByQuery(byGenreRequest);
         if (recommendedBooks.data && recommendedBooks.data.items) {
             for (let ind = 0; ind < recommendedBooks.data.items.length; ind++) {
