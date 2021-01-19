@@ -26,17 +26,11 @@ router.get('/readList', userControler.isConnectedUser, listControler.getReadList
 
 router.get('/toReadList', userControler.isConnectedUser, listControler.getToReadList);
 
-router.put('/favList/put', userControler.isConnectedUser, listControler.putToFavList, function (req, res, next) {
-    return res.status(200).json({ ok: "okPutFav" });
-});
+router.put('/favList/put', userControler.isConnectedUser, listControler.putToFavList);
 
-router.put('/readList/put', userControler.isConnectedUser, listControler.putToReadList,function (req, res, next){
-    return res.status(200).json({ ok: "okPutRead" });
-})
+router.put('/readList/put', userControler.isConnectedUser, listControler.putToReadList);
 
-router.put('/toReadList/put', userControler.isConnectedUser, listControler.putToToReadList,function (req, res, next){
-    return res.status(200).json({ ok: "okPutRead" });
-})
+router.put('/toReadList/put', userControler.isConnectedUser, listControler.putToToReadList);
 
 router.delete('/favList/delete/:id', userControler.isConnectedUser, listControler.deleteFavList, function (req, res, next) {
     console.log(req.params);

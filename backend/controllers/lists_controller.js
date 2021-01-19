@@ -43,32 +43,33 @@ async function putToFavList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         await Listshelf.findByIdAndUpdate(req.user.favList._id, { $addToSet: { books: obj } });
+        return res.status(200).json({ok : 'ok'})
     });
-    next();
+    // next();
 }
 
 async function putToReadList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         Listshelf.find({ _id: req.user.toReadList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
-            // console.log(nb);
             await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $pull: { books: obj._id } });
         })
         await Listshelf.findByIdAndUpdate(req.user.readList._id, { $addToSet: { books: obj } });
+        return res.status(200).json({ok : 'ok'})
     });
-    next();
+    // next();
 }
 
 async function putToToReadList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         Listshelf.find({ _id: req.user.readList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
-            // console.log(nb);
             await Listshelf.findByIdAndUpdate(req.user.readList._id, { $pull: { books: obj._id } });
         })
         await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $addToSet: { books: obj } });
+        return res.status(200).json({ok : 'ok'})
     });
-    next();
+    // next();
 }
 
 async function deleteFavList(req, res, next) {
@@ -92,30 +93,30 @@ async function findOrSaveBook(req, callback) {
         if (err) { return callback(err, null); }
         if (obj) { return callback(null, obj); }
         else {
-            const mybook = new Book({
-                id: req.body.id,
-                volumeInfo: {
-                    authors: req.body.volumeInfo.authors ? req.body.volumeInfo.authors : ['unknown'],
-                    categories: req.body.volumeInfo.categories ? req.body.volumeInfo.categories : ['unknown'],
-                    subtitle: req.body.volumeInfo.subtitle ? req.body.volumeInfo.subtitle : 'No subtitle',
-                    thumbnail: req.body.volumeInfo.thumbnail ? req.body.volumeInfo.thumbnail : 'unknown',
-                    title: req.body.volumeInfo.title ? req.body.volumeInfo.title : 'No title',
-                    description: req.body.volumeInfo.description ? req.body.volumeInfo.description : 'No description',
-                    pageCount: req.body.volumeInfo.pageCount ? req.body.volumeInfo.pageCount : -1,
-                    publishedDate: req.body.volumeInfo.publishedDate ? req.body.volumeInfo.publishedDate : 'Unknown',
-                    publisher: req.body.volumeInfo.publisher ? req.body.volumeInfo.publisher : 'Unknown',
-                    industryIdentifiers: req.body.volumeInfo.industryIdentifiers ? req.body.volumeInfo.industryIdentifiers : [{ type: 'Unkown', identifier: 'Unknown' }],
-                },
-                saleInfo: {
-                    listPrice: req.body.saleInfo.listPrice ? req.body.saleInfo.listPrice : { amount: -1, currencyCode: 'unknown' },
-                },
-            })
             try {
+                const mybook = new Book({
+                    id: req.body.id,
+                    volumeInfo: {
+                        authors: req.body.volumeInfo.authors ? req.body.volumeInfo.authors : ['unknown'],
+                        categories: req.body.volumeInfo.categories ? req.body.volumeInfo.categories : ['unknown'],
+                        subtitle: req.body.volumeInfo.subtitle ? req.body.volumeInfo.subtitle : 'No subtitle',
+                        thumbnail: req.body.volumeInfo.thumbnail ? req.body.volumeInfo.thumbnail : 'unknown',
+                        title: req.body.volumeInfo.title ? req.body.volumeInfo.title : 'No title',
+                        description: req.body.volumeInfo.description ? req.body.volumeInfo.description : 'No description',
+                        pageCount: req.body.volumeInfo.pageCount ? req.body.volumeInfo.pageCount : -1,
+                        publishedDate: req.body.volumeInfo.publishedDate ? req.body.volumeInfo.publishedDate : 'Unknown',
+                        publisher: req.body.volumeInfo.publisher ? req.body.volumeInfo.publisher : 'Unknown',
+                        industryIdentifiers: req.body.volumeInfo.industryIdentifiers ? req.body.volumeInfo.industryIdentifiers : [{ type: 'Unkown', identifier: 'Unknown' }],
+                    },
+                    saleInfo: {
+                        listPrice: req.body.saleInfo.listPrice ? req.body.saleInfo.listPrice : { amount: -1, currencyCode: 'unknown' },
+                    },
+                })
                 await mybook.save();
                 return callback(null, mybook);
             }
             catch (err) {
-                // console.log(err);
+                return callback(err, null);
             }
         }
     });
