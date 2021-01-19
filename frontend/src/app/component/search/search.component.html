@@ -28,17 +28,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xl-4 col-md-6 col-sm-12 text-center" *ngFor="let book of books; let i = index">
+        <div class="col-xl-4 col-md-6 col-sm-12 text-center" *ngFor="let book of booksFormat; let i = index">
             <a (click)="chooseABook(book)" href="" data-toggle="modal" data-target="#modal-0">
                 <div class="row zoom-in" style="height: 250px; width: 300px; margin: auto 1em;">
                     <div class="col-md-6 col-sm-6 style-07">
                             <div style="height: 75px; margin: 2em auto;">
-                                <p class="">{{books[i].title_preview}}</p>
+                                <p class="">{{booksFormat[i].title_preview}}</p>
                             </div>
                     </div>
                     <div class="col-md-6 col-sm-6 style-07">
                 
-                            <img class="img-preview" src="{{books[i].thumbnail}}">
+                            <img class="img-preview" src="{{booksFormat[i].thumbnail}}">
                     
                     </div>
                 </div>
