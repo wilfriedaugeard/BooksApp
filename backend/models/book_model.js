@@ -29,9 +29,8 @@ const book = new Schema({
             amount: { type: Number },
             currencyCode: { type: String }
         }
-    }
+    },
 
-    //recommendationList: { type: Schema.Types.ObjectId, ref: 'Listshelf' },
- //   recommendationList:  [{type: Schema.Types.ObjectId, ref: 'Book'}] ,
+    recommendationList:  [{type: Schema.Types.ObjectId, ref: 'Book'}] ,
 })
 module.exports = mongoose.model('Book', book);
