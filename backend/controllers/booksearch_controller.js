@@ -10,17 +10,25 @@ const booksCall = books({
 
 
 const recommendationURL = "https://tastedive.com/api/similar";
+const BOOK_RECO_KEY = '399707-BookApp-84QCOFAE';
+const NB_BOOK_RESULT = 13;
+const NB_RECOMMENDATION_RESULT = 10;
+const NB_AUTHORS_RECOMMENDATION = 3;
+const NB_RECOMMENDATION_PER_BOOK = 3;
+
+
+
 
 const search = async (req, res) => {
     let result = await find(req.query);
     if (result.errors) {
         console.log(result.errors);
-        return res.status(result.errors.code?result.errors.code:400).json(result.errors);    }
+        return res.status(result.errors.code ? result.errors.code : 400).json(result.errors);
+    }
     if (result.data.totalItems == 0) {
         return res.status(404).json({ message: 'aucun resultat' })
     }
-    result = await findBookReco(result);
-    console.log(result);
+    result = await findBookRecommendation(result);
     return res.status(200).json(result.data);
 };
 
@@ -31,7 +39,7 @@ const find = async (query) => {
     const searchQ = name + connector + inauthor;
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: NB_BOOK_RESULT });
         result.data = requestResult.data;
         if (!result.data.items) {
             return result;
@@ -44,85 +52,71 @@ const find = async (query) => {
 };
 
 
-
-const findBookReco = async (result) => {
-    try{
-        const book = result.data.items[0];
-        let recommendationBookList = [];
-        if(book.volumeInfo.authors){
-            const byAuthorRequest = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
-            const byGenreRequest = (book.volumeInfo.categories)? 'subject:'+book.volumeInfo.categories[0]: '';
-            const recommendationBookList2 = await getRecommendationList(byAuthorRequest, byGenreRequest);
-            recommendationBookList = recommendationBookList2;
+const findBookRecommendation = async (result) => {
+    try {
+        const firstBook = result.data.items[0];
+        let recommendedBooks = [];
+        if (firstBook.volumeInfo.authors) {
+            const byAuthorRequest = recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + BOOK_RECO_KEY;
+            const byGenreRequest = (firstBook.volumeInfo.categories) ? 'subject:' + firstBook.volumeInfo.categories[0] : '';
+            const queryResult = await getRecommendationList(byAuthorRequest, byGenreRequest);
+            recommendedBooks = queryResult;
         }
-
-        for(const book of result.data.items){
-            /*if(book.volumeInfo.authors){
-                const byAuthorRequest = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
-                const byGenreRequest = (book.volumeInfo.categories)? 'subject:'+book.volumeInfo.categories[0]: '';
-                const recommendationBookList = await getRecommendationList(byAuthorRequest, byGenreRequest);
-                book.recommendationList=recommendationBookList;
-            }*/
-            for(let ind =0; ind < 3 ; ind++){
-
-                const rand =  Math.floor(Math.random() * Math.floor(recommendationBookList.length));
-                book.recommendationList.push(recommendationBookList[rand]);
+        if(recommendedBooks.length > 0){
+            for (const book of result.data.items) {
+                for (let ind = 0; ind < NB_RECOMMENDATION_PER_BOOK; ind++) {
+                    const rand = Math.floor(Math.random() * Math.floor(recommendedBooks.length));
+                    book.recommendationList.push(recommendedBooks[rand]);
+                }
             }
         }
-    }catch(error){
+    } catch (error) {
         result.error = error.errors;
     }
 
     return result;
 };
 
-const getRecommendationList = async (byAuthorRequest,byGenreRequest) => {
-        const result = await authorQuery(byAuthorRequest);
-        const books = [];
-        if(result.Similar.Results.length === 0 && byGenreRequest !==''){
-            const book = await recommendationByQuery(byGenreRequest);
-            if(book.data && book.data.items){
-                /*for(let ind =0 ; ind <3 && ind!=book.data.items.length; ind++){
-                    books.push(book.data.items[ind]);
-                }*/
-                for(let ind =0; ind < book.data.items.length ; ind++){
-                    books.push(book.data.items[ind]);
-                }
-
+const getRecommendationList = async (byAuthorRequest, byGenreRequest) => {
+    const result = await authorQuery(byAuthorRequest);
+    const books = [];
+    if (result.Similar.Results.length === 0 && byGenreRequest !== '') {
+        const recommendedBooks = await recommendationByQuery(byGenreRequest);
+        if (recommendedBooks.data && recommendedBooks.data.items) {
+            for (let ind = 0; ind < recommendedBooks.data.items.length; ind++) {
+                books.push(recommendedBooks.data.items[ind]);
             }
-        }else{
-
-            for(const author of result.Similar.Results){
-                const searchQ = 'inauthor:'+author.Name;
-                const book =  await recommendationByQuery(searchQ);
-                if(book.data && book.data.items){
-                   // const rand =  Math.floor(Math.random() * Math.floor(book.data.items.length));
-                    //books.push(book.data.items[rand]);
-                    for(let ind =0; ind < book.data.items.length ; ind++){
-                        books.push(book.data.items[ind]);
-                    }
+        }
+    } else {
+        for (const author of result.Similar.Results) {
+            const searchQ = 'inauthor:' + author.Name;
+            const recommendedBooks = await recommendationByQuery(searchQ);
+            if (recommendedBooks.data && recommendedBooks.data.items) {
+                for (let ind = 0; ind < recommendedBooks.data.items.length; ind++) {
+                    books.push(recommendedBooks.data.items[ind]);
                 }
             }
         }
-        return books;
+    }
+    return books;
 };
 
 const authorQuery = async (query) => {
-    try{
-    const res = await fetch(query);
-    const authors = await res.json();
-    return authors;
+    try {
+        const result = await fetch(query);
+        const authors = await result.json();
+        return authors;
 
-    }catch (error){
+    } catch (error) {
         console.log(error.errors);
     }
-        
+
 };
 
 const recommendationByQuery = async (searchQ) => {
     const result = { data: { items: [], totalItems: 0 }, errors: null };
     try {
-        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 5});
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: NB_RECOMMENDATION_RESULT });
         result.data = requestResult.data;
         if (!result.data.items) {
             return result;
