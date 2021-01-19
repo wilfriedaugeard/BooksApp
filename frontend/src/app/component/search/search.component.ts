@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListsService } from 'src/app/service/lists/lists.service';
-import { SearchService } from '../../service/search/search.service'
+import { SearchService } from '../../service/search/search.service';
+import { Location } from '@angular/common';
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit {
     found = true;
     length: number = 0;
 
-    constructor(private route: ActivatedRoute, private _searchService: SearchService, private _listService: ListsService) { }
+    constructor(private route: ActivatedRoute, private _searchService: SearchService, private _listService: ListsService, private _location: Location) { }
 
     ngOnInit() {
     }
@@ -34,6 +35,9 @@ export class SearchComponent implements OnInit {
         }
         let query = content + and + author;
         console.log('query', query)
+        let state = 'search?'+query;
+        this._location.replaceState(state);
+        history.pushState(null, "Recherche:" + query, state);
         this._searchService.search(query).subscribe(
             data => {
                 this.books = data.items;

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment'
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class ListsService {
     constructor(private _http: HttpClient) { }
 
     addToFav(body: any) {
-        return this._http.put('http://127.0.0.1:3000/users/favList/put', body, {
+        return this._http.put(environment.API_URL + '/users/favList/put', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -19,7 +20,7 @@ export class ListsService {
     }
 
     addToRead(body: any) {
-        return this._http.put('http://127.0.0.1:3000/users/readList/put', body, {
+        return this._http.put(environment.API_URL + '/users/readList/put', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -27,7 +28,7 @@ export class ListsService {
     }
 
     addToToRead(body: any) {
-        return this._http.put('http://127.0.0.1:3000/users/toReadList/put', body, {
+        return this._http.put(environment.API_URL + '/users/toReadList/put', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')

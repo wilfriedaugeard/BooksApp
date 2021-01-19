@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from '../../../environments/environment'
 @Injectable({
     providedIn: 'root'
 })
@@ -10,7 +10,7 @@ export class UserService {
     constructor(private _http: HttpClient) { }
 
     userInfo() {
-        return this._http.get('http://127.0.0.1:3000/users/userInfo', {
+        return this._http.get(environment.API_URL + '/users/userInfo', {
             observe: 'body',
             withCredentials: true,
 
@@ -20,7 +20,7 @@ export class UserService {
 
     //TODO : BOUGER DANS LISTSERVICE ?
     favList() {
-        return this._http.get('http://127.0.0.1:3000/users/favList', {
+        return this._http.get(environment.API_URL + '/users/favList', {
             observe: 'body',
             withCredentials: true,
 
@@ -28,7 +28,7 @@ export class UserService {
     }
 
     toReadList() {
-        return this._http.get('http://127.0.0.1:3000/users/toReadList', {
+        return this._http.get(environment.API_URL + '/users/toReadList', {
             observe: 'body',
             withCredentials: true,
 
@@ -36,7 +36,7 @@ export class UserService {
     }
 
     readList() {
-        return this._http.get('http://127.0.0.1:3000/users/readList', {
+        return this._http.get(environment.API_URL + '/users/readList', {
             observe: 'body',
             withCredentials: true,
 
