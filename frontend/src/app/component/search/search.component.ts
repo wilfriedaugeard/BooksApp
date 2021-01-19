@@ -43,9 +43,10 @@ export class SearchComponent implements OnInit {
                 this.books = data.items;
                 if (this.books !== undefined) {
                     if (this.books.length > 0) {
+                        this.books = this.books.map(book => this.formatBook(book))
                         this.found = true;
                         this.length = this.books.length;
-                        this._searchService.setChosenBook(this.formatBook(this.books[0]));
+                        this._searchService.setChosenBook(this.books[0]);
                         this._listService.setBookToSend(this.books[0]);
                     }
                 } else {
@@ -67,13 +68,15 @@ export class SearchComponent implements OnInit {
         const priceValue = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.amount : 'unknow';
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
+        const title = data.volumeInfo.title ? data.volumeInfo.title : 'unknow';
         let formattedBook =
         {
             authors: data.volumeInfo.authors ? data.volumeInfo.authors : 'unknow',
             categories: data.volumeInfo.categories ? data.volumeInfo.categories : '',
             subtitle: data.volumeInfo.subtitle ? data.volumeInfo.subtitle : '',
             thumbnail: data.volumeInfo.thumbnail ? data.volumeInfo.thumbnail : 'unknow',
-            title: data.volumeInfo.title ? data.volumeInfo.title : 'unknow',
+            title: title,
+            title_preview : (title.length < 30) ? title : title.substring(0,50)+'...',
             description: data.volumeInfo.description ? data.volumeInfo.description : 'Aucune description',
             pageCount: data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'unknow',
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',
@@ -85,7 +88,7 @@ export class SearchComponent implements OnInit {
     }
 
     chooseABook(book: any) {
-        this._searchService.setChosenBook(this.formatBook(book));
+        this._searchService.setChosenBook(book);
         this._listService.setBookToSend(book);
     }
 }
