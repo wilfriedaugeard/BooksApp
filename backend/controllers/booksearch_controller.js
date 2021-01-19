@@ -6,8 +6,9 @@ noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
-    auth: auth.fromAPIKey(process.env.BOOK_API_KEY_BACK3),
+    auth: auth.fromAPIKey(process.env.BOOK_API_KEY_BACK2),
 });
+
 
 const recommendationURL = "https://tastedive.com/api/similar";
 
@@ -16,13 +17,14 @@ const search = async (req, res) => {
     let result = await find(req.query);
     if (result.errors) {
         console.log(result.errors);
-        return res.status(result.errors.code?result.errors.code:400).json(result.errors);
-    }
+        return res.status(result.errors.code?result.errors.code:400).json(result.errors);    }
     // console.log(result.data);
     if (result.data.totalItems == 0) {
         return res.status(404).json({ message: 'aucun resultat' })
     }
+    //console.log('avant'+ result.data.items.forEach(item => console.log(item)));
     result = await findBookReco(result);
+    //console.log('apres'+ result.data.items.forEach(item => console.log(item)));
     //console.log('resr'+result.data.items[2].then(item => console.log(item.recommendationList))+'finres');
     return res.status(200).json(result.data);
 };
@@ -35,7 +37,78 @@ const find = async (query) => {
     const result = { data: { items: [], totalItems: 0 }, errors: null };
 
     try {
-        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 12 });
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 10 });
+        result.data = requestResult.data;
+        if (!result.data.items) {
+            return result;
+        }
+        result.data.items = result.data.items.map(book);
+    } catch (error) {
+        result.errors = error;
+    }
+    console.log(result);
+    return result;
+};
+
+
+
+const findBookReco = async (result) => {
+    try{
+        for(const book of result.data.items){
+            if(book.volumeInfo.authors){
+                const byAuthorRequest = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
+                const byGenreRequest = (book.volumeInfo.categories)? 'subject:'+book.volumeInfo.categories[0]: '';
+                const recommendationBookList = await getRecommendationList(byAuthorRequest, byGenreRequest);
+                book.recommendationList=recommendationBookList;
+            }
+        }
+    }catch(error){}
+
+    return result;
+};
+
+
+
+
+const getRecommendationList = async (byAuthorRequest,byGenreRequest) => {
+        const result = await authorQuery(byAuthorRequest);
+        const books = [];
+        if(result.Similar.Results.length === 0){
+            const book = await recommendationByQuery(byGenreRequest);
+            if(book.data && book.data.items){
+                for(let ind =0 ; ind <3 && ind!=book.data.items.length; ind++){
+                    books.push(book.data.items[ind]);
+                }
+            }
+        }else{
+            for(const author of result.Similar.Results){
+                const searchQ = 'inauthor:'+author.Name;
+                const book =  await recommendationByQuery(searchQ);
+                if(book.data && book.data.items){
+                    const rand =  Math.floor(Math.random() * Math.floor(book.data.items.length));
+                    books.push(book.data.items[0]);
+                }
+            }
+        }
+        return books;
+};
+
+const authorQuery = async (query) => {
+    try{
+    const res = await fetch(query);
+    const authors = await res.json();
+    return authors;
+
+    }catch (error){
+        console.log(error.errors);
+    }
+        
+};
+
+const recommendationByQuery = async (searchQ) => {
+    const result = { data: { items: [], totalItems: 0 }, errors: null };
+    try {
+        const requestResult = await booksCall.volumes.list({ q: searchQ, maxResults: 5 });
         result.data = requestResult.data;
         if (!result.data.items) {
             return result;
@@ -47,45 +120,8 @@ const find = async (query) => {
     return result;
 };
 
-
-const findBookReco = (result) => {
-    try{
-        result.data.items.forEach(item =>{
-            item
-            .then(book => {
-            if(book.volumeInfo.authors){
-                const requestReco = recommendationURL + '?q=author:'+ book.volumeInfo.authors[0]+'&limit=3&k=399707-BookApp-84QCOFAE';
-                authorQuery(requestReco)
-                    .then(authors =>{
-                        if(authors.Similar.Results) {
-                            authors.Similar.Results.forEach(author =>{
-                                recommendationByAuthor(author)
-                                    .then(bookReco =>{
-                                        if(bookReco.data){
-                                            const rand =  Math.floor(Math.random() * Math.floor(bookReco.data.items.length));
-                                            //putToRecoList(book.recommendationList._id, bookReco.data.items[rand]);
-                                            bookReco.data.items[rand]
-                                                .then(data => {book.recommendationList.push(data.json()); return book;});
-                                        }
-                                    });
-                            });
-                        }
-
-                    });
-            }
-        });
-        return item.json();
-       });
-    }catch(error){}
-    return result;
-};
-
-const authorQuery = async (query) => {
-    return await fetch(query)
-        .then((data) => data.json())
-        .then ((res) => {return res;})
-        .catch(error => console.error());
-};
+const book = (data) => {
+    const images = data.volumeInfo.imageLinks;
 
 
 const recommendationByAuthor = async (author) => {
@@ -112,10 +148,6 @@ const book = async (data) => {
     const images = data.volumeInfo.imageLinks;
     const imageLink = images ? images.extraLarge || images.large || images.medium || images.thumbnail : noImage;
 
-   /*const recoList = new Listshelf();
-        try{
-    await recoList.save();
-    }catch(error){} */
 
     return {
         id: data.id,
@@ -132,7 +164,6 @@ const book = async (data) => {
             industryIdentifiers: data.volumeInfo.industryIdentifiers,
         },
         saleInfo: data.saleInfo,
-        //recommendationList : recoList,
         recommendationList: [],
     }
 };
