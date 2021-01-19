@@ -42,6 +42,7 @@ export class BookDetailComponent implements OnInit {
         this.isAuth = value;
     }
 
+    
 
     addToFav() {
         this._listsService.addToFav(JSON.stringify(this.bookToSend))

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { ListsService } from 'src/app/service/lists/lists.service';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
@@ -12,16 +13,18 @@ export class UserlistsComponent implements OnInit {
 
     userName: String = '';
     welcomeMessage = '';
+    bookToSend: any;
     favsList: any[] = [];
     readsList: any[] = [];
     toReadsList: any[] = [];
 
-    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) {
+    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService, private _listsService: ListsService) {
         this._userService.userInfo()
             .subscribe(
                 data => { console.log(data); this.name(data); },
                 error => this._router.navigate(['/login'])
             )
+
         //this.allList();
     }
 
@@ -29,6 +32,8 @@ export class UserlistsComponent implements OnInit {
 
     ngOnInit(): void {
         this.allList();
+        this.bookToSend = this._listsService.getBookToSend();
+        this._listsService.sub(this);
     }
 
     logout() {
@@ -44,9 +49,9 @@ export class UserlistsComponent implements OnInit {
     favList() {
         this._userService.favList()
             .subscribe(
-                (data:any) => {
+                (data: any) => {
                     console.log(data);
-                    this.favsList=data.books;
+                    this.favsList = data.books;
                     console.log(this.favsList);
                 },
                 error => console.error(error))
@@ -55,9 +60,9 @@ export class UserlistsComponent implements OnInit {
     toReadList() {
         this._userService.toReadList()
             .subscribe(
-                (data:any) => {
+                (data: any) => {
                     console.log(data);
-                    this.toReadsList=data.books;
+                    this.toReadsList = data.books;
                     console.log(this.readsList);
                 },
                 error => console.error(error))
@@ -67,19 +72,23 @@ export class UserlistsComponent implements OnInit {
     readList() {
         this._userService.readList()
             .subscribe(
-                (data:any) => {
+                (data: any) => {
                     console.log(data);
-                    this.readsList=data.books;
+                    this.readsList = data.books;
                     console.log(this.toReadsList);
                 },
                 error => console.error(error))
 
     }
 
-    async allList(){
+    async allList() {
         this.readList();
         this.favList();
         this.toReadList();
+    }
+
+    setBookToSend(book: any) {
+        this.bookToSend = book;
     }
 
     name(data: any) {
