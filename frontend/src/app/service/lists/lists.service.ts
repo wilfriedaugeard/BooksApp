@@ -35,6 +35,30 @@ export class ListsService {
         });
     }
 
+    deleteFav(id: any) {
+        return this._http.delete(environment.API_URL + '/users/favList/delete/'+ id, {
+            observe: 'body',
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
+ 
+    deleteRead(id: any) {
+        return this._http.delete(environment.API_URL + '/users/readList/delete/'+ id, {
+            observe: 'body',
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
+
+    deleteToToRead(id: any) {
+        return this._http.delete(environment.API_URL + '/users/toReadList/delete/'+ id, {
+            observe: 'body',
+            withCredentials: true,
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
+
     setBookToSend(book: any) {
         this.bookToSend = book;
         // console.log(book);
