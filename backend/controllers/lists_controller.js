@@ -50,6 +50,10 @@ async function putToFavList(req, res, next) {
 async function putToReadList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
+        Listshelf.find({ _id: req.user.toReadList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
+            // console.log(nb);
+            await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $pull: { books: obj._id } });
+        })
         await Listshelf.findByIdAndUpdate(req.user.readList._id, { $addToSet: { books: obj } });
     });
     next();
@@ -58,20 +62,27 @@ async function putToReadList(req, res, next) {
 async function putToToReadList(req, res, next) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
+        Listshelf.find({ _id: req.user.readList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
+            // console.log(nb);
+            await Listshelf.findByIdAndUpdate(req.user.readList._id, { $pull: { books: obj._id } });
+        })
         await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $addToSet: { books: obj } });
     });
     next();
 }
 
-async function deleteToFavList(req, res, next) {
+async function deleteFavList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.favList._id, { $pull: { books: req.params.id } });
+    next();
+}
+
+async function deleteReadList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.readList._id, { $pull: { books: req.params.id } });
     next();
 }
 
 async function deleteToReadList(req, res, next) {
-    next();
-}
-
-async function deleteToToReadList(req, res, next) {
+    await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $pull: { books: req.params.id } });
     next();
 }
 
@@ -110,4 +121,4 @@ async function findOrSaveBook(req, callback) {
     });
 }
 
-module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList, deleteToFavList, deleteToReadList, deleteToToReadList }
+module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList, deleteFavList, deleteReadList, deleteToReadList }
