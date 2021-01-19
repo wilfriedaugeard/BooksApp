@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
         author: '',
     };
     books: any[] = [];
+    booksFormat: any[] = [];
     cpt: number = 0;
     waiting: boolean = false;
     found = true;
@@ -35,7 +36,7 @@ export class SearchComponent implements OnInit {
         }
         let query = content + and + author;
         console.log('query', query)
-        let state = 'search?'+query;
+        let state = 'search?' + query;
         this._location.replaceState(state);
         history.pushState(null, "Recherche:" + query, state);
         this._searchService.search(query).subscribe(
@@ -43,10 +44,12 @@ export class SearchComponent implements OnInit {
                 this.books = data.items;
                 if (this.books !== undefined) {
                     if (this.books.length > 0) {
-                        this.books = this.books.map(book => this.formatBook(book))
+                        this.booksFormat = this.books.map(book => this.formatBook(book))
+                        console.table(this.books)
+                        console.table(this.booksFormat)
                         this.found = true;
                         this.length = this.books.length;
-                        this._searchService.setChosenBook(this.books[0]);
+                        this._searchService.setChosenBook(this.booksFormat[0]);
                         this._listService.setBookToSend(this.books[0]);
                     }
                 } else {
@@ -76,7 +79,7 @@ export class SearchComponent implements OnInit {
             subtitle: data.volumeInfo.subtitle ? data.volumeInfo.subtitle : '',
             thumbnail: data.volumeInfo.thumbnail ? data.volumeInfo.thumbnail : 'unknow',
             title: title,
-            title_preview : (title.length < 30) ? title : title.substring(0,50)+'...',
+            title_preview: (title.length < 30) ? title : title.substring(0, 50) + '...',
             description: data.volumeInfo.description ? data.volumeInfo.description : 'Aucune description',
             pageCount: data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'unknow',
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',
@@ -87,8 +90,8 @@ export class SearchComponent implements OnInit {
         return formattedBook;
     }
 
-    chooseABook(book: any) {
-        this._searchService.setChosenBook(book);
-        this._listService.setBookToSend(book);
+    chooseABook(bookFormat: any, bookToSend: any) {
+        this._searchService.setChosenBook(bookFormat);
+        this._listService.setBookToSend(bookToSend);
     }
 }

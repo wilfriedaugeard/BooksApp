@@ -12,6 +12,7 @@ export class ListsService {
     constructor(private _http: HttpClient) { }
 
     addToFav(body: any) {
+        console.log(body);
         return this._http.put(environment.API_URL + '/users/favList/put', body, {
             observe: 'body',
             withCredentials: true,
@@ -20,6 +21,7 @@ export class ListsService {
     }
 
     addToRead(body: any) {
+        console.log(body);
         return this._http.put(environment.API_URL + '/users/readList/put', body, {
             observe: 'body',
             withCredentials: true,
@@ -28,6 +30,7 @@ export class ListsService {
     }
 
     addToToRead(body: any) {
+        console.log(body);
         return this._http.put(environment.API_URL + '/users/toReadList/put', body, {
             observe: 'body',
             withCredentials: true,
