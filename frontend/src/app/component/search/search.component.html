@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="searchForm">
+        <form (ngSubmit)="searchBooks()" class="form-inline center">
+            <input name="content" class="form-control" type="text" placeholder="Titre" [(ngModel)]="model.content">
+            <input name="author" class="form-control" type="text" placeholder="Auteur" [(ngModel)]="model.author">
+            <button type="submit" class="btn"><span>Search</span></button>
+        </form>
+    </div>
+</div>
+
+<!-- <div class="main">
+        <div class="row">
+            <div class="col-md-2 text-center" *ngFor="let book of books; let i = index">
+                <div class="p-2 mb-4" (click)="chooseABook(book)">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <p class="card-title">{{books[i].volumeInfo.title}}</p>
+                        </div>
+                        <img class="img-thumbnail card-img-bottom" src="{{books[i].volumeInfo.thumbnail}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bookDetailGrid shadow-lg rounded scrollable">
+            <app-book-detail [found]="found" [length]="length"></app-book-detail>
+        </div>
+</div> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-4 col-md-6 col-sm-12 text-center" *ngFor="let book of booksFormat; let i = index">
+            <a (click)="chooseABook(booksFormat[i], books[i])" href="" data-toggle="modal" data-target="#modal-0">
+                <div class="row zoom-in" style="height: 250px; width: 300px; margin: auto 1em;">
+                    <div class="col-md-6 col-sm-6 style-07">
+                            <div style="height: 75px; margin: 2em auto;">
+                                <p class="">{{booksFormat[i].title_preview}}</p>
+                            </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 style-07">
+                
+                            <img class="img-preview" src="{{booksFormat[i].thumbnail}}">
+                    
+                    </div>
+                </div>
+                </a>
+            
+        </div>
+        <app-book-detail [found]="found" [length]="length" class="w-100"></app-book-detail>
+    </div>
+</div>
+
+
+
+
