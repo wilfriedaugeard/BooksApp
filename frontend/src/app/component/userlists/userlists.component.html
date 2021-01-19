@@ -31,10 +31,10 @@
                         <div class="action-list text-center">
                             <button type="submit" class="btn" (click)="deleteFav(book)"><span
                                     class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="deleteFav(book)"><span
-                                    class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="deleteFav(book)"><span
-                                    class="light">DeleteOne</span></button>
+                            <button type="submit" class="btn" (click)="addToRead(book)"><span
+                                    class="light">AddToRead</span></button>
+                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
+                                    class="light">addToToRead</span></button>
                         </div>
                         <div class="card-body">
                             <p class="card-title">{{favsList[i].volumeInfo.title}}</p>
@@ -53,9 +53,9 @@
                         <div class="action-list text-center">
                             <button type="submit" class="btn" (click)="deleteRead(book)"><span
                                     class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="deleteRead(book)"><span
+                            <button type="submit" class="btn" (click)="addToFav(book)"><span
                                     class="light">AddToFav</span></button>
-                            <button type="submit" class="btn" (click)="deleteRead(book)"><span
+                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
                                     class="light">addToToRead</span></button>
                         </div>
                         <div class="card-body">
@@ -75,10 +75,10 @@
                         <div class="action-list text-center">
                             <button type="submit" class="btn" (click)="deleteToRead(book)"><span
                                     class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="deleteToRead(book)"><span
-                                    class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="deleteToRead(book)"><span
-                                    class="light">DeleteOne</span></button>
+                            <button type="submit" class="btn" (click)="addToFav(book)"><span
+                                    class="light">AddToFav</span></button>
+                            <button type="submit" class="btn" (click)="addToRead(book)"><span
+                                    class="light">AddToRead</span></button>
                         </div>
 
                         <div class="card-body">

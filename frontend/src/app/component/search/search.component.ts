@@ -45,8 +45,8 @@ export class SearchComponent implements OnInit {
                 if (this.books !== undefined) {
                     if (this.books.length > 0) {
                         this.booksFormat = this.books.map(book => this.formatBook(book))
-                        console.table(this.books)
-                        console.table(this.booksFormat)
+                        // console.table(this.books)
+                        // console.table(this.booksFormat)
                         this.found = true;
                         this.length = this.books.length;
                         this._searchService.setChosenBook(this.booksFormat[0]);
