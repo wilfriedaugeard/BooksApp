@@ -3,14 +3,15 @@ noImage = '/assets/not-available.png';
 
 const booksCall = books({
     version: 'v1',
-    auth: auth.fromAPIKey(process.env.BOOK_API_KEY),
+    auth: auth.fromAPIKey(process.env.BOOK_API_KEY_BACK),
 });
 
 const search = async (req, res) => {
     // console.log('request :', req.query);
     const result = await find(req.query);
     if (result.errors) {
-        return res.status(400).json({ errors: result.errors });
+        console.log(result.errors);
+        return res.status(result.errors.code?result.errors.code:400).json(result.errors);
     }
     // console.log(result.data);
     if (result.data.totalItems == 0) {
