@@ -63,6 +63,19 @@ async function putToToReadList(req, res, next) {
     next();
 }
 
+async function deleteToFavList(req, res, next) {
+    next();
+}
+
+async function deleteToReadList(req, res, next) {
+    next();
+}
+
+async function deleteToToReadList(req, res, next) {
+    next();
+}
+
+
 async function findOrSaveBook(req, callback) {
     await Book.findOne({ id: req.body.id }, async function (err, obj) {
         if (err) { return callback(err, null); }
@@ -97,4 +110,4 @@ async function findOrSaveBook(req, callback) {
     });
 }
 
-module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList }
+module.exports = { getFavList, getReadList, getToReadList, putToFavList, putToReadList, putToToReadList, deleteToFavList, deleteToReadList, deleteToToReadList }
