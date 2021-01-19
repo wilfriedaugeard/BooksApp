@@ -51,7 +51,7 @@ export class ListsService {
         });
     }
 
-    deleteToToRead(id: any) {
+    deleteToRead(id: any) {
         return this._http.delete(environment.API_URL + '/users/toReadList/delete/'+ id, {
             observe: 'body',
             withCredentials: true,

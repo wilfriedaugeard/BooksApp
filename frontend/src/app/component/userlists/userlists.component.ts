@@ -87,6 +87,27 @@ export class UserlistsComponent implements OnInit {
         this.toReadList();
     }
 
+    deleteFav(book: any) {
+        console.log('ok');
+        this._listsService.deleteFav(book._id).subscribe(
+            data => {
+                console.log(data);
+            },
+            error => {
+                console.log(error);
+            }
+        )
+        return;
+    }
+
+    deleteRead(book: any) {
+        this._listsService.deleteRead(book._id);
+    }
+
+    deleteToRead(book: any) {
+        this._listsService.deleteToRead(book._id);
+    }
+
     setBookToSend(book: any) {
         this.bookToSend = book;
     }

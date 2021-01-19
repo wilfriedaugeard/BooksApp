@@ -28,6 +28,7 @@
             <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
+                        <button type="submit" class="btn btn-lg btn-block login-button" (click)="deleteFav(book)"><span class="light">DeleteOne</span></button>
                         <div class="card-body">
                             <p class="card-title">{{favsList[i].volumeInfo.title}}</p>
                         </div>
