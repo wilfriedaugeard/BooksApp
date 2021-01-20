@@ -16,17 +16,20 @@ export class LoginComponent implements OnInit {
         password: new FormControl(null, [Validators.required])
     });
 
+    error = false;
+
     constructor(private _router: Router,
-                private _userService: UserService,
-                private _authService: AuthService) { }
+        private _userService: UserService,
+        private _authService: AuthService) { }
 
     ngOnInit(): void {
     }
 
     login() {
         if (!this.loginForm.valid) {
-            console.log('Mal rempli')
-            return;
+            console.log('Mal rempli');
+            const alertDialog = document.getElementById('formAlert');
+            if (alertDialog) { alertDialog.style.display = 'block'; }
         }
         this._authService.login(JSON.stringify(this.loginForm.value))
             .subscribe(
@@ -37,9 +40,12 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
+                    const alertDialog = document.getElementById('formAlert');
+                    if (alertDialog) { alertDialog.style.display = 'block';}
                 }
             )
         return;
     }
 
 }
+ 
