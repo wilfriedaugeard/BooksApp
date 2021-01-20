@@ -1,8 +1,8 @@
 // @import '/assets/var';
-$color-1: #a37f6c;
-$color-2: #f3d8c7;
+$color-1: #363636;
+$color-2: #F6F9FF;
 $color-3: #efe5dc;
-$color-4: #fbfefb;
+$color-4: #F5F5F5;
 
 .main {
     margin: auto 5%;
@@ -110,7 +110,7 @@ $color-4: #fbfefb;
     transform: skew(8deg) rotate(3deg);
 }
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 400px) {
     p, span, input {
         font-size: 0.8em;
     }
@@ -118,5 +118,10 @@ $color-4: #fbfefb;
         height: 150px; 
         width: 200px; 
         margin: auto 1em;
+    }
+    .img-preview{
+        max-height: 100px;
+        max-width: 100px;
+        width: auto;
     }
 }

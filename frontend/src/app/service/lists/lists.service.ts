@@ -39,15 +39,15 @@ export class ListsService {
     }
 
     deleteFav(id: any) {
-        return this._http.delete(environment.API_URL + '/users/favList/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/favList/' + id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
         });
     }
- 
+
     deleteRead(id: any) {
-        return this._http.delete(environment.API_URL + '/users/readList/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/readList/' + id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -55,7 +55,7 @@ export class ListsService {
     }
 
     deleteToRead(id: any) {
-        return this._http.delete(environment.API_URL + '/users/toReadList/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/toReadList/' + id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')

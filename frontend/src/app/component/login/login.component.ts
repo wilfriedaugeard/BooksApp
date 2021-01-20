@@ -11,21 +11,23 @@ import { UserService } from '../../service/user/user.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) { }
-    ngOnInit(): void {
-    }
-
     loginForm: FormGroup = new FormGroup({
         email: new FormControl(null, [Validators.email, Validators.required]),
         password: new FormControl(null, [Validators.required])
-    })
+    });
+
+    constructor(private _router: Router,
+                private _userService: UserService,
+                private _authService: AuthService) { }
+
+    ngOnInit(): void {
+    }
 
     login() {
         if (!this.loginForm.valid) {
             console.log('Mal rempli')
             return;
         }
-        //console.log(JSON.stringify(this.loginForm.value));
         this._authService.login(JSON.stringify(this.loginForm.value))
             .subscribe(
                 data => {

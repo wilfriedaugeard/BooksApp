@@ -32,20 +32,20 @@ export class BookDetailComponent implements OnInit {
         this._authService.sub(this);
     }
 
-    chooseABook(bookFormat: any, bookToSend: any) {
+    chooseABook(bookFormat: any, bookToSend: any): void {
         this._searchService.setChosenBook(bookFormat);
         this._listsService.setBookToSend(bookToSend);
     }
 
-    setChosenBook(book: any) {
+    setChosenBook(book: any): void {
         this.currentBook = book;
     }
 
-    setBookToSend(book: any) {
+    setBookToSend(book: any): void {
         this.bookToSend = book;
     }
 
-    setIsAuth(value: boolean) {
+    setIsAuth(value: boolean): void {
         this.isAuth = value;
     }
 
@@ -88,18 +88,6 @@ export class BookDetailComponent implements OnInit {
             )
         return;
     }
-
-    // deleteFav(book:any){
-    //     this._listsService.deleteFav(book._id);
-    // }
-
-    // deleteRead(book:any){
-    //     this._listsService.deleteFav(book._id);
-    // }
-
-    // deleteToRead(book:any){
-    //     this._listsService.deleteToRead(book._id);
-    // }
 }
 
 
