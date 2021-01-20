@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "9a536959-ff9e-4f95-88b7-160edbabd13e",
+		"name": "ProjetWeb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"123@123.fr\",\r\n    \"username\": \"1234\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/createAccount",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"createAccount"
+					]
+				},
+				"description": "CreateAccount using Postman"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('cookieLog', postman.getResponseCookie(\"login.sid\").value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@test.fr\",\r\n    \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "login.sid={{cookieLog}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/userInfo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"userInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check-Auth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/check-auth",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"check-auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/favList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"favList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/readList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"readList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "toReadList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/toReadList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"toReadList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readList/put (empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/readList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"readList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favList/put (empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/favList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"favList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "toReadList/put (empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/toReadList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"toReadList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readList/put (non empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{livre}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/readList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"readList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favList/put (non empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{livre}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/favList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"favList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "toReadList/put (non empty)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{livre}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/toReadList",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"toReadList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readList/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/readList/okboomer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"readList",
+						"okboomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "toReadList/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/ToReadList/667931b4fb2b1e21647e8255",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"ToReadList",
+						"667931b4fb2b1e21647e8255"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favList/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/favList/okboomer",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"favList",
+						"okboomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/Logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"Logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
