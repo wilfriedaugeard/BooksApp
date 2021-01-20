@@ -29,12 +29,19 @@ sudo npm install -g @angular/cli
 
 Lancer Angular:
 ```sh
-cd app/ ; ng serve --open
+cd frontend/ ; ng serve --open
+```
+
+### Mongo
+
+Lancer le back:
+```sh
+cd backend/ ; npm run start
 ```
 
 ## Description du projet
 
-Le projet consiste à créer une SPA où un utilisateur peut chercher des informations sur un livre comme le titre, l'auteur, la maison d'édition, le résumé et le prix et proposer des recommandations. Nous pouvons distinguer deux cas d'utilisation: un utilisateur connecté avec son compte préalablement créé et un utilisateur non connecté.
+Le projet consiste à créer une SPA où un utilisateur peut chercher des informations sur un livre comme le titre, l'auteur, la maison d'édition, le résumé et le prix et avoir des recommandations. Nous pouvons distinguer deux cas d'utilisation: un utilisateur connecté avec son compte préalablement créé et un utilisateur non connecté.
 
 L'utilisateur non connecté pourra:
 
@@ -44,10 +51,7 @@ L'utilisateur non connecté pourra:
 L'utilisateur connecté pourra:
 
 - Faire tout ce qu'un utilisateur non connecté peut faire
-- En plus des recommandations de recherche, l'utilisateur aura 3 recommandations en fonction de ses favoris
 - Ajouter un livre recherché dans plusieurs catégories: "Lu", "A lire", "Favoris"
-- Avoir accès aux statistiques personnelles de l'utilisateur: nombre de livre lu avec la liste, nombre de favoris avec la liste, nombre de livre à lire avec la liste
-
 
 
 ## API Tierce
@@ -56,7 +60,7 @@ L'utilisateur connecté pourra:
 
 Google Books APIs permet de chercher une liste de livre à partir d'un titre, auteur, maison d'édition, sujet, nuémro ISBN du livre etc. 
 
-> note: les requêtes de type GET n'ont pas besoin de clé d'authentification.
+> note: les requêtes de type GET n'ont pas besoin de clé d'authentification. Une limite de 1000 requêtes par jour est applicable sans clé.
 
 
 
@@ -152,9 +156,9 @@ On peut voir qu'il y a 3  résultats correspondants à la recherche. Pour chaque
 
 ### TasteDive
 
-TasteDive est une API permettant de trouver des recommandations de musiques, films, livres etc.
+TasteDive est une API permettant de trouver des recommandations de musiques, films, livres, autheurs etc.
 
-> Note: les requêtes n'ont pas besoin de clé d'authentification.
+> Note: les requêtes n'ont pas besoin de clé d'authentification. Mais cela limite le nombre de requêtes à 300 par heure.
 
 
 
@@ -249,9 +253,8 @@ Elle permet d'effectuer les actions suivantes:
 - Gestion de l’authentification
 - Récupérer des informations sur un livre cherché via une barre de recherche
 - Ajouter/supprimer un livre à une liste (lu, favoris, a lire)
-- Récupérer les stats utilisateur (listes)
 
-https://app.swaggerhub.com/apis-docs/Exyos/BooksAPI/1.0.0/
+https://app.swaggerhub.com/apis-docs/Exyos/BooksAPI/3.0.1-oas3
 
 
 
@@ -270,12 +273,12 @@ Lorsqu'un utilisteur ouvre l'app, il aura la possibilité de:
 - pouvoir se connecter/déconnecter
 - pouvoir créer un compte utilisateur
 - pouvoir rechercher dans une barre de recherche le titre et/ou dans une autre l’auteur d’un livre
-- afficher des previews des livres correspondants à la recherche (titre, auteur, image, maison d’édition)
-- lors d’un clique sur un livre afficher le détail des informations (prix (eur), description, auteur, année d’édition, éditeur, isbn, nb de pages, catégories (fiction, théâtre …) ) 
+- afficher des previews des livres correspondants à la recherche (titre et première de couverture)
+- lors d’un clique sur un livre afficher le détail des informations (prix (eur), description, auteur, année d’édition, éditeur, isbn, nb de pages, catégories (fiction, théâtre …) )  ainsi que les livres recommendés avec leur informations respectives.
 - pouvoir ajouter un livre à sa liste de favoris
 - pouvoir ajouter un livre à sa liste de ‘Lu’
 - pouvoir ajouter un livre à sa liste de ‘A lire’
-- pouvoir afficher les stats de l’utilisateur connecté (listes de livre par caté)
+- pourvoir déplacer un livre d'une liste à une autre et le supprimer d'une liste.
 
 
 
@@ -290,7 +293,9 @@ Le serveur doit:
 - Gérer la recherche:
   - Récupérer les informations entrées par l’utilisateur dans la barre de recherche
   - Appeler l’API google pour récupérer les livres correspondants à la recherche
-  - Appeler l’API tasteDive pour récupérer les recommandations pour tous les livres trouvés par la recherche (s'il trouve rien avec le titre, on essaye avec l'auteur)
+  - Appeler l’API tasteDive pour récupérer les auteurs recommandés pour l'auteur du livre recherché
+  - Appeler l'API google pour récupérer les différents livres proposées pour les auteurs donnés par l'API tasteDive afin de créer une liste de recommandation.
+  - Affecter les livres de la liste aux différentes listes de recommandatation des livres trouvés pour la recherche de l'utilisateur
   - Créer un JSON avec les infos pertinentes (voir front) et le renvoyer
 - Récupérer en BDD les listes de livre enregistrés par l’utilisateur
 - Ajouter un livre à sa liste de favoris à la BDD
