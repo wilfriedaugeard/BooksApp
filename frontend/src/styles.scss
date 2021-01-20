@@ -67,9 +67,3 @@ a:hover>*{
 .btn:hover{
     color: $color-4;
 }
-
-@media only screen and (max-width: 575px) {
-    p, span, input {
-        font-size: 0.8em;
-    }
-}
