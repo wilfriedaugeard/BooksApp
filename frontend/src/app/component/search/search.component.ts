@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListsService } from 'src/app/service/lists/lists.service';
@@ -21,11 +21,18 @@ export class SearchComponent implements OnInit {
     found = true;
     length: number = 0;
     searching: boolean = false;
+    innerWidth: any;
 
 
     constructor(private route: ActivatedRoute, private _searchService: SearchService, private _listService: ListsService, private _location: Location) { }
 
     ngOnInit() {
+        this.innerWidth = window.innerWidth;
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.innerWidth = window.innerWidth;
     }
 
     searchBooks() {
@@ -77,7 +84,8 @@ export class SearchComponent implements OnInit {
 
 
     formatBook(data: any) {
-        if(!data){console.log("nodata"); return};
+        if (!data) { console.log("nodata"); return };
+        const maxsize = this.innerWidth > 400 ? 100 : 50;
         const priceValue = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.amount : 'unknow';
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
@@ -90,7 +98,7 @@ export class SearchComponent implements OnInit {
             subtitle: data.volumeInfo.subtitle ? data.volumeInfo.subtitle : '',
             thumbnail: data.volumeInfo.thumbnail ? data.volumeInfo.thumbnail : 'unknow',
             title: title,
-            title_preview: (title.length < 100) ? title : title.substring(0, 50) + '...',
+            title_preview: (title.length < maxsize) ? title : title.substring(0, 50) + '...',
             description: data.volumeInfo.description ? data.volumeInfo.description : 'Aucune description',
             pageCount: data.volumeInfo.pageCount ? data.volumeInfo.pageCount : 'unknow',
             publishedDate: data.volumeInfo.publishedDate ? data.volumeInfo.publishedDate : 'unknow',
