@@ -10,12 +10,8 @@ const booksCall = books({
 
 
 const recommendationURL = "https://tastedive.com/api/similar";
-<<<<<<< HEAD
 const BOOK_RECO_KEY = '399707-BookApp-84QCOFAE';
 const NB_BOOK_RESULT = 12;
-=======
-const NB_BOOK_RESULT = 13;
->>>>>>> 5e7bd9234bd5dbaf173ca0a5f9559e426567129a
 const NB_RECOMMENDATION_RESULT = 10;
 const NB_AUTHORS_RECOMMENDATION = 3;
 const NB_RECOMMENDATION_PER_BOOK = 3;

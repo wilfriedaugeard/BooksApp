@@ -90,8 +90,7 @@ export class SearchComponent implements OnInit {
         const currency = (data.saleInfo.listPrice !== undefined) ? data.saleInfo.listPrice.currencyCode : '';
         const price = priceValue + ' ' + currency;
         const title = data.volumeInfo.title ? data.volumeInfo.title : 'unknow';
-        const recommendationListFormat = data.recommendationList ? data.recommendationList.map((book: any) => this.formatBook(book)) : [];
-        const recommendationList = data.recommendationList
+        const recommendationList = data.recommendationList ? data.recommendationList.map((book: any) => this.formatBook(book)) : [];
         let formattedBook =
         {
             authors: data.volumeInfo.authors ? data.volumeInfo.authors : 'unknow',
@@ -106,8 +105,7 @@ export class SearchComponent implements OnInit {
             publisher: data.volumeInfo.publisher ? data.volumeInfo.publisher : 'unknow',
             industryIdentifiers: data.volumeInfo.industryIdentifiers ? data.volumeInfo.industryIdentifiers : 'unknow',
             price: price,
-            recommendationListFormat: recommendationListFormat,
-            recommendationList: data.recommendationList
+            recommendationList: recommendationList
         };
         return formattedBook;
     }
