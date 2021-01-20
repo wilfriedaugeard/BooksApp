@@ -10,8 +10,12 @@ const booksCall = books({
 
 
 const recommendationURL = "https://tastedive.com/api/similar";
+<<<<<<< HEAD
 const BOOK_RECO_KEY = '399707-BookApp-84QCOFAE';
 const NB_BOOK_RESULT = 12;
+=======
+const NB_BOOK_RESULT = 13;
+>>>>>>> 5e7bd9234bd5dbaf173ca0a5f9559e426567129a
 const NB_RECOMMENDATION_RESULT = 10;
 const NB_AUTHORS_RECOMMENDATION = 3;
 const NB_RECOMMENDATION_PER_BOOK = 3;
@@ -58,7 +62,7 @@ const findBookRecommendation = async (result) => {
     try {
         const firstBook = result.data.items[0];
         let recommendedBooks = [];
-            const byAuthorRequest = (firstBook.volumeInfo.authors) ? recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + BOOK_RECO_KEY : '';
+            const byAuthorRequest = (firstBook.volumeInfo.authors) ? recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + process.env.BOOK_RECO_KEY : '';
             const byGenreRequest = (firstBook.volumeInfo.categories) ? 'subject:' + firstBook.volumeInfo.categories[0] : '';
             const queryResult = await getRecommendationList(byAuthorRequest, byGenreRequest);
             recommendedBooks = queryResult;
