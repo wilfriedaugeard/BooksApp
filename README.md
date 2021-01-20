@@ -1,8 +1,8 @@
 # Prog Web
 
 
-- [Installation](#Installation)
-  * [Angular](#angular)
+- [Installation](#installation)
+- [Lancer BookApp](#lancer-bookapp)
 - [Présentation projet - Porg Web](#presentation-projet---prog-web)
   * [Description du projet](#description-du-projet)
   * [API Tierce](#api-tierce)
@@ -20,21 +20,28 @@
 
 ## Installation
 
-### Angular
+### Frontend
 
-Télécharger Angular:
 ```sh
-sudo npm install -g @angular/cli
+cd frontend; npm install
 ```
 
-Lancer Angular:
+### Backend
+
 ```sh
-cd frontend/ ; ng serve --open
+cd backend/ ; npm run install
 ```
 
-### Mongo
+## Lancer BookApp
 
-Lancer le back:
+### Frontend
+
+```sh
+cd frontend; npm start
+```
+
+### Backend
+
 ```sh
 cd backend/ ; npm run start
 ```
