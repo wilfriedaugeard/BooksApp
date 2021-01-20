@@ -73,17 +73,32 @@ async function putToToReadList(req, res, next) {
 }
 
 async function deleteFavList(req, res, next) {
+    try{
     await Listshelf.findByIdAndUpdate(req.user.favList._id, { $pull: { books: req.params.id } });
+    }
+    catch(error){
+        return res.status(400).json(error);
+    }
     next();
 }
 
 async function deleteReadList(req, res, next) {
+    try{
     await Listshelf.findByIdAndUpdate(req.user.readList._id, { $pull: { books: req.params.id } });
+    }
+    catch(error){
+        return res.status(400).json(error);
+    }
     next();
 }
 
 async function deleteToReadList(req, res, next) {
+    try{
     await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $pull: { books: req.params.id } });
+    }
+    catch(error){
+        return res.status(400).json(error);
+    }
     next();
 }
 
