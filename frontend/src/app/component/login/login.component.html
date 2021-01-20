@@ -6,7 +6,8 @@
           <label for="mail" class="cols-sm-2 control-label"><span>Adresse Email</span></label>
           <div class="cols-sm-10">
             <div class="input-group">
-              <input formControlName="email" type="email" class="form-control" id="mail" aria-describedby="emailHelp" placeholder="Entrez votre e-mail">
+              <input formControlName="email" type="email" class="form-control" id="mail" aria-describedby="emailHelp"
+                placeholder="Entrez votre e-mail">
             </div>
           </div>
         </div>
@@ -15,17 +16,19 @@
           <label for="pwd" class="cols-sm-2 control-label"><span>Mot de passe</span></label>
           <div class="cols-sm-10">
             <div class="input-group">
-              <input formControlName="password" type="password" class="form-control" id="pwd" placeholder="Entrez votre mot de passe">
+              <input formControlName="password" type="password" class="form-control" id="pwd"
+                placeholder="Entrez votre mot de passe">
             </div>
           </div>
         </div>
 
         <div class="form-group ">
-          <button type="submit" class="btn btn-lg btn-block login-button" (click)="login()"><span class="light">Se connecter</span></button>
+          <button type="submit" class="btn btn-lg btn-block login-button" (click)="login()"><span class="light">Se
+              connecter</span></button>
         </div>
         <div class="login-register">
-                <a [routerLink]="['/register']" routerLinkActive="active"><span>S'inscrire</span></a>
-             </div>
+          <a [routerLink]="['/register']" routerLinkActive="active"><span>S'inscrire</span></a>
+        </div>
       </form>
     </div>
   </div>

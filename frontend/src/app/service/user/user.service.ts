@@ -17,8 +17,6 @@ export class UserService {
         })
     }
 
-
-    //TODO : BOUGER DANS LISTSERVICE ?
     favList() {
         return this._http.get(environment.API_URL + '/users/favList', {
             observe: 'body',
@@ -54,10 +52,5 @@ export class UserService {
         }
     }
 
-    // notifObservers(){
-    //     this.observers.forEach(obs => {
-    //         obs.setIsAuth(this.isAuth);
-    //     });
-    // }
 
 }

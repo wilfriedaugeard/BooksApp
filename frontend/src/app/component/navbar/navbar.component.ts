@@ -10,21 +10,18 @@ import { UserService } from '../../service/user/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-    isAuth: boolean = false;
+    isAuth = false;
 
-    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) { }
+    constructor(private _router: Router,
+                private _userService: UserService,
+                private _authService: AuthService) { }
 
     ngOnInit(): void {
         this._authService.sub(this);
         console.log('isAuth in nav: ' + this.isAuth)
-        // this._authService.authenticatedBehavior
-        //     .subscribe(data =>{
-        //         // this.isAuth = data.authenticated;
-        //         console.log("bonjour" + data);
-        //     })
     }
 
-    logout() {
+    logout(): void {
         this._authService.logout()
             .subscribe(
                 data => {
@@ -34,7 +31,7 @@ export class NavbarComponent implements OnInit {
                 error => console.error(error))
     }
 
-    setIsAuth(value: boolean) {
+    setIsAuth(value: boolean): void {
         this.isAuth = value;
         this.ngOnInit();
     }

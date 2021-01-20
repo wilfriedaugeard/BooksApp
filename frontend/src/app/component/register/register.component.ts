@@ -11,18 +11,19 @@ import { UserService } from '../../service/user/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-    constructor(private _router: Router, private _userService: UserService, private _authService: AuthService) { }
-    ngOnInit(): void {
-    }
-
     registerForm: FormGroup = new FormGroup({
         email: new FormControl(null, [Validators.email, Validators.required]),
         username: new FormControl(null, [Validators.required]),
         password: new FormControl(null, [Validators.required]),
         passwordCheck: new FormControl(null, Validators.required)
-    })
+    });
 
+    constructor(private _router: Router,
+                private _userService: UserService,
+                private _authService: AuthService) { }
 
+    ngOnInit(): void {
+    }
 
     register() {
         if (!this.registerForm.valid || (this.registerForm.controls.password.value != this.registerForm.controls.passwordCheck.value)) {
@@ -43,6 +44,7 @@ export class RegisterComponent implements OnInit {
         console.log(JSON.stringify(this.registerForm.value));
         return;
     }
+
 
 
 }
