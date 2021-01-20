@@ -5,7 +5,7 @@ $color-3: #EFE5DC;
 $color-4: #FBFEFB;
 
 .main{
-    margin-top: 2em;
+    margin: 2em;
 }
 
 .title{
@@ -16,30 +16,16 @@ $color-4: #FBFEFB;
 /***** GRID *****/
 .wrapper {
     margin: 3em auto;
-    max-width: 1400px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    grid-auto-rows: minmax(100px, 80vh);
+    max-height: 80vh;
 }
 
-.favBookGrid {
-    grid-row: 1;
-    grid-column: 1 / 2;
-    background-color: $color-4;
+.grid {
+    max-height: 80vh;
+    padding: 1em;
+    margin: 1em auto;
 }
 
-.readedBookGrid {
-    grid-row: 1;
-    grid-column: 2 / 3;
-    background-color: $color-4;
-}
 
-.toReadBookGrid{
-    grid-row: 1;
-    grid-column: 3 / 4;
-    background-color: $color-4;
-}
 
 /***** CARD *****/
 .btn{
