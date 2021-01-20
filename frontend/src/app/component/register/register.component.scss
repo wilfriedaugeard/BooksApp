@@ -1,4 +1,4 @@
-$color-1: #a37f6c;
+$color-1: #363636;
 $color-4: #FBFEFB;
 
 .main{
@@ -28,6 +28,7 @@ input,
 input::-webkit-input-placeholder {
    font-size: 11px;
    padding-top: 3px;
+   background-color: #ecf2ff;
 }
 
 .main-login{

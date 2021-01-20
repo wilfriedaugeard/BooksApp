@@ -1,90 +1,77 @@
-<!-- <div class="row">
-    <div class="col-sm-12">
-        <div class="">
-            <h1 class="display-4">Cc, {{userName}}!</h1>
-            <p class="lead">Tu es bien connecté bravo lol.</p>
-            <p class="lead" style="color:white;">
-                <a class="btn btn-lg" role="button" (click)="logout()">Log Out</a>
-            </p>
-            <p class="lead" style="color:white;">
-                <a class="btn btn-primary btn-lg" role="button" (click)="favList()">Fav</a>
-            </p>
-            <p class="lead" style="color:white;">
-                <a class="btn btn-primary btn-lg" role="button" (click)="toReadList()">ToRead</a>
-            </p>
-            <p class="lead" style="color:white;">
-                <a class="btn btn-primary btn-lg" role="button" (click)="readList()">Read</a>
-            </p>
-        </div>
-    </div>
-</div> -->
-
 <div class="main">
-    <h1 class="display-4">Connecté en tant que {{userName}}!</h1>
+    <h1 class="title display-12">Connecté(e) en tant que {{userName}}!</h1>
     <div class="wrapper">
         <div class="favBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-star"></i> Favoris</h3>
-            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="favList()"><span class="light">getFav</span></button> -->
             <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
-                        <div class="action-list text-center">
-                            <button type="submit" class="btn" (click)="deleteFav(book)"><span
-                                    class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="addToRead(book)"><span
-                                    class="light">AddToRead</span></button>
-                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
-                                    class="light">addToToRead</span></button>
-                        </div>
-                        <div class="card-body">
+                        <div class="card-header">
                             <p class="card-title">{{favsList[i].volumeInfo.title}}</p>
                         </div>
-                        <img class="img-thumbnail card-img-bottom" src="{{favsList[i].volumeInfo.thumbnail}}">
+                        <div class="card-body">
+                            <img class="img-thumbnail card-img-bottom" src="{{favsList[i].volumeInfo.thumbnail}}">
+                        </div>
+                        <div class="card-footer">
+                            <div class=" action-list text-center">
+                                <button class="btn" title="Ajouter aux favoris" (click)=deleteFav(book)><i
+                                        class="fa fa-trash"></i></button>
+                                <button class="btn" title="Ajouter aux livres lus" (click)=addToRead(book)><i
+                                        class="fa fa-book"></i></button>
+                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
+                                        class="fa fa-book-reader"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="readedBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-book"></i> Livres lus</h3>
-            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="readList()"><span class="light">getLu</span></button> -->
             <div class="d-flex flex-column text-center" *ngFor="let book of readsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
-                        <div class="action-list text-center">
-                            <button type="submit" class="btn" (click)="deleteRead(book)"><span
-                                    class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="addToFav(book)"><span
-                                    class="light">AddToFav</span></button>
-                            <button type="submit" class="btn" (click)="addToToRead(book)"><span
-                                    class="light">addToToRead</span></button>
-                        </div>
-                        <div class="card-body">
+                        <div class="card-header">
                             <p class="card-title">{{readsList[i].volumeInfo.title}}</p>
                         </div>
-                        <img class="img-thumbnail card-img-bottom" src="{{readsList[i].volumeInfo.thumbnail}}">
+                        <div class="card-body">
+                            <img class="img-thumbnail card-img-bottom" src="{{readsList[i].volumeInfo.thumbnail}}">
+                        </div>
+                        <div class="card-footer">
+                            <div class="action-list text-center">
+                                <button class="btn" title="Ajouter aux favoris" (click)=deleteRead(book)><i
+                                        class="fa fa-trash"></i></button>
+                                <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
+                                        class="fa fa-star"></i></button>
+                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
+                                        class="fa fa-book-reader"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="toReadBookGrid scrollable shadow-lg rounded">
             <h3 class="text-center mt-3"><i class="fa fa-book-reader"></i> Livres à lire</h3>
-            <!-- <button type="submit" class="btn btn-lg btn-block login-button" (click)="toReadList()"><span class="light">getALire</span></button> -->
             <div class="d-flex flex-column text-center" *ngFor="let book of toReadsList; let i = index">
                 <div class="p-2 mb-4">
                     <div class="card bg-light">
-                        <div class="action-list text-center">
-                            <button type="submit" class="btn" (click)="deleteToRead(book)"><span
-                                    class="light">DeleteOne</span></button>
-                            <button type="submit" class="btn" (click)="addToFav(book)"><span
-                                    class="light">AddToFav</span></button>
-                            <button type="submit" class="btn" (click)="addToRead(book)"><span
-                                    class="light">AddToRead</span></button>
-                        </div>
-
-                        <div class="card-body">
+                        <div class="card-header">
                             <p class="card-title">{{toReadsList[i].volumeInfo.title}}</p>
                         </div>
-                        <img class="img-thumbnail card-img-bottom" src="{{toReadsList[i].volumeInfo.thumbnail}}">
+                        <div class="card-body">
+                            <img class="img-thumbnail card-img-bottom" src="{{toReadsList[i].volumeInfo.thumbnail}}">
+                        </div>
+                        <div class="card-footer">
+                            <div class="action-list text-center">
+                                <button class="btn" title="Ajouter aux favoris" (click)=deleteToRead(book)><i
+                                        class="fa fa-trash"></i></button>
+                                <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
+                                        class="fa fa-star"></i></button>
+                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToRead(book)><i
+                                        class="fa fa-book"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
