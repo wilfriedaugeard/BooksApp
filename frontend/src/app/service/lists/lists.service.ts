@@ -13,7 +13,7 @@ export class ListsService {
 
     addToFav(body: any) {
         console.log(body);
-        return this._http.put(environment.API_URL + '/users/favList/put', body, {
+        return this._http.put(environment.API_URL + '/users/favList', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -22,7 +22,7 @@ export class ListsService {
 
     addToRead(body: any) {
         console.log(body);
-        return this._http.put(environment.API_URL + '/users/readList/put', body, {
+        return this._http.put(environment.API_URL + '/users/readList', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -31,7 +31,7 @@ export class ListsService {
 
     addToToRead(body: any) {
         console.log(body);
-        return this._http.put(environment.API_URL + '/users/toReadList/put', body, {
+        return this._http.put(environment.API_URL + '/users/toReadList', body, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -39,7 +39,7 @@ export class ListsService {
     }
 
     deleteFav(id: any) {
-        return this._http.delete(environment.API_URL + '/users/favList/delete/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/favList/'+ id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -47,7 +47,7 @@ export class ListsService {
     }
  
     deleteRead(id: any) {
-        return this._http.delete(environment.API_URL + '/users/readList/delete/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/readList/'+ id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -55,7 +55,7 @@ export class ListsService {
     }
 
     deleteToRead(id: any) {
-        return this._http.delete(environment.API_URL + '/users/toReadList/delete/'+ id, {
+        return this._http.delete(environment.API_URL + '/users/toReadList/'+ id, {
             observe: 'body',
             withCredentials: true,
             headers: new HttpHeaders().append('Content-Type', 'application/json')
