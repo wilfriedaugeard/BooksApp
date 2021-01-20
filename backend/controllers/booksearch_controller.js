@@ -44,10 +44,8 @@ const find = async (query) => {
             return result;
         }
         result.data.items = result.data.items.map(book);
-        // console.log(result.data.items);
     } catch (error) {
         result.errors = error;
-        // console.log(result.errors);
     }
     return result;
 };

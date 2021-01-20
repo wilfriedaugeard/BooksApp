@@ -1,54 +1,43 @@
-var User = require('../models/user_model');
 var Listshelf = require('../models/list_model');
 var Book = require('../models/book_model');
-var passport = require('passport');
-const { exists } = require('../models/user_model');
 
 
-//TODO : voir facto code (repetitif)
-function getFavList(req, res, next) {
+function getFavList(req, res) {
     Listshelf.findById(req.user.favList).populate('books').exec(function (err, story) {
         if (err) {
-            // console.log(err);
             return res.status(400).json(err)
         }
-        // console.log(story);
         return res.status(200).json(story);
     })
 }
 
-function getReadList(req, res, next) {
+function getReadList(req, res) {
     Listshelf.findById(req.user.readList).populate('books').exec(function (err, story) {
         if (err) {
-            // console.log(err);
             return res.status(400).json(err)
         }
-        // console.log(story);
         return res.status(200).json(story);
     })
 }
 
-function getToReadList(req, res, next) {
+function getToReadList(req, res) {
     Listshelf.findById(req.user.toReadList).populate('books').exec(function (err, story) {
         if (err) {
-            // console.log(err);
             return res.status(400).json(err)
         }
-        // console.log(story);
         return res.status(200).json(story);
     })
 }
 
-async function putToFavList(req, res, next) {
+async function putToFavList(req, res) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         await Listshelf.findByIdAndUpdate(req.user.favList._id, { $addToSet: { books: obj } });
         return res.status(200).json({ok : 'ok'})
     });
-    // next();
 }
 
-async function putToReadList(req, res, next) {
+async function putToReadList(req, res) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         Listshelf.find({ _id: req.user.toReadList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
@@ -57,10 +46,9 @@ async function putToReadList(req, res, next) {
         await Listshelf.findByIdAndUpdate(req.user.readList._id, { $addToSet: { books: obj } });
         return res.status(200).json({ok : 'ok'})
     });
-    // next();
 }
 
-async function putToToReadList(req, res, next) {
+async function putToToReadList(req, res) {
     await findOrSaveBook(req, async function (err, obj) {
         if (err) { return res.status(400).json(err) }
         Listshelf.find({ _id: req.user.readList, books:{$in :[obj._id]}}).countDocuments(async function (err, nb){
@@ -69,7 +57,6 @@ async function putToToReadList(req, res, next) {
         await Listshelf.findByIdAndUpdate(req.user.toReadList._id, { $addToSet: { books: obj } });
         return res.status(200).json({ok : 'ok'})
     });
-    // next();
 }
 
 async function deleteFavList(req, res, next) {

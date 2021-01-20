@@ -38,23 +38,21 @@ function logInUser(req, res, next) {
     })(req, res, next);
 }
 
-function logOutUser(req, res, next) {
+function logOutUser(req, res) {
     req.logout();
     return res.status(200).json({ message: "Déconnecté" });
 }
 
 function isConnectedUser(req, res, next) {
-    // console.log(req.isAuthenticated());
     if (req.isAuthenticated())
         next();
     else return res.status(401).json({ authenticated: false });
 }
 
-function getUserInfo(req, res, next) {
+function getUserInfo(req, res) {
     User.findById((req.user._id), function (err, obj) {
         if (err) { return res.status(400).json(err) }
         if (!obj) { return res.status(404).json({ message: "utilisateur non trouvé" }) }
-        // console.log(obj);
         return res.status(200).json(obj);
     })
 }

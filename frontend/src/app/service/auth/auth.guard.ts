@@ -15,6 +15,5 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return true;
-    //TODO : authguard pour bloquer les accès aux pages ?
   }
 }

@@ -1,6 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ListsService } from 'src/app/service/lists/lists.service';
 import { SearchService } from '../../service/search/search.service';
 import { Location } from '@angular/common';
@@ -42,14 +41,12 @@ export class SearchComponent implements OnInit {
             and = '&';
         }
         let query = content + and + author;
-        console.log('query', query)
         let state = 'search?' + query;
         this._location.replaceState(state);
         history.pushState(null, "Recherche:" + query, state);
         this._searchService.search(query).subscribe(
             data => {
                 this.books = data.items;
-                console.log(this.books)
                 if (this.books !== undefined) {
                     if (this.books.length > 0) {
                         this.booksFormat = this.books.map(book => this.formatBook(book))
@@ -65,14 +62,12 @@ export class SearchComponent implements OnInit {
                     this.searching = false;
                 }
                 this.waiting = false;
-                console.log(this.books);
             },
             err => {
                 this.books = [];
                 this.waiting = false;
                 this.found = false;
                 this.searching = false;
-                console.log(err.error);
             });
     }
 
@@ -101,7 +96,7 @@ export class SearchComponent implements OnInit {
             industryIdentifiers: data.volumeInfo.industryIdentifiers ? data.volumeInfo.industryIdentifiers : 'unknow',
             price: price,
             recommendationListFormat: recommendationListFormat,
-            recommendationList: data.recommendationList
+            recommendationList: recommendationList
         };
         return formattedBook;
     }

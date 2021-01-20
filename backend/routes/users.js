@@ -1,10 +1,8 @@
 var express = require('express');
-const { authenticate } = require('passport');
 var router = express.Router();
 var userControler = require('../controllers/user_controller');
 var listControler = require('../controllers/lists_controller');
-const user_model = require('../models/user_model');
-// var User = require('../models/user_model');
+
 
 
 router.post('/createAccount', userControler.registerToDB);
@@ -17,7 +15,7 @@ router.get('/check-auth', userControler.isConnectedUser, function (req, res, nex
     return res.status(200).json({ authenticated: true });
 });
 
-// TODO : List route ?
+
 router.get('/userInfo', userControler.isConnectedUser, userControler.getUserInfo);
 
 router.get('/favList', userControler.isConnectedUser, listControler.getFavList);
