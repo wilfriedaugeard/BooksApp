@@ -26,23 +26,23 @@ router.get('/readList', userControler.isConnectedUser, listControler.getReadList
 
 router.get('/toReadList', userControler.isConnectedUser, listControler.getToReadList);
 
-router.put('/favList/put', userControler.isConnectedUser, listControler.putToFavList);
+router.put('/favList', userControler.isConnectedUser, listControler.putToFavList);
 
-router.put('/readList/put', userControler.isConnectedUser, listControler.putToReadList);
+router.put('/readList', userControler.isConnectedUser, listControler.putToReadList);
 
-router.put('/toReadList/put', userControler.isConnectedUser, listControler.putToToReadList);
+router.put('/toReadList', userControler.isConnectedUser, listControler.putToToReadList);
 
-router.delete('/favList/delete/:id', userControler.isConnectedUser, listControler.deleteFavList, function (req, res, next) {
+router.delete('/favList/:id', userControler.isConnectedUser, listControler.deleteFavList, function (req, res, next) {
     console.log(req.params);
     return res.status(200).json({ ok: "okdeleteFav" });
 });
 
-router.delete('/readList/delete/:id', userControler.isConnectedUser, listControler.deleteReadList,function (req, res, next){
+router.delete('/readList/:id', userControler.isConnectedUser, listControler.deleteReadList,function (req, res, next){
     console.log(req.params);
     return res.status(200).json({ ok: "okdeleteRead" });
 })
 
-router.delete('/toReadList/delete/:id', userControler.isConnectedUser, listControler.deleteToReadList,function (req, res, next){
+router.delete('/toReadList/:id', userControler.isConnectedUser, listControler.deleteToReadList,function (req, res, next){
     console.log(req.params);
     return res.status(200).json({ ok: "okdeleteRead" });
 })
