@@ -42,15 +42,15 @@
                 <div class="row mt-3">
                     <p *ngIf="currentBook.recommendationList.length != 0">Recommendation:</p>
                     <div class="row">
-                        <div class="col-md-4" *ngFor="let book of currentBook.recommendationList; let i = index">
+                        <div class="col-md-4 mb-1" *ngFor="let book of currentBook.recommendationList; let i = index">
                             <a  (click)="chooseABook(currentBook.recommendationList[i], books[i])" >
-                                <div class="row zoom-in" style="height: 150px; width: 200px; margin: auto 1em;">
-                                    <div class="col-md-6 col-sm-6 style-07">
+                                <div class="row zoom-in mx-auto grid-container" style="height: 150px; width: 200px; margin: auto 1em;">
+                                    <div class="title-area style-07">
                                         <div style="height: 70px; margin: 1em auto;">
                                             <p class="">{{currentBook.recommendationList[i].title_preview}}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-6 style-07">
+                                    <div class="image-area style-07">
                                         <img class="img-preview" src="{{currentBook.recommendationList[i].thumbnail}}">
                                     </div>
                                 </div>

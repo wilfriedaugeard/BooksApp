@@ -92,3 +92,19 @@ $color-4: #F5F5F5;
     -o-transform: skew(8deg) rotate(3deg);
     transform: skew(8deg) rotate(3deg);
 }
+
+@media only screen and (max-width: 400px) {
+    p, span, input {
+        font-size: 0.8em;
+    }
+    .grid-container {
+        height: 150px; 
+        width: 200px; 
+        margin: auto 1em;
+    }
+    .img-preview{
+        max-height: 100px;
+        max-width: 100px;
+        width: auto;
+    }
+}

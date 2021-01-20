@@ -17,6 +17,8 @@ export class UserlistsComponent implements OnInit {
     favsList: any[] = [];
     readsList: any[] = [];
     toReadsList: any[] = [];
+    currentBook: any;
+
 
     constructor(private _router: Router, private _userService: UserService, private _authService: AuthService, private _listsService: ListsService) {
         this._userService.userInfo()
@@ -118,7 +120,7 @@ export class UserlistsComponent implements OnInit {
         return;
     }
 
-    addToFav(book : any) {
+    addToFav(book: any) {
         this._listsService.addToFav(JSON.stringify(book))
             .subscribe(
                 data => {
@@ -132,7 +134,7 @@ export class UserlistsComponent implements OnInit {
         return;
     }
 
-    addToRead(book : any) {
+    addToRead(book: any) {
         this._listsService.addToRead(JSON.stringify(book))
             .subscribe(
                 data => {
@@ -145,7 +147,7 @@ export class UserlistsComponent implements OnInit {
             )
         return;
     }
-    addToToRead(book : any) {
+    addToToRead(book: any) {
         this._listsService.addToToRead(JSON.stringify(book))
             .subscribe(
                 data => {
@@ -169,6 +171,10 @@ export class UserlistsComponent implements OnInit {
 
     get getName() {
         return this.userName;
+    }
+
+    onClick(book: any): void {
+        this.currentBook = book;
     }
 
 }

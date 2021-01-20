@@ -3,10 +3,12 @@
         <form (ngSubmit)="searchBooks()" class="form-inline center">
             <div class="row w-100">
                 <div class="col-md-5">
-                    <input name="content" class="form-control w-100" type="text" placeholder="Titre" [(ngModel)]="model.content">
+                    <input name="content" class="form-control w-100" type="text" placeholder="Titre"
+                        [(ngModel)]="model.content">
                 </div>
                 <div class="col-md-5">
-                    <input name="author" class="form-control  w-100" type="text" placeholder="Auteur" [(ngModel)]="model.author">
+                    <input name="author" class="form-control w-100" type="text" placeholder="Auteur"
+                        [(ngModel)]="model.author">
                 </div>
                 <div class="col-md-2">
                     <button type="submit" id="searchBtn" class="btn"><span>Search</span></button>
@@ -17,26 +19,22 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-xl-4 col-md-6 col-sm-12 text-center" *ngFor="let book of booksFormat; let i = index">
+    <div class="row text-center">
+        <div class="col-xl-4 col-md-6 text-center mb-1" *ngFor="let book of booksFormat; let i = index">
             <a (click)="chooseABook(booksFormat[i], books[i])" href="" data-toggle="modal" data-target="#modal-0">
-                <div class="row zoom-in" style="height: 250px; width: 300px; margin: auto 1em;">
-                    <div class="col-md-6 col-sm-6 style-07">
-                            <div style="height: 75px; margin: 2em auto;">
-                                <p class="">{{booksFormat[i].title_preview}}</p>
-                            </div>
+                <div class="row zoom-in mx-auto grid-container">
+                    <div class="title-area style-07">
+                        <div style="height: 75px; margin: 2em auto;">
+                            <p class="px-1">{{booksFormat[i].title_preview}}</p>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-6 style-07">
                         <img class="img-preview" src="{{booksFormat[i].thumbnail}}">
                     </div>
                 </div>
-                </a>
-            
+            </a>
         </div>
-        <app-book-detail [found]="found" [length]="length" [searching]="searching" [books]="books" class="w-100"></app-book-detail>
+        <app-book-detail [found]="found" [length]="length" [searching]="searching" [books]="books" class="w-100">
+        </app-book-detail>
     </div>
 </div>
-
-
-
-
