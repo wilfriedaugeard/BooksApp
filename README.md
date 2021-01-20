@@ -1,9 +1,9 @@
 # Programmation Web - Projet
 
-- [Installation et lancement avec Docker](#installation-et-lancement-avec-docker)
-- [Installation sans docker](#installation-sans-docker)
-- [Lancer BookApp sans docker](#lancer-bookapp-sans-docker)
-- [Présentation projet - Prog Web](#presentation-projet---prog-web)
+- [Installation et lancement](#installation-et-lancement)
+  * [Avec Docker](#avec-docker)
+  * [Sans Docker](#sans-docker)
+- [Présentation projet](#presentation-projet---prog-web)
   * [Description du projet](#description-du-projet)
   * [API Tierce](#api-tierce)
     + [Google Books APIs](#google-books-apis)
@@ -16,36 +16,28 @@
   * [Client](#client)
   * [Serveur](#serveur)
 
-## Installation et lancement avec Docker
+## Installation et lancement
 
+### Avec Docker
 ```sh
 docker-compose up
 ```
+### Sans Docker
 
-## Installation sans docker
-
-### Frontend
+#### Instalation
 
 ```sh
 cd frontend; npm install
 ```
-
-### Backend
-
 ```sh
 cd backend/ ; npm run install
 ```
 
-## Lancer BookApp sans docker
-
-### Frontend
+#### Lancement
 
 ```sh
 cd frontend; npm start
 ```
-
-### Backend
-
 ```sh
 cd backend/ ; npm run start
 ```
