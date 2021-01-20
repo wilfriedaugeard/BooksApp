@@ -15,7 +15,10 @@ $color-4: #F5F5F5;
 
 .form-control {
     width: 40%;
-    margin: 0 0.5em;
+    margin: 0 0.25em 0.5em 0.25em;
+}
+#searchBtn {
+    margin: 0 0.25em;
 }
 
 .card-body {
@@ -88,4 +91,20 @@ $color-4: #F5F5F5;
     -ms-transform: skew(8deg) rotate(3deg);
     -o-transform: skew(8deg) rotate(3deg);
     transform: skew(8deg) rotate(3deg);
+}
+
+@media only screen and (max-width: 400px) {
+    p, span, input {
+        font-size: 0.8em;
+    }
+    .grid-container {
+        height: 150px; 
+        width: 200px; 
+        margin: auto 1em;
+    }
+    .img-preview{
+        max-height: 100px;
+        max-width: 100px;
+        width: auto;
+    }
 }

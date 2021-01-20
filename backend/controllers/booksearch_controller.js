@@ -58,7 +58,7 @@ const findBookRecommendation = async (result) => {
     try {
         const firstBook = result.data.items[0];
         let recommendedBooks = [];
-            const byAuthorRequest = (firstBook.volumeInfo.authors) ? recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + BOOK_RECO_KEY : '';
+            const byAuthorRequest = (firstBook.volumeInfo.authors) ? recommendationURL + '?q=author:' + firstBook.volumeInfo.authors[0] + '&limit=' + NB_AUTHORS_RECOMMENDATION + '&k=' + process.env.BOOK_RECO_KEY : '';
             const byGenreRequest = (firstBook.volumeInfo.categories) ? 'subject:' + firstBook.volumeInfo.categories[0] : '';
             const queryResult = await getRecommendationList(byAuthorRequest, byGenreRequest);
             recommendedBooks = queryResult;
