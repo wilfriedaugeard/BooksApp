@@ -64,7 +64,6 @@ export class ListsService {
 
     setBookToSend(book: any) {
         this.bookToSend = book;
-        // console.log(book);
         this.notifObservers();
     }
 
