@@ -41,6 +41,11 @@
         <div class="form-group ">
           <button type="submit" class="btn btn-lg btn-block login-button" (click)="register()"><span
               class="light">S'inscrire</span></button>
+          <div id="formAlert" class="alert alert-error collapse" role="alert">
+            <span>
+              <strong>Attention!</strong> Les informations ne sont pas correctes !
+            </span>
+          </div>
         </div>
         <div class="login-register">
           <a [routerLink]="['/login']" routerLinkActive="active"><span>Se connecter</span></a>

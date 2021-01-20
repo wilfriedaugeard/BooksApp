@@ -27,7 +27,9 @@ export class RegisterComponent implements OnInit {
 
     register() {
         if (!this.registerForm.valid || (this.registerForm.controls.password.value != this.registerForm.controls.passwordCheck.value)) {
-            console.log('Mal rempli')
+            console.log('Mal rempli');
+            const alertDialog = document.getElementById('formAlert');
+            if (alertDialog) { alertDialog.style.display = 'block'; }
             return;
         }
         this._authService.register(JSON.stringify(this.registerForm.value))
@@ -39,6 +41,8 @@ export class RegisterComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
+                    const alertDialog = document.getElementById('formAlert');
+                    if (alertDialog) { alertDialog.style.display = 'block'; }
                 }
             )
         console.log(JSON.stringify(this.registerForm.value));
