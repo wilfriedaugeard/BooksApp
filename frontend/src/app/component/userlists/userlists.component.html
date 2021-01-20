@@ -1,87 +1,94 @@
 <div class="main">
     <h1 class="title display-12">Connecté(e) en tant que {{userName}}!</h1>
     <div class="wrapper row">
-        <div class="col-md-4 grid scrollable shadow-lg rounded">
+        <div class="col-md-4">
             <h3 class="text-center mt-3"><i class="fa fa-star"></i> Favoris</h3>
-            <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
-                <div class="p-2 mb-4">
-                    <div class="card bg-light">
-                        <div class="card-header">
-                            <!-- Modal trigger button-->
-                            <button (click)="onClick(favsList[i])" type="button" class="btn card-title"
-                                data-toggle="modal" data-target="#new">
-                                {{favsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <img class="img-thumbnail card-img-bottom" src="{{favsList[i].volumeInfo.thumbnail}}">
-                        </div>
-                        <div class="card-footer">
-                            <div class=" action-list text-center">
-                                <button class="btn" title="Ajouter aux favoris" (click)=deleteFav(book)><i
-                                        class="fa fa-trash"></i></button>
-                                <button class="btn" title="Ajouter aux livres lus" (click)=addToRead(book)><i
-                                        class="fa fa-book"></i></button>
-                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
-                                        class="fa fa-book-reader"></i></button>
+            <div class="grid scrollable shadow-lg rounded">
+                <div class="d-flex flex-column text-center" *ngFor="let book of favsList; let i = index">
+                    <div class="p-2 mb-4">
+                        <div class="card bg-light">
+                            <div class="card-header">
+                                <!-- Modal trigger button-->
+                                <button (click)="onClick(favsList[i])" type="button" class="btn card-title"
+                                    data-toggle="modal" data-target="#new">
+                                    {{favsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <img class="img-thumbnail card-img-bottom" src="{{favsList[i].volumeInfo.thumbnail}}">
+                            </div>
+                            <div class="card-footer">
+                                <div class=" action-list text-center">
+                                    <button class="btn" title="Ajouter aux favoris" (click)=deleteFav(book)><i
+                                            class="fa fa-trash"></i></button>
+                                    <button class="btn" title="Ajouter aux livres lus" (click)=addToRead(book)><i
+                                            class="fa fa-book"></i></button>
+                                    <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
+                                            class="fa fa-book-reader"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 grid scrollable shadow-lg rounded">
+        <div class="col-md-4 ">
             <h3 class="text-center mt-3"><i class="fa fa-book"></i> Livres lus</h3>
-            <div class="d-flex flex-column text-center" *ngFor="let book of readsList; let i = index">
-                <div class="p-2 mb-4">
-                    <div class="card bg-light">
-                        <div class="card-header">
-                            <!-- Modal trigger button-->
-                            <button type="button" class="btn card-title" data-toggle="modal" data-target="#new"
-                                (click)="onClick(readsList[i])">
-                                {{readsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <img class="img-thumbnail card-img-bottom" src="{{readsList[i].volumeInfo.thumbnail}}">
-                        </div>
-                        <div class="card-footer">
-                            <div class="action-list text-center">
-                                <button class="btn" title="Ajouter aux favoris" (click)=deleteRead(book)><i
-                                        class="fa fa-trash"></i></button>
-                                <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
-                                        class="fa fa-star"></i></button>
-                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
-                                        class="fa fa-book-reader"></i></button>
+            <div class="grid scrollable shadow-lg rounded">
+                <div class="d-flex flex-column text-center" *ngFor="let book of readsList; let i = index">
+                    <div class="p-2 mb-4">
+                        <div class="card bg-light">
+                            <div class="card-header">
+                                <!-- Modal trigger button-->
+                                <button type="button" class="btn card-title" data-toggle="modal" data-target="#new"
+                                    (click)="onClick(readsList[i])">
+                                    {{readsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <img class="img-thumbnail card-img-bottom" src="{{readsList[i].volumeInfo.thumbnail}}">
+                            </div>
+                            <div class="card-footer">
+                                <div class="action-list text-center">
+                                    <button class="btn" title="Ajouter aux favoris" (click)=deleteRead(book)><i
+                                            class="fa fa-trash"></i></button>
+                                    <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
+                                            class="fa fa-star"></i></button>
+                                    <button class="btn" title="Ajouter aux livres à lire" (click)=addToToRead(book)><i
+                                            class="fa fa-book-reader"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 grid scrollable shadow-lg rounded">
+        <div class="col-md-4">
             <h3 class="text-center mt-3"><i class="fa fa-book-reader"></i> Livres à lire</h3>
-            <div class="d-flex flex-column text-center" *ngFor="let book of toReadsList; let i = index">
-                <div class="p-2 mb-4">
-                    <div class="card bg-light">
-                        <div class="card-header">
-                            <!-- Modal trigger button-->
-                            <button type="button" class="btn card-title" data-toggle="modal" data-target="#new"
-                                (click)="onClick(toReadsList[i])">
-                                {{toReadsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <img class="img-thumbnail card-img-bottom" src="{{toReadsList[i].volumeInfo.thumbnail}}">
-                        </div>
-                        <div class="card-footer">
-                            <div class="action-list text-center">
-                                <button class="btn" title="Ajouter aux favoris" (click)=deleteToRead(book)><i
-                                        class="fa fa-trash"></i></button>
-                                <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
-                                        class="fa fa-star"></i></button>
-                                <button class="btn" title="Ajouter aux livres à lire" (click)=addToRead(book)><i
-                                        class="fa fa-book"></i></button>
+            <div class=" grid scrollable shadow-lg rounded">
+                <div class="d-flex flex-column text-center" *ngFor="let book of toReadsList; let i = index">
+                    <div class="p-2 mb-4">
+                        <div class="card bg-light">
+                            <div class="card-header">
+                                <!-- Modal trigger button-->
+                                <button type="button" class="btn card-title" data-toggle="modal" data-target="#new"
+                                    (click)="onClick(toReadsList[i])">
+                                    {{toReadsList[i].volumeInfo.title}} <i class="fas fa-info-circle ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <img class="img-thumbnail card-img-bottom"
+                                    src="{{toReadsList[i].volumeInfo.thumbnail}}">
+                            </div>
+                            <div class="card-footer">
+                                <div class="action-list text-center">
+                                    <button class="btn" title="Ajouter aux favoris" (click)=deleteToRead(book)><i
+                                            class="fa fa-trash"></i></button>
+                                    <button class="btn" title="Ajouter aux livres lus" (click)=addToFav(book)><i
+                                            class="fa fa-star"></i></button>
+                                    <button class="btn" title="Ajouter aux livres à lire" (click)=addToRead(book)><i
+                                            class="fa fa-book"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
