@@ -17,7 +17,8 @@
   * [Serveur](#serveur)
 
 ## Installation et lancement
-
+**POUR LANCER L'APPLICATION VOUS DEVEZ METTRE DANS UN FICHIER .ENV LES CLEF EST URL DES API
+LE `.env` EST DEJA PRESENT DANS L'ARCHIVE DONNEE POUR LE RENDU MAIS EST ABSENT SUR LE GITHUB. IL Y A UN EXAMPLE DANS LE FICHIER `.env.example`**
 ### Avec Docker
 ```sh
 docker-compose up
