@@ -22,6 +22,8 @@
 ```sh
 docker-compose up
 ```
+Se diriger sur le port 8888.
+
 ### Sans Docker
 
 #### Instalation
@@ -41,6 +43,7 @@ cd frontend; npm start
 ```sh
 cd backend/ ; npm run start
 ```
+Se diriger sur le port 4200.
 
 ## Description du projet
 
