@@ -99,3 +99,19 @@ $color-4: #ecf2ff;
     transform: skew(8deg) rotate(3deg);
     background-image: linear-gradient(to right, $color-2, $color-4);
 }
+
+@media only screen and (max-width: 992px) {
+    p, span, input {
+        font-size: 0.8em;
+    }
+    .grid-container {
+        max-height: 150px; 
+        width: 200px; 
+        margin: auto 1em;
+    }
+    .img-preview{
+        max-height: 100px;
+        max-width: 100px;
+        width: auto;
+    }
+}

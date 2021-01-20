@@ -14,10 +14,10 @@
             <!-- Modal body -->
             <div class="modal-body" style="margin: 1em;">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <img class="img-content" src="{{currentBook.thumbnail}}">
                     </div>
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <div class="row">
                             <p>Informations complémentaires</p>
                         </div>
@@ -42,7 +42,7 @@
                 <div class="row mt-3">
                     <p *ngIf="currentBook.recommendationList.length != 0">Recommendation:</p>
                     <div class="row">
-                        <div class="col-md-4 mb-1" *ngFor="let book of currentBook.recommendationList; let i = index">
+                        <div class="col-lg-4 mb-1" *ngFor="let book of currentBook.recommendationList; let i = index">
                             <a (click)="chooseABook(currentBook.recommendationList[i], books[i])">
                                 <div class="row zoom-in mx-auto grid-container"
                                     style="height: 150px; width: 200px; margin: auto 1em;">
