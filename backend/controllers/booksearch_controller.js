@@ -10,7 +10,7 @@ const booksCall = books({
 
 
 const recommendationURL = "https://tastedive.com/api/similar";
-const NB_BOOK_RESULT = 13;
+const NB_BOOK_RESULT = 12;
 const NB_RECOMMENDATION_RESULT = 10;
 const NB_AUTHORS_RECOMMENDATION = 3;
 const NB_RECOMMENDATION_PER_BOOK = 3;
